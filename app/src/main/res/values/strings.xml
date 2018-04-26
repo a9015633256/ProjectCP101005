@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="titalRegister">Register</string>
+    <string name="textLogin">Login</string>
+    <string name="textRegister">Register</string>
+    <string name="textCreat">Creat</string>
+    <string name="textBack">Back</string>
+    <string name="text_rbFemale">Female</string>
+    <string name="text_rbMale">Male</string>
+    <string name="textSubject">Subject:</string>
+    <string name="textNew">New subject</string>
+    <string-array name="subject">
+        <item>國文</item>
+        <item>英文</item>
+        <item>數學</item>
+        <item>社會</item>
+        <item>自然</item>
+    </string-array>
+    <string-array name="anothersubject">
+        <item>無</item>
+        <item>國文</item>
+        <item>英文</item>
+        <item>數學</item>
+        <item>社會</item>
+        <item>自然</item>
+    </string-array>
 </resources>
