@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -27,12 +30,15 @@ public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
 
+    private BottomNavigationView bottomNavigationView;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         getActivity().setTitle(R.string.textLogin);
-        View view = inflater.inflate(R.layout.login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
         Button btlogin = view.findViewById(R.id.btLogin);
@@ -73,6 +79,8 @@ public class LoginFragment extends Fragment {
 
                         fragmentTransaction.replace(R.id.content,classManager);
                         fragmentTransaction.commit();
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+
 
 
                         Toast.makeText(getActivity(),"Success", Toast.LENGTH_SHORT).show();

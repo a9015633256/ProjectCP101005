@@ -19,6 +19,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.JsonObject;
 
 /**
@@ -34,7 +36,7 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.register,container,false);
+        View view = inflater.inflate(R.layout.fragment_teacher_register,container,false);
 
         getActivity().setTitle(R.string.textRegister);
 

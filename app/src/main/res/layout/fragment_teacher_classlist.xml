@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
 
-    <!--&lt;!&ndash;swiperegresh下拉更新&ndash;&gt;-->
+    <!--&lt;!&ndash;swipeRefresh下拉更新&ndash;&gt;-->
     <!--<android.support.v4.widget.SwipeRefreshLayout-->
         <!--android:id="@+id/swipeRefreshLayout"-->
         <!--android:layout_width="match_parent"-->

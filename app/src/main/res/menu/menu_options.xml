@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menu_frame"
+
+    >
+
+    <item
+        android:id="@+id/menu_logOut"
+        android:title="@string/text_logOut" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:title="@string/text_settings" />
+
+    <item
+        android:id="@+id/menu_editInfo"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
+        android:title="@string/text_editInfo"
+        app:showAsAction="always"
+        android:visible="false"
+        />
+
+</menu>
