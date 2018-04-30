@@ -1,65 +1,47 @@
 package com.example.yangwensing.myapplication.homework;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
-public class AssignDate {
-    private int year, month, date;
-    private List<Homework> homeworkList;
+import java.util.ArrayList;
+import java.util.Collection;
 
-    public AssignDate(int year, int month, int date) {
-        this.year = year;
-        this.month = month;
-        this.date = date;
+public class AssignDate extends ArrayList<HomeworkIsDone>{
+    private String formattedDate;
+
+    //繼承自動產生的建構式，只有第二項有用
+    public AssignDate(int initialCapacity, String formattedDate) {
+        super(initialCapacity);
+        this.formattedDate = formattedDate;
     }
 
-    public AssignDate(int year, int month, int date, List<Homework> homeworkList) {
-        this.year = year;
-        this.month = month;
-        this.date = date;
-        this.homeworkList = homeworkList;
+    public AssignDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
-    public List<Homework> getHomeworkList() {
-        return homeworkList;
+    public AssignDate(@NonNull Collection<? extends HomeworkIsDone> c, String formattedDate) {
+        super(c);
+        this.formattedDate = formattedDate;
     }
 
-    public void setHomeworkList(List<Homework> homeworkList) {
-        this.homeworkList = homeworkList;
+    public String getFormattedDate() {
+        return formattedDate;
     }
 
-    public int getYear() {
-        return year;
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    //確認日期不會重複
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AssignDate)) return false;
+        return this.formattedDate.equals(((AssignDate) o).formattedDate);
     }
 
-    public int getMonth() {
-        return month;
+    @Override
+    public int hashCode() {
+
+        return formattedDate.hashCode();
     }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
-    //串連年月日方法
-    public String showDate() {
-        return year +
-                "年" +
-                month +
-                "月" +
-                date +
-                "日";
-
-    }
-
 }

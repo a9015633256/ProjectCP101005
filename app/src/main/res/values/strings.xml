@@ -32,6 +32,10 @@
     <string name="title_infoEdit">Editing Info</string>
     <string name="title_navigation_info">Info</string>
     <string name="text_confirmEditInfo">Apply Changes</string>
+    <string name="text_Exit">Exit</string>
+    <string name="msg_WantToExit">Are you sure you want to leave? All unsaved data will be lost!</string>
+    <string name="text_Yes">Exit</string>
+    <string name="text_No">Cancel</string>
     <string-array name="subject">
         <item>國文</item>
         <item>英文</item>

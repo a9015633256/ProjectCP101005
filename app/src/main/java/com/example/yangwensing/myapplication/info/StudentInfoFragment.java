@@ -20,7 +20,10 @@ public class StudentInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_info, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
         getActivity().setTitle(R.string.title_info);
 
-        setHasOptionsMenu(true); //這樣才能加optionsMenu進activity的optionsMenu
+
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+
+
 
         return view; //要改成回傳view
     }
@@ -30,7 +33,6 @@ public class StudentInfoFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.menu_options_edit_info, menu);
-
 
     }
 
