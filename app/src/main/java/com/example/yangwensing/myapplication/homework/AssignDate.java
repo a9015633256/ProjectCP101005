@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class AssignDate extends ArrayList<HomeworkIsDone>{
+public class AssignDate extends ArrayList{
     private String formattedDate;
 
     //繼承自動產生的建構式，只有第二項有用
@@ -18,7 +18,7 @@ public class AssignDate extends ArrayList<HomeworkIsDone>{
         this.formattedDate = formattedDate;
     }
 
-    public AssignDate(@NonNull Collection<? extends HomeworkIsDone> c, String formattedDate) {
+    public AssignDate(@NonNull Collection<?> c, String formattedDate) {
         super(c);
         this.formattedDate = formattedDate;
     }

@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -37,7 +37,8 @@ public class LoginFragment extends Fragment {
 
     //底部導覽列跟浮動按鈕
     private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton fabShortcut;
+    private FloatingActionButton fabShortcutToStudent;
+    private FloatingActionButton fabShortcutToTeacher;
 
 
     @Nullable
@@ -51,7 +52,8 @@ public class LoginFragment extends Fragment {
         bottomNavigationView = getActivity().findViewById(R.id.navigation);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
-        fabShortcut = view.findViewById(R.id.fabShortCutToStudent);
+        fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
+        fabShortcutToTeacher = view.findViewById(R.id.fabShortCutToTeacher);
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
@@ -90,7 +92,6 @@ public class LoginFragment extends Fragment {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.addToBackStack(null);
 
                     fragmentTransaction.replace(R.id.content, classManager);
                     fragmentTransaction.commit();
@@ -108,12 +109,22 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        fabShortcut.setOnClickListener(new View.OnClickListener() {
+        fabShortcutToStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 getFragmentManager().beginTransaction().replace(R.id.content, new StudentInfoFragment()).commit();
                 bottomNavigationView.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        fabShortcutToTeacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
+//                bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
         });

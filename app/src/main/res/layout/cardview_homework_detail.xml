@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    >
+    android:gravity="center">
 
 
     <TextView
         android:id="@+id/tvSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="20dp"
+        android:scrollbars="horizontal"
+        android:singleLine="true"
+        android:text="12341234"
+        android:textColor="@color/colorTextBlack"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/tvSubject"
+        android:layout_toStartOf="@id/tvIsCompleted"
+        android:singleLine="true"
+        android:text="44545454512342341234234"
         android:textColor="@color/colorTextBlack"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvIsCompleted"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text=""
         android:textColor="@color/colorTextRed"
         android:textSize="20sp" />
 
 
-</LinearLayout>
+</RelativeLayout>

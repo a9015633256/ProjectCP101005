@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,7 +25,6 @@ public class StudentInfoFragment extends Fragment {
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
 
-
         return view; //要改成回傳view
     }
 
@@ -36,6 +36,18 @@ public class StudentInfoFragment extends Fragment {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()) {
+            case R.id.menu_editInfo:
+                getFragmentManager().beginTransaction().replace(R.id.content, new StudentInfoEditFragment()).addToBackStack(null).commit();
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
 

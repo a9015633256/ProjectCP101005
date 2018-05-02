@@ -102,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_settings:
                 Toast.makeText(getBaseContext(), "Enter settingsView", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.menu_editInfo:
-                getSupportFragmentManager().beginTransaction().replace(R.id.content,new StudentInfoEditFragment()).addToBackStack(null).commit();
-                break;
             default:
                 break;
         }

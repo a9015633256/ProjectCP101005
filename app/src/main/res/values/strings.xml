@@ -34,8 +34,20 @@
     <string name="text_confirmEditInfo">Apply Changes</string>
     <string name="text_Exit">Exit</string>
     <string name="msg_WantToExit">Are you sure you want to leave? All unsaved data will be lost!</string>
+    <string name="msg_WantToDelete">Are you sure you want to delete this item? This is an irreversible action!</string>
     <string name="text_Yes">Exit</string>
     <string name="text_No">Cancel</string>
+    <string name="text_title">Title:</string>
+    <string name="text_Content">Content:</string>
+    <string name="title_homeworkAdd">Establish New Homework</string>
+    <string name="text_AddHomework">Establish</string>
+    <string name="text_no_network">No network available!</string>
+    <string name="text_no_server">Can\'t connect to the server now! Please try again later!</string>
+    <string name="text_data_error">Data error! Please restart the app!</string>
+    <string name="text_updateHomework">Update</string>
+    <string name="title_homeworkUpdateDelete">Update Homework</string>
+    <string name="text_deleteHomework">Delete Homework</string>
+    <string name="text_delete">delete</string>
     <string-array name="subject">
         <item>國文</item>
         <item>英文</item>

@@ -1,10 +1,10 @@
 package com.example.yangwensing.myapplication.homework;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,38 +27,40 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
-public class StudentHomeworkFragment extends Fragment {
-    private static final String TAG = "StudentHomeworkFragment";
+public class TeacherHomeworkFragment extends Fragment {
+    private static final String TAG = "TeacherHomeworkFragment";
     private RecyclerView recyclerView;
+    private FloatingActionButton fabAddHomework;
 
     //假資料
-    private int studentId = 1;
-
+    private int classId = 1;
+    private String className = "CP101";
+    private int teacherId = 4;
+    private int subjectId = 6;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_student_homework, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
+        View view = inflater.inflate(R.layout.fragment_teacher_homework, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
-        getActivity().setTitle(R.string.title_homework);
+        getActivity().setTitle(className + "  Homework Overview");
 
         findViews(view);
 
         //取得db資料
-        List<HomeworkIsDone> homeworkIsDoneList; //放db回傳資料
+        List<Homework> homeworkList; //放db回傳資料
         List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
 
         if (Common.networkConnected(getActivity())) {
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "findHomeworkIsDoneByStudentId");
-            jsonObject.addProperty("studentId", studentId);
+            jsonObject.addProperty("action", "findHomeworkByClassIdAndTeacherId");
+            jsonObject.addProperty("classId", classId);
+            jsonObject.addProperty("teacherId", teacherId);
             MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
@@ -68,13 +70,13 @@ public class StudentHomeworkFragment extends Fragment {
                 Type listType = new TypeToken<List<HomeworkIsDone>>() {
                 }.getType();
 
-                homeworkIsDoneList = gson.fromJson(jsonIn, listType);
+                homeworkList = gson.fromJson(jsonIn, listType);
 
                 //回傳資料按日期整理
-                for (HomeworkIsDone homeworkIsDone : homeworkIsDoneList) {
+                for (Homework homework : homeworkList) {
 
                     //日期取出、換民國
-                    Date date = homeworkIsDone.getDate();
+                    Date date = homework.getDate();
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
                     calendar.roll(Calendar.YEAR, -1911);
@@ -89,9 +91,9 @@ public class StudentHomeworkFragment extends Fragment {
                     if (index == -1) {
                         AssignDate assignDate = new AssignDate(formattedDate);
                         hashSet.add(assignDate);
-                        assignDate.add(homeworkIsDone);
+                        assignDate.add(homework);
                     } else {
-                        hashSet.get(index).add(homeworkIsDone);
+                        hashSet.get(index).add(homework);
 
                     }
 
@@ -105,7 +107,7 @@ public class StudentHomeworkFragment extends Fragment {
 
 
         } else {
-            Common.showToast(getActivity(),R.string.text_no_network );
+            Common.showToast(getActivity(), R.string.text_no_network);
 
         }
 
@@ -114,12 +116,31 @@ public class StudentHomeworkFragment extends Fragment {
         HomeworkAdapter homeworkAdapter = new HomeworkAdapter(hashSet, getActivity());
         recyclerView.setAdapter(homeworkAdapter);
 
+        //增加作業
+        fabAddHomework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("classId", classId);
+                bundle.putInt("teacherId", teacherId);
+                bundle.putInt("subjectId", subjectId);
+
+                TeacherHomeworkAddFragment teacherHomeworkAddFragment = new TeacherHomeworkAddFragment();
+                teacherHomeworkAddFragment.setArguments(bundle);
+
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.content, teacherHomeworkAddFragment).commit();
+            }
+        });
+
+
         return view; //要改成回傳view
     }
 
 
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvHomework);
+        fabAddHomework = view.findViewById(R.id.fabAddHomework);
+
 
     }
 
@@ -140,7 +161,7 @@ public class StudentHomeworkFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             View itemView = layoutInflater.inflate(R.layout.cardview_homework, parent, false);
 
-            return new StudentHomeworkFragment.HomeworkAdapter.HomeworkViewHolder(itemView);
+            return new TeacherHomeworkFragment.HomeworkAdapter.HomeworkViewHolder(itemView);
         }
 
         @Override
@@ -150,20 +171,34 @@ public class StudentHomeworkFragment extends Fragment {
 
             //將個別數據帶入子視窗
             for (int i = 0; i < assignDate.size(); i++) {
-                HomeworkIsDone homeworkIsDone = (HomeworkIsDone) assignDate.get(i);
+                final Homework homework = (Homework) assignDate.get(i);
                 TextView tvSubject;
                 TextView tvTitle;
                 TextView tvIsCompleted;
                 tvSubject = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvSubject);
-                tvSubject.setText(homeworkIsDone.getSubject());
+                tvSubject.setText(homework.getSubject());
 
                 tvTitle = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvTitle);
-                tvTitle.setText(homeworkIsDone.getTitle());
+                tvTitle.setText(homework.getTitle());
 
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
-                if (!homeworkIsDone.isHomewokDone()) {
-                    tvIsCompleted.setText("未完成");
-                }
+                tvIsCompleted.setVisibility(View.GONE);
+
+                homeworkViewHolder.linearLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("homework", homework);
+                        TeacherHomeworkUpdateDeleteFragment teacherHomeworkUpdateDeleteFragment = new TeacherHomeworkUpdateDeleteFragment();
+                        teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
+
+                        getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkUpdateDeleteFragment).addToBackStack(null).commit();
+
+
+                    }
+                });
+
             }
 
             //隱藏多餘子視窗數量
