@@ -1,7 +1,7 @@
 package com.example.yangwensing.myapplication.homework;
 
 import android.content.Context;
-import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,18 +27,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 
 public class StudentHomeworkFragment extends Fragment {
     private static final String TAG = "StudentHomeworkFragment";
     private RecyclerView recyclerView;
 
-    //假資料
-    private int studentId = 1;
-
+    private int studentId;
 
 
     @Nullable
@@ -47,6 +43,9 @@ public class StudentHomeworkFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_homework, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
         getActivity().setTitle(R.string.title_homework);
+
+        //取得偏好設定存的學生id
+        getDataFromPref();
 
         findViews(view);
 
@@ -105,7 +104,7 @@ public class StudentHomeworkFragment extends Fragment {
 
 
         } else {
-            Common.showToast(getActivity(),R.string.text_no_network );
+            Common.showToast(getActivity(), R.string.text_no_network);
 
         }
 
@@ -117,6 +116,12 @@ public class StudentHomeworkFragment extends Fragment {
         return view; //要改成回傳view
     }
 
+    private void getDataFromPref() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        studentId = preferences.getInt("studentId", 0);
+
+
+    }
 
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvHomework);
@@ -150,7 +155,7 @@ public class StudentHomeworkFragment extends Fragment {
 
             //將個別數據帶入子視窗
             for (int i = 0; i < assignDate.size(); i++) {
-                HomeworkIsDone homeworkIsDone = (HomeworkIsDone) assignDate.get(i);
+                final HomeworkIsDone homeworkIsDone = (HomeworkIsDone) assignDate.get(i);
                 TextView tvSubject;
                 TextView tvTitle;
                 TextView tvIsCompleted;
@@ -164,6 +169,21 @@ public class StudentHomeworkFragment extends Fragment {
                 if (!homeworkIsDone.isHomewokDone()) {
                     tvIsCompleted.setText("未完成");
                 }
+
+                homeworkViewHolder.linearLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("homework", homeworkIsDone);
+                        StudentHomeworkDetailFragment studentHomeworkDetailFragment = new StudentHomeworkDetailFragment();
+                        studentHomeworkDetailFragment.setArguments(bundle);
+
+                        getFragmentManager().beginTransaction().replace(R.id.content, studentHomeworkDetailFragment).addToBackStack(null).commit();
+
+
+                    }
+                });
             }
 
             //隱藏多餘子視窗數量

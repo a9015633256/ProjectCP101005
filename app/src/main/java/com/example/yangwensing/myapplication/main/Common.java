@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class Common {
 
+    //檢查網路
     public static boolean networkConnected(Activity activity) {
         ConnectivityManager conManager =
                 (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -19,11 +20,13 @@ public class Common {
         return networkInfo != null && networkInfo.isConnected();
     }
 
+    //常用字串
     public final static String URL = "http://10.0.2.2:8080/PleaseLogin";
     public final static String URLForMingTa = "http://10.0.2.2:8080/iContact";
     public final static String PREF_FILE = "preference";
     private static final String TAG = "Common";
 
+    //Toast功能
     public  static void showToast(Context context,String message){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
@@ -31,4 +34,6 @@ public class Common {
     public  static void showToast(Context context,int messageResId){
         Toast.makeText(context, messageResId, Toast.LENGTH_SHORT).show();
     }
+
+
 }

@@ -48,6 +48,7 @@
     <string name="title_homeworkUpdateDelete">Update Homework</string>
     <string name="text_deleteHomework">Delete Homework</string>
     <string name="text_delete">delete</string>
+    <string name="text_teacher">Teacher</string>
     <string-array name="subject">
         <item>國文</item>
         <item>英文</item>

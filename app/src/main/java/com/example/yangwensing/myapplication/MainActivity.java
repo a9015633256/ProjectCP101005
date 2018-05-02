@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_logOut:
+                getSupportFragmentManager().popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.content,new LoginFragment()).commit();
                 break;
             case R.id.menu_settings:
@@ -148,6 +149,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    //偏好設定檔，存老師id及科目id或學生id、班級id
+
+
+
 
 
 }

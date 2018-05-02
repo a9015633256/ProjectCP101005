@@ -1,5 +1,7 @@
 package com.example.yangwensing.myapplication.homework;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -24,10 +26,11 @@ public class TeacherHomeworkAddFragment extends Fragment {
     private EditText etTitle, etContent;
     private Button btAdd;
 
-    //接上一頁資料用
-    private int classId = 0;
-    private int teacherId = 0;
-    private int subjectId = 0;
+    //裝偏好設定檔儲存的資料
+    private int classId;
+    private String className;
+    private int teacherId;
+    private int subjectId;
 
 
     @Nullable
@@ -36,18 +39,13 @@ public class TeacherHomeworkAddFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_teacher_homework_add, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
         getActivity().setTitle(R.string.title_homeworkAdd);
 
+        getDataFromPref();
+
+
         findViews(view);
 
 //        bottomNavigationView = getActivity().findViewById(R.id.navigation);
 //        bottomNavigationView.setVisibility(View.GONE);
-
-        //取得上一頁資料
-        Bundle bundle = getArguments();
-        if(bundle!=null){
-            classId = bundle.getInt("classId");
-            teacherId = bundle.getInt("teacherId");
-            subjectId = bundle.getInt("subjectId");
-        }
 
 
         btAdd.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +104,16 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
 
         return view; //要改成回傳view
+    }
+
+    private void getDataFromPref() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        teacherId = preferences.getInt("teacherId",0);
+        subjectId = preferences.getInt("subjectId",0);
+        classId = preferences.getInt("classId",0);
+        className = preferences.getString("className", "");
+
+
     }
 
     private void findViews(View view) {

@@ -1,6 +1,7 @@
 package com.example.yangwensing.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -113,6 +114,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //假資料
+                int studentId = 1;
+
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("studentId", studentId)
+                        .apply();
+
+                //切換fragment
                 getFragmentManager().beginTransaction().replace(R.id.content, new StudentInfoFragment()).commit();
                 bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -123,6 +133,22 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //假資料
+                int classId = 1;
+                String className = "CP101";
+                int teacherId = 4;
+                int subjectId = 6;
+
+                //老師id、所教科目存入偏好設定檔 (以及班級id，暫時在這邊放入，實際要等選班級好了才放入)
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("teacherId", teacherId)
+                        .putInt("subjectId",subjectId)
+                        .putInt("classId",classId)
+                        .putString("className",className)
+                        .apply();
+
+                //切換fragment
                 getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
 //                bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -139,7 +165,7 @@ public class LoginFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        menu.setGroupVisible(0,false);
+        menu.setGroupVisible(0, false);
 
     }
 
