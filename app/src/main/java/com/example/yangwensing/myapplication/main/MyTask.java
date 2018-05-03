@@ -1,4 +1,4 @@
-package com.example.yangwensing.myapplication;
+package com.example.yangwensing.myapplication.main;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -18,16 +18,16 @@ import java.net.URL;
 
 public class MyTask extends AsyncTask<String, Integer, String> {
     private final static String TAG = "MyTask";
-    private String url,outstr;
+    private String url, outStr;
 
     public MyTask(String url, String outStr) {
         this.url = url;
-        this.outstr = outStr;
+        this.outStr = outStr;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        String instr = getRemoteData(url, outstr);
+        String instr = getRemoteData(url, outStr);
 
         return instr;
     }
@@ -46,7 +46,7 @@ public class MyTask extends AsyncTask<String, Integer, String> {
             connection.setRequestProperty("charset", "UTF-8");
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
             bw.write(outstr);
-            Log.d(TAG,"outstr"+outstr);
+            Log.d(TAG,"outStr"+outstr);
             bw.close();
 
             int responseCode = connection.getResponseCode();

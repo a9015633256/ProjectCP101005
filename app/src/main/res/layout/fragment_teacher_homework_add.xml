@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivUserPic"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_title" />
+
+                <EditText
+                    android:id="@+id/etAddHomeworkTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:inputType="text"
+                    />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_Content" />
+
+            <EditText
+                android:textAlignment="center"
+                android:id="@+id/etAddHomeworkContent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="enter the detail here if neccesary"
+                android:inputType="textMultiLine"
+                android:background="@drawable/shape_text_area"
+                android:lines="10"
+                android:singleLine="false"
+                />
+
+
+
+            <Button
+                android:id="@+id/btAddHomework"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/text_AddHomework"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorTextWhite"
+                />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</ScrollView>

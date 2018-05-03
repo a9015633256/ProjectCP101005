@@ -212,7 +212,7 @@
         android:id="@+id/btCreat"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="@string/textCreat"
+        android:text="@string/textCreate"
             android:background="@color/Project"/>
 
         <Button

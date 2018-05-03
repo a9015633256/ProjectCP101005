@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -35,7 +37,7 @@ public class ClassManager extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.classlist, container, false);
+        View view = inflater.inflate(R.layout.fragment_teacher_classlist, container, false);
 
         Bundle bundle = getArguments();
         user = bundle.getString("name");
@@ -107,7 +109,7 @@ public class ClassManager extends Fragment {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.classmanger, parent, false);
+            View itemView = layoutInflater.inflate(R.layout.fragment_teacher_class_manager, parent, false);
             return new MyViewHolder(itemView);
         }
         @Override

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#019AE8</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#0076BF</color>
+    <color name="colorAccent">#FF5722</color>
     <color name="Project">#019AE8</color>
+    <color name="colorTextWhite">#ffffff</color>
+    <color name="colorButtonEnd">#3E9AC8</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorTextRed">#ff0000</color>
+    <color name="coloFloatingButtonOrange">#FF5722</color>
 </resources>
