@@ -38,6 +38,9 @@ public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
 
+    //帳號比對格式
+    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}";
+
     //底部導覽列跟浮動按鈕
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabShortcutToStudent;
@@ -86,25 +89,46 @@ public class LoginFragment extends Fragment {
                 String user = etName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                if (isUserValid(user, password)) {
-                    Fragment classManager = new ClassManager();
+                if (isUserValid(user,password)) {
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", user);
-                    classManager.setArguments(bundle);
+                    if(user.matches(accoutwho)) {
+                        Fragment classManager = new ClassManager();
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", user);
+                        classManager.setArguments(bundle);
 
-                    fragmentTransaction.replace(R.id.content, classManager);
-                    fragmentTransaction.commit();
-                    bottomNavigationView.setVisibility(View.VISIBLE);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.addToBackStack(null);
+
+                        fragmentTransaction.replace(R.id.content,classManager);
+                        fragmentTransaction.commit();
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+
+                    }else{
+                        Fragment studentInfoFragment = new StudentInfoFragment();
+
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("name", user);
+//                        thisisstudent.setArguments(bundle);
+
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                        fragmentTransaction.addToBackStack(null);
+
+                        fragmentTransaction.replace(R.id.content,studentInfoFragment);
+                        fragmentTransaction.commit();
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+
+                    }
 
 
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+
+                } else{
+                    Toast.makeText(getActivity(),"fail",Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -177,7 +201,11 @@ public class LoginFragment extends Fragment {
         if (networkConnected()) {
             String url = Common.URL + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "findByName");
+            if(name.matches(accoutwho)){
+                jsonObject.addProperty("action", "findByName");
+            }else{
+                jsonObject.addProperty("action", "findbyStudent");
+            }
             jsonObject.addProperty("name", name);
             jsonObject.addProperty("password", password);
             loginTask = new MyTask(url, jsonObject.toString());
