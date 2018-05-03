@@ -37,8 +37,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.example.yangwensing.myapplication.main.Common.networkConnected;
-
 /**
  * Created by nameless on 2018/4/16.
  */
@@ -64,7 +62,7 @@ public class RegisterFragment extends Fragment {
 
 
 
-        final EditText rgName = view.findViewById(R.id.rgName);
+        final EditText rgAccount = view.findViewById(R.id.rgAccount);
         final EditText rgPassword = view.findViewById(R.id.rgPassword);
         final EditText rgPasswordconfirm = view.findViewById(R.id.rgPasswordConfirm);
         Button btBack = view.findViewById(R.id.btBack);
@@ -73,7 +71,7 @@ public class RegisterFragment extends Fragment {
 
         final EditText rgbirthday = view.findViewById(R.id.birthday);
         final EditText rgphone = view.findViewById(R.id.PhoneNumber);
-        final EditText rgemail = view.findViewById(R.id.email);
+        final EditText rgName = view.findViewById(R.id.rgname);
         Button male = view.findViewById(R.id.rbMale);
         Button female = view.findViewById(R.id.rbFemale);
         RadioGroup rggender = view.findViewById(R.id.rgGender);
@@ -163,13 +161,13 @@ public class RegisterFragment extends Fragment {
 
 
         // 每輸入一個字就觸發一次
-        rgName.addTextChangedListener( new TextWatcher(){
+        rgAccount.addTextChangedListener( new TextWatcher(){
             @SuppressLint("ResourceAsColor")
             @Override
             public void afterTextChanged(Editable arg0) {
                 // 顯示文字內容
 //                Log.i( "test", arg0.toString() );
-                String name = rgName.getText().toString();
+                String name = rgAccount.getText().toString();
 
                 same =0;
 
@@ -209,17 +207,17 @@ public class RegisterFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                String name = rgName.getText().toString();
+                String account = rgAccount.getText().toString();
                 String password = rgPassword.getText().toString().trim();
                 String passwordconfirm = rgPasswordconfirm.getText().toString().trim();
-                String email = rgemail.getText().toString();
+                String name = rgName.getText().toString();
                 String birthday = rgbirthday.getText().toString();
                 int phone = Integer.valueOf(rgphone.getText().toString());
                 int gender = ggender;
 
 
                 for (int c=0; c < accounts.size();c++){
-                    if (name.equals(accounts.get(c).getAccount())){
+                    if (account.equals(accounts.get(c).getAccount())){
                         same = 1;
                         break;
                     }
@@ -232,9 +230,10 @@ public class RegisterFragment extends Fragment {
                 if (password.equals(passwordconfirm) && same == 0) {
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "insert");
+                    jsonObject.addProperty("account", account);
                     jsonObject.addProperty("password", password);
+
                     jsonObject.addProperty("name", name);
-                    jsonObject.addProperty("email", email);
                     jsonObject.addProperty("phone", phone);
                     jsonObject.addProperty("gender", gender);
                     jsonObject.addProperty("birthday", birthday);

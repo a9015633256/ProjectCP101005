@@ -14,21 +14,21 @@
 
         <TextView
             android:id="@+id/account"
-            android:layout_width="40dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="ID:" />
+            android:text="帳號(信箱):" />
 
         <EditText
-            android:id="@+id/rgName"
-            android:layout_width="250dp"
+            android:id="@+id/rgAccount"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             />
         <TextView
             android:id="@+id/state"
             android:clickable="true"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="帳號重複"
             android:textColor="#FF0000"/>
@@ -79,9 +79,9 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="email:" />
+            android:text="姓名：" />
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/rgname"
             android:layout_width="310dp"
             android:layout_height="wrap_content" />
 
