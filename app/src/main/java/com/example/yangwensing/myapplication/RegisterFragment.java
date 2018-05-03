@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
+import static com.example.yangwensing.myapplication.Common.networkConnected;
+
 /**
  * Created by nameless on 2018/4/16.
  */
@@ -138,6 +140,7 @@ public class RegisterFragment extends Fragment {
         btCreat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String name = rgName.getText().toString();
                 String password = rgPassword.getText().toString().trim();
                 String passwordconfirm = rgPasswordconfirm.getText().toString().trim();
@@ -145,30 +148,31 @@ public class RegisterFragment extends Fragment {
                 int phone = Integer.valueOf(rgphone.getText().toString());
                 int gender = ggender;
 
+                if (networkConnected(getActivity())) {
+
+                    if (password.equals(passwordconfirm)) {
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "insert");
+                        jsonObject.addProperty("password", password);
+                        jsonObject.addProperty("name", name);
+                        jsonObject.addProperty("email", email);
+                        jsonObject.addProperty("phone", phone);
+                        jsonObject.addProperty("gender", gender);
 
 
-                if(password.equals(passwordconfirm)){
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("action", "insert");
-                    jsonObject.addProperty("password",password);
-                    jsonObject.addProperty("name", name);
-                    jsonObject.addProperty("email", email);
-                    jsonObject.addProperty("phone", phone);
-                    jsonObject.addProperty("gender", gender);
-
-
-                    try {
-                        registerTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
-                        int count = Integer.valueOf(registerTask.execute().get());
-                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                        if (count == 0) {
-                            Toast.makeText(getActivity(), "Regitration failed ", Toast.LENGTH_SHORT).show();
+                        try {
+                            registerTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                            int count = Integer.valueOf(registerTask.execute().get());
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            if (count == 0) {
+                                Toast.makeText(getActivity(), "Regitration failed ", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            Log.d(TAG, "error message" + e.toString());
                         }
-                    } catch (Exception e) {
-                        Log.d(TAG, "error message" + e.toString());
+
+
                     }
-
-
                 }
                 else{
                     Toast.makeText(getActivity(),"connection to network failed", Toast.LENGTH_SHORT).show();
