@@ -47,6 +47,9 @@ public class RegisterFragment extends Fragment {
     private MyTask registerTask,getaccountTask;
     List<Account> accounts ;
     int same = 0;
+    //帳號比對格式
+    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}";
+
 
 
 
@@ -171,14 +174,22 @@ public class RegisterFragment extends Fragment {
 
                 same =0;
 
-                for (int c=0; c < accounts.size();c++){
-                    if (name.equals(accounts.get(c).getAccount())){
-                        same = 1;
-                        break;
+                if (name.matches(accoutwho)){
+                    for (int c=0; c < accounts.size();c++){
+                        if (name.equals(accounts.get(c).getAccount())){
+                            same = 1;
+                            break;
+                        }
                     }
+
+                }else{
+
+                    same =1;
                 }
+
+
                 if (same ==1){
-                    acstate.setText("帳號重複");
+                    acstate.setText("帳號重複或格式錯誤");
                     acstate.setTextColor(getResources().getColor(R.color.stateWrong));
                 }else {
                     acstate.setText("OK");
@@ -208,6 +219,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String account = rgAccount.getText().toString();
+
                 String password = rgPassword.getText().toString().trim();
                 String passwordconfirm = rgPasswordconfirm.getText().toString().trim();
                 String name = rgName.getText().toString();
