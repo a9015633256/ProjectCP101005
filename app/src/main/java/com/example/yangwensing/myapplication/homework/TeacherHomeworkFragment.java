@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,10 +135,10 @@ public class TeacherHomeworkFragment extends Fragment {
     }
 
     private void getDataFromPref() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE,Context.MODE_PRIVATE);
-        teacherId = preferences.getInt("teacherId",0);
-        subjectId = preferences.getInt("subjectId",0);
-        classId = preferences.getInt("classId",0);
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        teacherId = preferences.getInt("teacherId", 0);
+        subjectId = preferences.getInt("subjectId", 0);
+        classId = preferences.getInt("classId", 0);
         className = preferences.getString("className", "");
 
 
@@ -189,7 +190,7 @@ public class TeacherHomeworkFragment extends Fragment {
                 tvTitle.setText(homework.getTitle());
 
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
-                tvIsCompleted.setVisibility(View.GONE);
+                tvIsCompleted.setVisibility(View.INVISIBLE);
 
                 homeworkViewHolder.linearLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                     @Override
