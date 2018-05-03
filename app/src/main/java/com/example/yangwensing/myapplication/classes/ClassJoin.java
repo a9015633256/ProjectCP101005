@@ -14,13 +14,13 @@ import com.example.yangwensing.myapplication.R;
  * Created by nameless on 2018/4/26.
  */
 
-public class ClassCreate extends Fragment{
+public class ClassJoin extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.classcreate, container, false);
+        View view = inflater.inflate(R.layout.classjoin, container, false);
 
         return view;
     }

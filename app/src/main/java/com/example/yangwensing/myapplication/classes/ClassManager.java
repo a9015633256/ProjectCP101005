@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ public class ClassManager extends Fragment {
 //    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvClass;
     private MyTask classgetTask;
+    private Button btdelete,btCreat,btJoin;
 
 
     String user ="";
@@ -42,6 +46,69 @@ public class ClassManager extends Fragment {
 
         Bundle bundle = getArguments();
         user = bundle.getString("name");
+
+
+        btdelete = view.findViewById(R.id.btDelete);
+        btCreat = view.findViewById(R.id.btttCreat);
+        btJoin = view.findViewById(R.id.btJoin);
+
+        btCreat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment classCreate = new ClassCreate();
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("name", user);
+//                classCreate.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.replace(R.id.content,classCreate);
+                fragmentTransaction.commit();
+
+            }
+        });
+        btJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment classJoin = new ClassJoin();
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("name", user);
+//                classCreate.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.replace(R.id.content,classJoin);
+                fragmentTransaction.commit();
+
+            }
+        });
+        btdelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment classdelete = new ClassDelete();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("name", user);
+                classdelete.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.replace(R.id.content,classdelete);
+                fragmentTransaction.commit();
+            }
+        });
 
 
 
