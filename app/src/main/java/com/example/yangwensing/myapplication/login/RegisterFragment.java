@@ -1,4 +1,4 @@
-package com.example.yangwensing.myapplication;
+package com.example.yangwensing.myapplication.login;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
@@ -19,11 +19,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.JsonObject;
 
 import static com.example.yangwensing.myapplication.Common.networkConnected;
+import static com.example.yangwensing.myapplication.main.Common.networkConnected;
 
 /**
  * Created by nameless on 2018/4/16.

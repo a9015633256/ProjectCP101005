@@ -1,4 +1,4 @@
-package com.example.yangwensing.myapplication;
+package com.example.yangwensing.myapplication.classes;
 
 import java.io.Serializable;
 

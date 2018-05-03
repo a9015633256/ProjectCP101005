@@ -1,4 +1,4 @@
-package com.example.yangwensing.myapplication;
+package com.example.yangwensing.myapplication.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.classes.ClassManager;
+import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.main.Common;

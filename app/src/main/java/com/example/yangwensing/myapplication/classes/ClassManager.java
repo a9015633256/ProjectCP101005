@@ -1,4 +1,4 @@
-package com.example.yangwensing.myapplication;
+package com.example.yangwensing.myapplication.classes;
 
 import android.content.Context;
 import android.os.Bundle;
