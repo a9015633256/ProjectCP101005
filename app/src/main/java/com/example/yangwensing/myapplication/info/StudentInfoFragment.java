@@ -1,5 +1,6 @@
 package com.example.yangwensing.myapplication.info;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yangwensing.myapplication.R;
+import com.google.gson.JsonObject;
 
 public class StudentInfoFragment extends Fragment {
 
@@ -24,8 +26,35 @@ public class StudentInfoFragment extends Fragment {
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
+        //取得db資訊
+        getStudentInfo();
+
+
+
+
+
+
+
+
 
         return view; //要改成回傳view
+    }
+
+    private void getStudentInfo() {
+
+//        SharedPreferences preferences = getActivity().getSharedPreferences()
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override
