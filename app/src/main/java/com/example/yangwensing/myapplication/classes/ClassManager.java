@@ -3,6 +3,7 @@ package com.example.yangwensing.myapplication.classes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +34,7 @@ public class ClassManager extends Fragment {
     private RecyclerView rvClass;
     private MyTask classgetTask;
     private Button btdelete,btCreat,btJoin;
+    private TabLayout caselect;
 
 
     String user ="";
@@ -51,6 +53,36 @@ public class ClassManager extends Fragment {
         btdelete = view.findViewById(R.id.btDelete);
         btCreat = view.findViewById(R.id.btttCreat);
         btJoin = view.findViewById(R.id.btJoin);
+        caselect = view.findViewById(R.id.caselect);
+        caselect.addTab(caselect.newTab().setText("導師班"));
+        caselect.addTab(caselect.newTab().setText("科任班"));
+
+        caselect.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        showAllClasses();
+                        btdelete.setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        showJoinClasses();
+                        btdelete.setVisibility(View.GONE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
 
         btCreat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +167,35 @@ public class ClassManager extends Fragment {
             List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
+            jsonObject.addProperty("name",user);
+            String jsonOut = jsonObject.toString();
+            classgetTask = new MyTask(url, jsonOut);
+            try {
+                String jsonIn = classgetTask.execute().get();
+                Log.d(TAG, jsonIn);
+                Type listType = new TypeToken<List<Classes>>() {
+                }.getType();
+                classes = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (classes == null || classes.isEmpty()) {
+                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
+
+            } else {
+                rvClass.setAdapter(new ClassesRecyclerViewAdapter(getActivity(), classes));
+            }
+        } else {
+            Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void showJoinClasses() {
+        if (Common.networkConnected(getActivity())) {
+            String url = Common.URL + "/LoginHelp";
+
+            List<Classes> classes = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getJoin");
             jsonObject.addProperty("name",user);
             String jsonOut = jsonObject.toString();
             classgetTask = new MyTask(url, jsonOut);
