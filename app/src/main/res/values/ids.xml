@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ClassManagement" type="id">ClassManagement</item>
+    <item name="ExamSubject" type="id">ExamSubject</item>
+    <item name="Homework" type="id">Homework</item>
+    <item name="ParentConnection" type="id">ParentConnection</item>
+    <item name="btAdd2" type="id">btAdd2</item>
+    <item name="btAdd" type="id">bt</item>
+</resources>

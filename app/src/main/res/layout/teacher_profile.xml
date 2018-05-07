@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cityscape" />
+
+
+    <TextView
+        android:id="@+id/sdNumber"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="學號："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="學號："
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/sdClass"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="班級："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="班級："
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/sdName"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="姓名："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="姓名："
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/sdGender"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="性別："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="性別："
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/sdBirthday"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="生日："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生日："
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/sdPhone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="電話："
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Phone"
+        android:text="電話："
+        android:textSize="25dp" />
+</LinearLayout>
+
+</ScrollView >

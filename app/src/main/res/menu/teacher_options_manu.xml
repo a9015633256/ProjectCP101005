@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Teacher_ChangeFile"
+        android:title="@string/modify_file" />
+    <item
+        android:id="@+id/Teacher_Setting"
+        android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/Teacher_Loggin_out"
+        android:title="@string/Logging_out" />
+
+    <item
+        android:id="@+id/Teacher_Exit"
+        android:title="@string/Exit" />
+
+</menu>

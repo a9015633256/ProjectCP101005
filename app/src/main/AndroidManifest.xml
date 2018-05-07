@@ -18,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation1_ClassManagement"></activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation3_Homework"></activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation2_ExamSubject"></activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation4_ParentConnection"></activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.TeacherSettingPage"></activity>
+        <activity android:name="TeacherMainActivityView.teacher_main_activity.TeacherChangeFilePage"></activity>
     </application>
 
 </manifest>
