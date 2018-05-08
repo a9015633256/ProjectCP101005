@@ -39,7 +39,7 @@ public class LoginFragment extends Fragment {
     private MyTask loginTask;
 
     //帳號比對格式
-    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}";
+    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
 
     //底部導覽列跟浮動按鈕
     private BottomNavigationView bottomNavigationView;
