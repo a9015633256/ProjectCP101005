@@ -56,6 +56,9 @@ public class ClassJoin extends Fragment {
         inflater.inflate(R.menu.options_menu_classmanager, menu);
         menu.getItem(0).setVisible(false);
         menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
+        menu.getItem(3).setVisible(false);
+        menu.getItem(4).setVisible(false);
 
     }
     @Override
