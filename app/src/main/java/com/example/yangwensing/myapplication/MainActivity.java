@@ -2,7 +2,9 @@ package com.example.yangwensing.myapplication;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.contact.StudentContactFragment;
@@ -23,33 +26,35 @@ import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.BottomNavigationViewHelper;
+import com.example.yangwensing.myapplication.main.Common;
 
 public class MainActivity extends AppCompatActivity {
+    BottomNavigationView bnForStudent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //底部Navigation
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        BottomNavigationViewHelper.removeShiftMode(navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //BottomNavigation 學生用
+        bnForStudent = findViewById(R.id.bnForStudent);
+        BottomNavigationViewHelper.removeShiftMode(bnForStudent);
+        bnForStudent.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListenerForStudent);
 
 
         Fragment loginFragment = new LoginFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, loginFragment );
+        fragmentTransaction.replace(R.id.content, loginFragment);
         fragmentTransaction.commit();
 
-//        invalidateOptionsMenu();
 
     }
 
-    //底部Navigation
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    //BottomNavigation 學生用 功能設定
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListenerForStudent
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -57,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null; //要寫出null，否則會有not initialized 警告
 
             switch (item.getItemId()) {
-                case R.id.navigation_info:
-                    selectedFragment = new StudentInfoFragment();
-                    break;
+
                 case R.id.navigation_homework:
                     selectedFragment = new StudentHomeworkFragment();
                     break;
@@ -69,12 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_contact:
                     selectedFragment = new StudentContactFragment();
                     break;
+                case R.id.navigation_info:
+                    selectedFragment = new StudentInfoFragment();
+                    break;
 
             }
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.content, selectedFragment);
-            fragmentTransaction.commit();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
             return true;
         }
     };
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflate = getMenuInflater();
         inflate.inflate(R.menu.menu_options, menu);
 
-        closeOptionsMenu();
+//        closeOptionsMenu();
 
 
         return true;
@@ -97,8 +101,24 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_logOut:
-                getSupportFragmentManager().popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.content,new LoginFragment()).commit();
+
+
+                //重置偏好設定檔儲存的登入設定
+                SharedPreferences preferences = getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("studentId", 0)
+                        .putInt("teacherId", 0)
+                        .putInt("subjectId",0)
+                        .putInt("classId",0)
+                        .putString("className","")
+                        .apply();
+
+                //清除所有backStack
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                //回到登入頁面
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+
                 break;
             case R.id.menu_settings:
                 Toast.makeText(getBaseContext(), "Enter settingsView", Toast.LENGTH_SHORT).show();
@@ -106,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-
 
 
         return super.onOptionsItemSelected(item); //是否要改回傳true?
@@ -151,9 +170,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //偏好設定檔，存老師id及科目id或學生id、班級id
-
-
-
 
 
 }
