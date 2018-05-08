@@ -2,7 +2,6 @@ package com.example.yangwensing.myapplication.classes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.renderscript.Allocation;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -36,7 +35,6 @@ public class ClassManager extends Fragment {
     private MyTask classgetTask;
     private Button btdelete,btCreat,btJoin;
     private TabLayout caselect;
-    List<Classes> classes = null;
 
 
     String user ="";
@@ -66,22 +64,10 @@ public class ClassManager extends Fragment {
                     case 0:
                         showAllClasses();
                         btdelete.setVisibility(View.VISIBLE);
-                        if (classes == null || classes.isEmpty()){
-                            rvClass.setVisibility(View.GONE);
-                        }else
-                        {
-                            rvClass.setVisibility(View.VISIBLE);
-                        }
                         break;
                     case 1:
                         showJoinClasses();
                         btdelete.setVisibility(View.GONE);
-                        if (classes == null || classes.isEmpty()){
-                            rvClass.setVisibility(View.GONE);
-                        }else
-                        {
-                            rvClass.setVisibility(View.VISIBLE);
-                        }
                         break;
                 }
             }
@@ -160,7 +146,16 @@ public class ClassManager extends Fragment {
 
         rvClass = view.findViewById(R.id.rvNews);
         rvClass.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+//        swipeRefreshLayout =
+//                view.findViewById(R.id.swipeRefreshLayout);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                swipeRefreshLayout.setRefreshing(true);
+//                showAllClasses();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         return view;
     }
@@ -169,7 +164,7 @@ public class ClassManager extends Fragment {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
 
-//            List<Classes> classes = null;
+            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             jsonObject.addProperty("name",user);
@@ -198,7 +193,7 @@ public class ClassManager extends Fragment {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
 
-//            List<Classes> classes = null;
+            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getJoin");
             jsonObject.addProperty("name",user);
@@ -215,7 +210,6 @@ public class ClassManager extends Fragment {
             }
             if (classes == null || classes.isEmpty()) {
                 Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
-
 
             } else {
                 rvClass.setAdapter(new ClassesRecyclerViewAdapter(getActivity(), classes));

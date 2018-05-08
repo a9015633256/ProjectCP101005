@@ -43,6 +43,36 @@ public class TipsClass {
     StudentContactDetailFragment:學生用 老師詳細檢視
     Teacher:列表用的老師列表，之後會刪除改用mainPackage裡的
 
+    **TeacherMainActivityView
+
+    *CommonPart
+    BottomNavigationBarHelper       控制底下的NavigationBar讓他不要浮動
+    Common                          基本連線資料
+    MyTask                          基本抓取資料介面
+    SectionPageAdapter              控制Tab Bar
+
+    *Tab1Student
+    StudentGetImageTask             抓取圖片的Task
+    Students                        學生的基本資料
+    Tab1_StudentCreatAccount        新增學生帳號的介面
+    tab1Fragment                    觀看學生列表的介面
+
+
+    *Tab2Teacher
+    TeacherGetImageTask             抓取圖片的Task
+    Teachers                        老師的基本資料
+    Tab2_AddNewTeachers             新增老師的介面
+    tap2fragment                    觀看老師列表的介面
+
+    MainActivity                    老師的主畫面
+    Navigation1_ClassManagement     班級管理（之後會刪除
+    Navigation2_ExamSubject         考試管理
+    Navigation3_Homework            功課管理
+    Navigation4_ParentConnection    連絡家長
+    TeacherChangeFilePage           更改資料介面
+    TeacherContact                  （假資料，之後會刪除
+    TeacherRecyclerViewAdapter      （假資料，之後會刪除
+    TeacherSettingPage              （假資料，之後會刪除
 
 
 
@@ -66,6 +96,22 @@ public class TipsClass {
     cardview_exam:rv用
     cardview_contact:rv用
 
+    teacher_activity_main               老師的主畫面
+    teacher_change_file                 更改資料畫面
+    teacher_navigation1                 班級管理
+    teacher_navigation2                 學生功課
+    teacher_navigation3                 考試管理
+    teacher_navigation4                 家長聯絡
+    teacher_profile                     老師資料
+    teacher_setting                     設定頁面
+    teacher_setting_menu                設定頁面
+    teacher_tab1_student_creat_account  新增學生帳號
+    teacher_tab1_students_contact       學生的recyclerView
+    teacher_tab2_add_new_teacher        新增老師帳號
+    teacher_tab2_teachers_contact       老師的recyclerView
+    teacher_tab1_contact_fragment       Tab1畫面
+    teacher_tab2_contact_fragment       Tab2畫面
+
 
 
 
@@ -77,8 +123,13 @@ public class TipsClass {
     -----------
 
     manifest區
-
-
+    以下六個頁面是extends AppCompatActivity
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation1_ClassManagement"></activity>
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation3_Homework"></activity>
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation2_ExamSubject"></activity>
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation4_ParentConnection"></activity>
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.TeacherSettingPage"></activity>
+    <activity android:name="TeacherMainActivityView.teacher_main_activity.TeacherChangeFilePage"></activity>
 
 
 
