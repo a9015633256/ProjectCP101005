@@ -48,7 +48,7 @@ public class RegisterFragment extends Fragment {
     List<Account> accounts ;
     int same = 0;
     //帳號比對格式
-    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}";
+    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
 
 
 
