@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,9 @@ import java.util.Locale;
 public class StudentHomeworkFragment extends Fragment {
     private static final String TAG = "StudentHomeworkFragment";
     private RecyclerView recyclerView;
+    private BottomNavigationView bottomNavigationView;
+    private List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
+
 
     private int studentId;
 
@@ -49,9 +53,23 @@ public class StudentHomeworkFragment extends Fragment {
 
         findViews(view);
 
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
         //取得db資料
-        List<HomeworkIsDone> homeworkIsDoneList; //放db回傳資料
-        List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
+
+        getDataFromDB();
+
+
+        //rv
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(hashSet, getActivity());
+        recyclerView.setAdapter(homeworkAdapter);
+
+        return view; //要改成回傳view
+    }
+
+    private void getDataFromDB() {
+
 
         if (Common.networkConnected(getActivity())) {
 
@@ -67,7 +85,11 @@ public class StudentHomeworkFragment extends Fragment {
                 Type listType = new TypeToken<List<HomeworkIsDone>>() {
                 }.getType();
 
+                List<HomeworkIsDone> homeworkIsDoneList; //放db回傳資料
+
                 homeworkIsDoneList = gson.fromJson(jsonIn, listType);
+
+
 
                 //回傳資料按日期整理
                 for (HomeworkIsDone homeworkIsDone : homeworkIsDoneList) {
@@ -108,12 +130,10 @@ public class StudentHomeworkFragment extends Fragment {
 
         }
 
-        //rv
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(hashSet, getActivity());
-        recyclerView.setAdapter(homeworkAdapter);
 
-        return view; //要改成回傳view
+
+
+
     }
 
     private void getDataFromPref() {
@@ -125,6 +145,7 @@ public class StudentHomeworkFragment extends Fragment {
 
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvHomework);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
 
     }
 

@@ -49,6 +49,14 @@
     <string name="text_deleteHomework">Delete Homework</string>
     <string name="text_delete">delete</string>
     <string name="text_teacher">Teacher</string>
+    <string name="text_address">Address:</string>
+    <string name="text_addHomeworkFailed">Establish homework failed!!</string>
+    <string name="text_addHomeworkSucceeded">Establish succeeded!!</string>
+    <string name="text_editStudentInfoSucceeded">Update succeeded!!</string>
+    <string name="text_editStudentInfoFailed">Update Failed!!</string>
+    <string name="text_takePhoto">Take Photo</string>
+    <string name="text_pickPhoto">Pick Photo</string>
+    <string name="msg_NoCameraAppsFound">No Camera Apps Found!!</string>
     <string-array name="subject">
         <item>國文</item>
         <item>英文</item>

@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.main.Common;
@@ -50,7 +51,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
-        bottomNavigationView = getActivity().findViewById(R.id.navigation);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
         fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
@@ -96,7 +97,7 @@ public class LoginFragment extends Fragment {
 
                     fragmentTransaction.replace(R.id.content, classManager);
                     fragmentTransaction.commit();
-                    bottomNavigationView.setVisibility(View.VISIBLE);
+
 
 
                     Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
@@ -115,7 +116,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 //假資料
-                int studentId = 1;
+                int studentId = 2;
 
                 SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
                 preferences.edit()
@@ -123,8 +124,7 @@ public class LoginFragment extends Fragment {
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new StudentInfoFragment()).commit();
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                getFragmentManager().beginTransaction().replace(R.id.content, new StudentHomeworkFragment()).commit();
 
             }
         });
@@ -150,7 +150,6 @@ public class LoginFragment extends Fragment {
 
                 //切換fragment
                 getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
-//                bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
         });

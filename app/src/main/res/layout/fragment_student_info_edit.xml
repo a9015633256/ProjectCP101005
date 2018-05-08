@@ -15,9 +15,32 @@
             android:src="@drawable/user_pic" />
 
         <LinearLayout
+            android:id="@+id/llPhotoEdit"
+            android:layout_below="@id/ivUserPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivUserPic"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btStudentInfoTakePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_takePhoto"/>
+
+            <Button
+                android:id="@+id/btStudentInfoPickPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_pickPhoto"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llPhotoEdit"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -32,9 +55,11 @@
                     android:text="@string/text_studentId" />
 
                 <EditText
+                    android:id="@+id/etStudentInfoId"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:enabled="false"
                     android:inputType="text"
                     android:text="610789" />
 
@@ -52,10 +77,14 @@
                     android:text="@string/text_class" />
 
                 <EditText
+                    android:id="@+id/etStudentInfoClassName"
+
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:enabled="false"
                     android:inputType="text"
+
                     android:text="CP101" />
 
 
@@ -72,9 +101,13 @@
                     android:text="@string/text_name" />
 
                 <EditText
-                    android:layout_width="100dp"
+                    android:id="@+id/etStudentInfoName"
+
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:enabled="false"
+
                     android:inputType="text"
                     android:text="王大民"
 
@@ -94,13 +127,16 @@
                     android:text="@string/text_gender" />
 
                 <EditText
+                    android:id="@+id/etStudentInfoGender"
+
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:inputType="text"
                     android:text="男"
+                    android:textColor="@color/colorTextBlack"
 
                     />
+
 
             </LinearLayout>
 
@@ -115,6 +151,8 @@
                     android:text="@string/text_dayOfBirth" />
 
                 <EditText
+                    android:id="@+id/etStudentInfoDayOfBirth"
+
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
@@ -138,24 +176,50 @@
                     android:text="@string/text_phoneNumber" />
 
                 <EditText
-                    android:layout_width="150dp"
+                    android:id="@+id/etStudentInfoPhoneNumber"
+
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:text="0912345678"
 
                     />
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_address" />
+
+                <EditText
+                    android:id="@+id/etStudentInfoAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:text="" />
+
+
+            </LinearLayout>
+
             <Button
+                android:id="@+id/btUpdateStudentInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="@string/text_confirmEditInfo"
                 android:background="@color/colorPrimary"
-                android:textColor="@color/colorTextWhite"
-                />
+                android:text="@string/text_confirmEditInfo"
+                android:textColor="@color/colorTextWhite" />
+
 
         </LinearLayout>
 
