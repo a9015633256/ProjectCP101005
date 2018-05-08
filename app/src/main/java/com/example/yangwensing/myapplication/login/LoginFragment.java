@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
-        bottomNavigationView = getActivity().findViewById(R.id.navigation);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
         fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);

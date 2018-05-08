@@ -1,6 +1,7 @@
 package com.example.yangwensing.myapplication.classes;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
+import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -31,10 +37,9 @@ import java.util.List;
 public class ClassManager extends Fragment {
 
     private static final String TAG = "ClassManager";
-//    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView rvClass;
     private MyTask classgetTask;
-    private Button btdelete,btCreat,btJoin;
+//    private Button btdelete,btCreat,btJoin;
     private TabLayout caselect;
     List<Classes> classes = null;
 
@@ -45,18 +50,18 @@ public class ClassManager extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
+        getActivity().setTitle("班級選擇");
         View view = inflater.inflate(R.layout.fragment_teacher_classlist, container, false);
 
-
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
         Bundle bundle = getArguments();
         user = bundle.getString("name");
 
 
-        btdelete = view.findViewById(R.id.btDelete);
-        btCreat = view.findViewById(R.id.btttCreat);
-        btJoin = view.findViewById(R.id.btJoin);
+//        btdelete = view.findViewById(R.id.btDelete);
+//        btCreat = view.findViewById(R.id.btttCreat);
+//        btJoin = view.findViewById(R.id.btJoin);
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
@@ -67,7 +72,7 @@ public class ClassManager extends Fragment {
                 switch (tab.getPosition()){
                     case 0:
                         showAllClasses();
-                        btdelete.setVisibility(View.VISIBLE);
+//                        btdelete.setVisibility(View.VISIBLE);
                         if(classes == null || classes.isEmpty()){
                             rvClass.setVisibility(View.GONE);
                         }else{
@@ -76,7 +81,7 @@ public class ClassManager extends Fragment {
                         break;
                     case 1:
                         showJoinClasses();
-                        btdelete.setVisibility(View.GONE);
+//                        btdelete.setVisibility(View.GONE);
                         if(classes == null || classes.isEmpty()){
                             rvClass.setVisibility(View.GONE);
                         }else{
@@ -97,15 +102,93 @@ public class ClassManager extends Fragment {
             }
         });
 
-
-        btCreat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment classCreate = new ClassCreate();
-
+//點擊方塊style
+//        btCreat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment classCreate = new ClassCreate();
+//
+////                Bundle bundle = new Bundle();
+////                bundle.putString("name", user);
+////                classCreate.setArguments(bundle);
+//
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                fragmentTransaction.addToBackStack(null);
+//
+//                fragmentTransaction.replace(R.id.content,classCreate);
+//                fragmentTransaction.commit();
+//
+//            }
+//        });
+//        btJoin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Fragment classJoin = new ClassJoin();
+//
+////                Bundle bundle = new Bundle();
+////                bundle.putString("name", user);
+////                classCreate.setArguments(bundle);
+//
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                fragmentTransaction.addToBackStack(null);
+//
+//                fragmentTransaction.replace(R.id.content,classJoin);
+//                fragmentTransaction.commit();
+//
+//            }
+//        });
+//        btdelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Fragment classdelete = new ClassDelete();
+//
 //                Bundle bundle = new Bundle();
 //                bundle.putString("name", user);
-//                classCreate.setArguments(bundle);
+//                classdelete.setArguments(bundle);
+//
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                fragmentTransaction.addToBackStack(null);
+//
+//                fragmentTransaction.replace(R.id.content,classdelete);
+//                fragmentTransaction.commit();
+//            }
+//        });
+
+
+
+        rvClass = view.findViewById(R.id.rvNews);
+        rvClass.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.options_menu_classmanager, menu);
+        menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.cmcreate:
+                Fragment classCreate = new ClassCreate();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("name", user);
+                classCreate.setArguments(bundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -115,54 +198,62 @@ public class ClassManager extends Fragment {
                 fragmentTransaction.replace(R.id.content,classCreate);
                 fragmentTransaction.commit();
 
-            }
-        });
-        btJoin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.cmjoin:
                 Fragment classJoin = new ClassJoin();
 
-//                Bundle bundle = new Bundle();
-//                bundle.putString("name", user);
-//                classCreate.setArguments(bundle);
+                Bundle bundlejo = new Bundle();
+                bundlejo.putString("name", user);
+                classJoin.setArguments(bundlejo);
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentManager fragmentManagerjo = getFragmentManager();
+                FragmentTransaction fragmentTransactionjo = fragmentManagerjo.beginTransaction();
 
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransactionjo.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,classJoin);
-                fragmentTransaction.commit();
+                fragmentTransactionjo.replace(R.id.content,classJoin);
+                fragmentTransactionjo.commit();
 
-            }
-        });
-        btdelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                break;
+            case R.id.cmdelete:
                 Fragment classdelete = new ClassDelete();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name", user);
-                classdelete.setArguments(bundle);
+                Bundle bundlede = new Bundle();
+                bundlede.putString("name", user);
+                classdelete.setArguments(bundlede);
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                FragmentManager fragmentManagerde = getFragmentManager();
+                FragmentTransaction fragmentTransactionde = fragmentManagerde.beginTransaction();
 
-                fragmentTransaction.addToBackStack(null);
+                fragmentTransactionde.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,classdelete);
-                fragmentTransaction.commit();
-            }
-        });
+                fragmentTransactionde.replace(R.id.content,classdelete);
+                fragmentTransactionde.commit();
 
+                break;
+            case R.id.cmlogout:
+                //重置偏好設定檔儲存的登入設定
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("studentId", 0)
+                        .putInt("teacherId", 0)
+                        .putInt("subjectId",0)
+                        .putInt("classId",0)
+                        .putString("className","")
+                        .apply();
 
+                //清除所有backStack
+                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        rvClass = view.findViewById(R.id.rvNews);
-        rvClass.setLayoutManager(new LinearLayoutManager(getActivity()));
+                //回到登入頁面
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
 
+                break;
+            default:
+                break;
+        }
 
-        return view;
+        return super.onOptionsItemSelected(item);
     }
 
 

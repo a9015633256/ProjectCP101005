@@ -25,27 +25,27 @@
 
 
 
-    <Button
-        android:id="@+id/btttCreat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="建立班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
-    <Button
-        android:id="@+id/btJoin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="加入班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
-    <Button
-        android:id="@+id/btDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="刪除班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
+    <!--<Button-->
+        <!--android:id="@+id/btttCreat"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="建立班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/btJoin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="加入班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/btDelete"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="刪除班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
 
     <!-- build.gradle (Module:app) must add [com.android.support:design] API -->
     <android.support.design.widget.CoordinatorLayout
