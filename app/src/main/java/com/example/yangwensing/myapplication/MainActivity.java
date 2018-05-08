@@ -24,6 +24,7 @@ import com.example.yangwensing.myapplication.contact.StudentContactFragment;
 import com.example.yangwensing.myapplication.exam.StudentExamFragment;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
+import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.BottomNavigationViewHelper;
 import com.example.yangwensing.myapplication.main.Common;
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:padding="6dp"
+    card_view:cardBackgroundColor="#ffdddddd"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="6dp">
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<ImageView-->
+            <!--android:id="@+id/ivSpot"-->
+            <!--android:layout_width="250px"-->
+            <!--android:layout_height="250px"-->
+            <!--android:src="@drawable/fire" />-->
+        <Button
+            android:id="@+id/btcheckdelete"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@color/Project"/>
+
+        <TextView
+            android:id="@+id/tvClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="68dp"
+            android:layout_marginTop="8dp"
+
+            android:text="Name"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="32dp"
+            android:text="班級:"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+
+            android:layout_below="@id/tvClass"
+            android:text="導師:"/>
+
+        <TextView
+            android:id="@+id/tvTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tvClass"
+            android:layout_below="@id/tvClass"
+            android:text="Phone No"
+            android:textColor="#555555" />
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

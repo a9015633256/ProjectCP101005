@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="9dp">
+
+    <RelativeLayout
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/teacherImageview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/waterfall" />
+
+
+        <TextView
+            android:id="@+id/teacherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="超級宇宙無敵大瀑布"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/colorAccent"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/teacherImageview"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/teacherPhone"
+            android:text="0985-640-651"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignStart="@+id/teacherName"
+            android:layout_below="@id/teacherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowCall"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="200dp"
+            android:layout_toEndOf="@id/teacherImageview"
+            android:src="@drawable/ic_call_black_24dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/arrowMessage"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="240dp"
+            android:layout_toEndOf="@id/teacherImageview"
+            android:src="@drawable/ic_message_black_24dp" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
