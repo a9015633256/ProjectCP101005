@@ -62,6 +62,7 @@ public class StudentInfoFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.menu_options_edit_info, menu);
+        menu.getItem(0).setVisible(false);
 
     }
 

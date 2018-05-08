@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.security.PublicKey;
 import java.util.List;
 
 public class ClassManager extends Fragment {
@@ -35,6 +36,7 @@ public class ClassManager extends Fragment {
     private MyTask classgetTask;
     private Button btdelete,btCreat,btJoin;
     private TabLayout caselect;
+    List<Classes> classes = null;
 
 
     String user ="";
@@ -45,6 +47,8 @@ public class ClassManager extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_teacher_classlist, container, false);
+
+
 
         Bundle bundle = getArguments();
         user = bundle.getString("name");
@@ -64,10 +68,20 @@ public class ClassManager extends Fragment {
                     case 0:
                         showAllClasses();
                         btdelete.setVisibility(View.VISIBLE);
+                        if(classes == null || classes.isEmpty()){
+                            rvClass.setVisibility(View.GONE);
+                        }else{
+                            rvClass.setVisibility(View.VISIBLE);
+                        }
                         break;
                     case 1:
                         showJoinClasses();
                         btdelete.setVisibility(View.GONE);
+                        if(classes == null || classes.isEmpty()){
+                            rvClass.setVisibility(View.GONE);
+                        }else{
+                            rvClass.setVisibility(View.VISIBLE);
+                        }
                         break;
                 }
             }
@@ -146,25 +160,17 @@ public class ClassManager extends Fragment {
 
         rvClass = view.findViewById(R.id.rvNews);
         rvClass.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        swipeRefreshLayout =
-//                view.findViewById(R.id.swipeRefreshLayout);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                swipeRefreshLayout.setRefreshing(true);
-//                showAllClasses();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
+
 
         return view;
     }
+
 
     private void showAllClasses() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
 
-            List<Classes> classes = null;
+//            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
             jsonObject.addProperty("name",user);
@@ -193,7 +199,7 @@ public class ClassManager extends Fragment {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
 
-            List<Classes> classes = null;
+//            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getJoin");
             jsonObject.addProperty("name",user);
