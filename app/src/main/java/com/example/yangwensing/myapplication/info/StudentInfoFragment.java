@@ -1,5 +1,7 @@
 package com.example.yangwensing.myapplication.info;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import com.google.gson.JsonObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class StudentInfoFragment extends Fragment {
     private int studentId;
@@ -29,7 +32,6 @@ public class StudentInfoFragment extends Fragment {
     //EditText把輸入功能關閉、充當textView用
     private EditText tvId, tvName, tvDayOfBirth, tvPhoneNumber, tvGender, tvClassName, tvAddress;
     private ImageView ivStudentPic;
-    private final int imageSize = 512;
 
 
     @Nullable
@@ -47,8 +49,12 @@ public class StudentInfoFragment extends Fragment {
         //取得db資訊並顯示在畫面上
         getStudentInfo();
 
-        GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize, ivStudentPic);
-        getStudentPicTask.execute();
+//
+//
+//        GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize, ivStudentPic);
+//        getStudentPicTask.execute();
+//
+
 
         return view; //要改成回傳view
     }
@@ -72,6 +78,7 @@ public class StudentInfoFragment extends Fragment {
 
         if (Common.networkConnected(getActivity())) {
 
+            //取得文字部分
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findStudentById");
             jsonObject.addProperty("studentId", studentId);
@@ -107,6 +114,22 @@ public class StudentInfoFragment extends Fragment {
                 Common.showToast(getActivity(), R.string.text_no_server);
 
             }
+
+            //取得照片部分
+            int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+            GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize);
+            try {
+                Bitmap bitmap = getStudentPicTask.execute().get();
+                ivStudentPic.setImageBitmap(bitmap);
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+
         } else {
             Common.showToast(getActivity(), R.string.text_no_network);
 
@@ -140,7 +163,7 @@ public class StudentInfoFragment extends Fragment {
                 StudentInfoEditFragment studentInfoEditFragment = new StudentInfoEditFragment();
                 studentInfoEditFragment.setArguments(bundle);
 
-                getFragmentManager().beginTransaction().replace(R.id.content, studentInfoEditFragment, "StudentInfoEditFragment").addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, studentInfoEditFragment, "StudentInfoEditFragment").addToBackStack("123").commit();
                 break;
             default:
                 break;

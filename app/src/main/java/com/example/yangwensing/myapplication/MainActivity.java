@@ -17,7 +17,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.contact.StudentContactFragment;
@@ -29,7 +28,8 @@ import com.example.yangwensing.myapplication.main.BottomNavigationViewHelper;
 import com.example.yangwensing.myapplication.main.Common;
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bnForStudent;
+    private BottomNavigationView bnForStudent;
+    private static int alarmType = 0;
 
 
     @Override
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+
             getSupportFragmentManager().beginTransaction().replace(R.id.content, selectedFragment).commit();
             return true;
         }
@@ -101,25 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_logOut:
+                alarmType = 1;
+
+                new AlertDialogFragment().show(getSupportFragmentManager(), "exit"); //呼叫警示視窗fragment
 
 
-                //重置偏好設定檔儲存的登入設定
-                SharedPreferences preferences = getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putInt("studentId", 0)
-                        .putInt("teacherId", 0)
-                        .putInt("subjectId",0)
-                        .putInt("classId",0)
-                        .putString("className","")
-                        .apply();
-
-                //清除所有backStack
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                //回到登入頁面
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
-
-                break;
+               break;
             case R.id.menu_settings:
                 Toast.makeText(getBaseContext(), "Enter settingsView", Toast.LENGTH_SHORT).show();
                 break;
@@ -144,32 +132,72 @@ public class MainActivity extends AppCompatActivity {
 
     public static class AlertDialogFragment
             extends DialogFragment implements DialogInterface.OnClickListener {
+
+
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+            if (alarmType == 1) {
+                return new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.text_logOut)
+                        .setIcon(R.drawable.ic_alert)
+                        .setMessage(R.string.msg_wantToLogOut)
+                        .setPositiveButton(R.string.text_Yes, this)
+                        .setNegativeButton(R.string.text_No, this)
+                        .create();
+
+            }
             return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.text_Exit)
+                    .setTitle(R.string.text_exit)
                     .setIcon(R.drawable.ic_alert)
-                    .setMessage(R.string.msg_WantToExit)
+                    .setMessage(R.string.msg_wantToExit)
                     .setPositiveButton(R.string.text_Yes, this)
                     .setNegativeButton(R.string.text_No, this)
                     .create();
+
         }
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    getActivity().finish();
-                    break;
-                default:
-                    dialog.cancel();
-                    break;
+            if (alarmType == 1) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //重置偏好設定檔儲存的登入設定
+                        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                        preferences.edit()
+                                .putInt("studentId", 0)
+                                .putInt("teacherId", 0)
+                                .putInt("subjectId", 0)
+                                .putInt("classId", 0)
+                                .putString("className", "")
+                                .apply();
+
+                        //清除所有backStack
+                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                        //回到登入頁面
+                        getFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+                        alarmType = 0;
+                        break;
+                    default:
+                        alarmType = 0;
+                        dialog.cancel();
+                        break;
+                }
+
+            } else {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        getActivity().finish();
+                        break;
+                    default:
+                        dialog.cancel();
+                        break;
+                }
             }
         }
     }
-
-    //偏好設定檔，存老師id及科目id或學生id、班級id
 
 
 }

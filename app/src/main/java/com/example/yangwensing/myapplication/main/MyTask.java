@@ -51,6 +51,8 @@ public class MyTask extends AsyncTask<String, Integer, String> {
 
             int responseCode = connection.getResponseCode();
             if (responseCode==200){
+
+
                 BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String line;
                 while ((line=br.readLine())!= null){

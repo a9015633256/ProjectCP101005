@@ -53,7 +53,6 @@ public class StudentHomeworkFragment extends Fragment {
 
         findViews(view);
 
-        bottomNavigationView.setVisibility(View.VISIBLE);
 
         //取得db資料
 
@@ -66,6 +65,19 @@ public class StudentHomeworkFragment extends Fragment {
         recyclerView.setAdapter(homeworkAdapter);
 
         return view; //要改成回傳view
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomNavigationView.setVisibility(View.VISIBLE); //放在onResume才不會比畫面還快顯示出來
+
     }
 
     private void getDataFromDB() {
@@ -280,5 +292,10 @@ public class StudentHomeworkFragment extends Fragment {
 
     }
 
-
+    //按返回鍵時也會清空資料
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        hashSet.clear();
+    }
 }

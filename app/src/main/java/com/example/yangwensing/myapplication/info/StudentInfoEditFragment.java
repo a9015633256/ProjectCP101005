@@ -4,10 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,6 +23,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.InputType;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,24 +41,34 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 public class StudentInfoEditFragment extends Fragment {
     public static final String TAG = "StudentInfoEditFragment";
     public static final int REQUEST_TAKE_PHOTO = 0;
     public static final int REQUEST_PICK_PHOTO = 1;
+    public static final int REQUEST_CROP_PHOTO = 2;
+
     private Student student;
     private EditText etId, etName, etDayOfBirth, etPhoneNumber, etGender, etClassName, etAddress;
     private Button btUpdate, btTakePhoto, btPickPhoto;
-    private ImageView ivStudentPic;
     private BottomNavigationView bottomNavigationView;
+
+    private ImageView ivStudentPic;
     private File file;
-    private final int imageSize = 171;
+    private Uri contentUri, croppedImageUri;
+    private byte[] image;
+    private boolean isPhotoChanged = false;
+    private int imageSize;
+
 
     //生日輸入、輸出用
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -68,26 +82,23 @@ public class StudentInfoEditFragment extends Fragment {
 
         findViews(view);
 
-        //隱藏底部導覽列
-        bottomNavigationView.setVisibility(View.GONE);
 
         //取得上一頁資訊並顯示在畫面上
         getStudentInfo();
 
-        //取得照片
-        GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", student.getId(), imageSize, ivStudentPic);
-        getStudentPicTask.execute();
-
-        //拍照
-        btPickPhoto.setOnClickListener(new View.OnClickListener() {
+        //拍照按鈕
+        btTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                Common.askPermissions(getActivity(), permissions, Common.PERMISSION_READ_EXTERNAL_STORAGE);
+
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 file = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
                 file = new File(file, "picture.jpg");
 
-                Uri contentUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", file);
+                contentUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".provider", file);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
                 if (isIntentAvailable(getActivity(), intent)) {
                     startActivityForResult(intent, REQUEST_TAKE_PHOTO);
@@ -96,6 +107,21 @@ public class StudentInfoEditFragment extends Fragment {
                 } else {
                     Common.showToast(getActivity(), R.string.msg_NoCameraAppsFound);
                 }
+
+
+            }
+        });
+
+        //選照片按鈕
+        btPickPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                Common.askPermissions(getActivity(), permissions, Common.PERMISSION_READ_EXTERNAL_STORAGE);
+
+
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQUEST_PICK_PHOTO);
 
 
             }
@@ -131,7 +157,7 @@ public class StudentInfoEditFragment extends Fragment {
             }
         });
 
-        //確認資料送出
+        //確認資料送出按紐
         btUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,8 +180,9 @@ public class StudentInfoEditFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-        Common.askPermissions(getActivity(), permissions, Common.PERMISSION_READ_EXTERNAL_STORAGE);
+
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
 
     }
 
@@ -178,32 +205,6 @@ public class StudentInfoEditFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            int newSize = 512;
-            switch (requestCode) {
-                case REQUEST_TAKE_PHOTO:
-                    Bitmap srcBitmap = BitmapFactory.decodeFile(file.getPath());
-                    Bitmap downSizedPicture = Common.downSize(srcBitmap, newSize);
-                    ivStudentPic.setImageBitmap(downSizedPicture);
-
-
-                    break;
-                case REQUEST_PICK_PHOTO:
-                    break;
-
-
-                default:
-                    break;
-            }
-
-
-        }
-
-
-    }
 
     private boolean isIntentAvailable(Context context, Intent intent) {
         List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -239,6 +240,10 @@ public class StudentInfoEditFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "updateStudentInfo");
             jsonObject.addProperty("student", studentStr);
+            if (isPhotoChanged) {
+                String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
+                jsonObject.addProperty("studentPhoto", imageBase64);
+            }
 
 
             try {
@@ -308,7 +313,7 @@ public class StudentInfoEditFragment extends Fragment {
             student = (Student) bundle.getSerializable("student");
         }
 
-
+        //文字部分
         if (student != null) {
             etId.setText(student.getStudentNumber());
             etName.setText(student.getName());
@@ -323,6 +328,27 @@ public class StudentInfoEditFragment extends Fragment {
             etDayOfBirth.setText(simpleDateFormat.format(student.getDayOfBirth()));
             etPhoneNumber.setText(String.valueOf(student.getPhoneNumber()));
             etAddress.setText((student.getAddress()));
+
+
+        }
+
+
+        //取得照片部分
+        if (Common.networkConnected(getActivity())) {
+            imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+            GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", student.getId(), imageSize);
+            try {
+                Bitmap bitmap = getStudentPicTask.execute().get();
+                ivStudentPic.setImageBitmap(bitmap);
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Common.showToast(getActivity(), R.string.text_no_network);
 
         }
 
@@ -378,6 +404,85 @@ public class StudentInfoEditFragment extends Fragment {
             //產生picker時會以畫面上一開始的時間為預設時間
             String[] date = etDayOfBirthForPicker.getText().toString().split("-");
             return new DatePickerDialog(getActivity(), onDateSetListener, Integer.valueOf(date[0]), Integer.valueOf(date[1]) - 1, Integer.valueOf(date[2]));
+
+
+        }
+
+
+    }
+
+
+    private void crop(Uri uri) {
+        File file = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        file = new File(file, "picture_crop.jpg");
+        croppedImageUri = Uri.fromFile(file);
+
+
+        try {
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.setDataAndType(uri, "image/*");
+            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("aspectX", 0);
+            cropIntent.putExtra("aspectY", 0);
+            cropIntent.putExtra("outputX", 0);
+            cropIntent.putExtra("outputY", 0);
+            cropIntent.putExtra("scale", true);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, croppedImageUri);
+            cropIntent.putExtra("return-data", true);
+
+            startActivityForResult(cropIntent, REQUEST_CROP_PHOTO);
+        } catch (ActivityNotFoundException e) {
+            Common.showToast(getActivity(), "This device doesn't support the crop action!");
+
+        }
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_TAKE_PHOTO:
+                    crop(contentUri);
+
+                    break;
+                case REQUEST_PICK_PHOTO:
+                    Uri uri = data.getData();
+                    crop(uri);
+
+                    break;
+
+                case REQUEST_CROP_PHOTO:
+
+                    isPhotoChanged = true;
+                    Log.d(TAG, "REQUEST_CROP_PHOTO: " + croppedImageUri.toString());
+
+                    try {
+                        Bitmap croppedBitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(croppedImageUri));
+
+                        //顯示圖片用
+                        Bitmap downSizedBitmap = Common.downSize(croppedBitmap, imageSize);
+                        ivStudentPic.setImageBitmap(downSizedBitmap);
+
+                        //上傳圖片用
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        croppedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        image = byteArrayOutputStream.toByteArray();
+
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    break;
+
+                default:
+                    break;
+            }
 
 
         }

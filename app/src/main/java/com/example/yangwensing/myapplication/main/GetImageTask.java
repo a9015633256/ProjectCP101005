@@ -24,9 +24,8 @@ public class GetImageTask extends AsyncTask<Object, Integer, Bitmap> {
     private WeakReference<ImageView> imageViewWeakReference;
 
     public GetImageTask(String url, int id, int imageSize) {
-        this.url = url;
-        this.id = id;
-        this.imageSize = imageSize;
+        this(url, id, imageSize, null);
+
     }
 
     public GetImageTask(String url, int id, int imageSize, ImageView imageView) {

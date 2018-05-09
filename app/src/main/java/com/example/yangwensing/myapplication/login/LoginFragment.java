@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.main.Common;
@@ -55,7 +56,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
-        bottomNavigationView = getActivity().findViewById(R.id.navigation);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
         fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
@@ -63,8 +64,9 @@ public class LoginFragment extends Fragment {
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
-        //回到此頁面時隱藏底部導覽列
+        //回到此頁面時隱藏底部導覽列並把預設恢復為第一個
         bottomNavigationView.setVisibility(View.GONE);
+        bottomNavigationView.setSelectedItemId(0);
 
 
         btRegister.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +143,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 //假資料
-                int studentId = 1;
+                int studentId = 2;
 
                 SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
                 preferences.edit()
@@ -149,7 +151,7 @@ public class LoginFragment extends Fragment {
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new StudentInfoFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, new StudentHomeworkFragment()).commit();
                 bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
