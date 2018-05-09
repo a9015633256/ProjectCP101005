@@ -110,4 +110,5 @@
     <string name="text_check">Didn\'t Hand In</string>
     <string name="text_tabHomeworkContent">Content</string>
     <string name="text_tabHomeworkCheck">Handing Status</string>
+    <string name="msg_wantToLogOut">Are you sure you want to log out? All unsaved data will be lost!</string>
 </resources>

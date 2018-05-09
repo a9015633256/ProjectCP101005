@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         bnForStudent = findViewById(R.id.bnForStudent);
         BottomNavigationViewHelper.removeShiftMode(bnForStudent);
         bnForStudent.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListenerForStudent);
-        
+
 
 
 
@@ -117,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
                 new AlertDialogFragment().show(getSupportFragmentManager(), "exit"); //呼叫警示視窗fragment
 
+                //清除所有backStack
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                //回到登入頁面
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
 
                break;
             case R.id.menu_settings:
