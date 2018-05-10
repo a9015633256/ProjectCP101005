@@ -1,13 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="join"/>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="23dp"
+        android:text="@string/ClassSearch"
+        android:textSize="18dp" />
 
-</LinearLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:hint="@string/etSearch" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btSearch"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:text="@string/btSearch"
+        android:textColor="#ffffff" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

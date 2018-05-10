@@ -100,6 +100,12 @@ public class LoginFragment extends Fragment {
                         bundle.putString("name", user);
                         classManager.setArguments(bundle);
 
+                        ///
+                        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                        preferences.edit()
+                                .putString("name", user)
+                                .apply();
+
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.addToBackStack(null);

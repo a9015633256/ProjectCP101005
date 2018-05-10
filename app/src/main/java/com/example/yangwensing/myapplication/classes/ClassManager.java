@@ -55,8 +55,11 @@ public class ClassManager extends Fragment {
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
-        Bundle bundle = getArguments();
-        user = bundle.getString("name");
+//        Bundle bundle = getArguments();
+//        user = bundle.getString("name");
+//        user = bundle.getString("name");
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        user = preferences.getString("name","0");
 
 
 //        btdelete = view.findViewById(R.id.btDelete);
@@ -348,6 +351,15 @@ public class ClassManager extends Fragment {
             String url = Common.URL + "/LoginHelp";
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment fragment = new ClassManager();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.content, fragment)
+                            .addToBackStack(null).commit();
+                }
+            });
 
         }
 
