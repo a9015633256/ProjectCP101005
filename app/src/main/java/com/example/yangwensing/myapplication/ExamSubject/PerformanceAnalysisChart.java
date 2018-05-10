@@ -1,17 +1,18 @@
-//package com.example.yangwensing.myapplication.ExamSubject;
-//
-//import android.graphics.Color;
-//import android.os.Bundle;
-//import android.support.annotation.NonNull;
-//import android.support.annotation.Nullable;
-//import android.support.v4.app.Fragment;
-//import android.util.Log;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.Toast;
-//
-//import com.example.yangwensing.myapplication.main.MyTask;
+package com.example.yangwensing.myapplication.ExamSubject;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.main.MyTask;
 //import com.github.mikephil.charting.charts.PieChart;
 //import com.github.mikephil.charting.components.Description;
 //import com.github.mikephil.charting.data.Entry;
@@ -21,20 +22,21 @@
 //import com.github.mikephil.charting.highlight.Highlight;
 //import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 //import com.github.mikephil.charting.utils.ColorTemplate;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//
-//public class PerformanceAnalysisChart extends Fragment {
-//    private static final String TAG = "BarChartActivity";
-//    private MyTask myTask;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class PerformanceAnalysisChart extends Fragment {
+    private static final String TAG = "BarChartActivity";
+    private MyTask myTask;
 //    private PieChart pieChart;
-//
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.performance_analysis_chart, container, false);
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.subject_performance_analysis_chart, container, false);
+        return view;
 //        pieChart = view.findViewById(R.id.pieChart);
 //        List<Exam> exams = new ArrayList<>();
 //        /* 設定可否旋轉 */
@@ -125,5 +127,6 @@
 //
 //
 //    }
-//
-//}
+
+    }
+}
