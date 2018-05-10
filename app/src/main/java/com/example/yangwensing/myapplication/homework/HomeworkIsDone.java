@@ -3,27 +3,26 @@ package com.example.yangwensing.myapplication.homework;
 import java.sql.Date;
 
 public class HomeworkIsDone extends Homework {
-	private boolean isHomewokDone;
+	private boolean isHomeworkDone;
 
 	public HomeworkIsDone(int id, String subject, String teacher, String title, String content, Date date) {
 		super(id, subject, teacher, title, content, date);
-		// TODO Auto-generated constructor stub
 	}
 
 	public HomeworkIsDone(int id, String subject, String teacher, String title, String content, Date date,
-			boolean isHomewokDone) {
+			boolean isHomeworkDone) {
 		super(id, subject, teacher, title, content, date);
-		this.isHomewokDone = isHomewokDone;
+		this.isHomeworkDone = isHomeworkDone;
 	}
 
-	public boolean isHomewokDone() {
-		return isHomewokDone;
+	public boolean isHomeworkDone() {
+		return isHomeworkDone;
 	}
 
-	public void setHomewokDone(boolean isHomewokDone) {
-		this.isHomewokDone = isHomewokDone;
+	public void setHomeworkDone(boolean isHomeworkDone) {
+		this.isHomeworkDone = isHomeworkDone;
 	}
-	
-	
+
+
 
 }
