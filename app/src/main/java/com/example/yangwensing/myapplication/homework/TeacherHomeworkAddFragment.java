@@ -55,8 +55,8 @@ public class TeacherHomeworkAddFragment extends Fragment {
                 if (Common.networkConnected(getActivity())) {
 
                     //檢查是否上一頁資料正確傳入
-                    if (classId * teacherId * subjectId == 0 ){
-                        Common.showToast(getActivity(),R.string.text_data_error);
+                    if (classId * teacherId * subjectId == 0) {
+                        Common.showToast(getActivity(), R.string.text_data_error);
                         return;
                     }
 
@@ -108,9 +108,9 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
     private void getDataFromPref() {
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        teacherId = preferences.getInt("teacherId",0);
-        subjectId = preferences.getInt("subjectId",0);
-        classId = preferences.getInt("classId",0);
+        teacherId = preferences.getInt("teacherId", 0);
+        subjectId = preferences.getInt("subjectId", 0);
+        classId = preferences.getInt("classId", 0);
         className = preferences.getString("className", "");
 
 
