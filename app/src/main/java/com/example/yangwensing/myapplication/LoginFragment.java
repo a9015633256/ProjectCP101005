@@ -1,22 +1,29 @@
 package com.example.yangwensing.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
+import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
+import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.login.RegisterFragment;
 import com.example.yangwensing.myapplication.main.Common;
@@ -32,7 +39,10 @@ public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
 
+    //底部導覽列跟浮動按鈕
     private BottomNavigationView bottomNavigationView;
+    private FloatingActionButton fabShortcutToStudent;
+    private FloatingActionButton fabShortcutToTeacher;
 
 
     @Nullable
@@ -43,8 +53,17 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
-        Button btlogin = view.findViewById(R.id.btLogin);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
+        Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
+        fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
+        fabShortcutToTeacher = view.findViewById(R.id.fabShortCutToTeacher);
+
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
+
+        //回到此頁面時隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
 
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,53 +74,103 @@ public class LoginFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,fragmentRegister);
+                fragmentTransaction.replace(R.id.content, fragmentRegister);
                 fragmentTransaction.commit();
 
 
             }
         });
 
-        btlogin.setOnClickListener(new View.OnClickListener() {
+        btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String user = etName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                    if (isUserValid(user,password)) {
-                        Fragment classManager = new ClassManager();
+                if (isUserValid(user, password)) {
+                    Fragment classManager = new ClassManager();
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", user);
-                        classManager.setArguments(bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", user);
+                    classManager.setArguments(bundle);
 
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.addToBackStack(null);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                        fragmentTransaction.replace(R.id.content,classManager);
-                        fragmentTransaction.commit();
-                        bottomNavigationView.setVisibility(View.VISIBLE);
+                    fragmentTransaction.replace(R.id.content, classManager);
+                    fragmentTransaction.commit();
 
 
 
-                        Toast.makeText(getActivity(),"Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
-                    } else{
-                        Toast.makeText(getActivity(),"fail", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
 
-                    }
+                }
 
 
             }
         });
 
+        fabShortcutToStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //假資料
+                int studentId = 2;
+
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("studentId", studentId)
+                        .apply();
+
+                //切換fragment
+                getFragmentManager().beginTransaction().replace(R.id.content, new StudentHomeworkFragment()).commit();
+
+            }
+        });
+
+        fabShortcutToTeacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //假資料
+                int classId = 1;
+                String className = "CP101";
+                int teacherId = 4;
+                int subjectId = 6;
+
+                //老師id、所教科目存入偏好設定檔 (以及班級id，暫時在這邊放入，實際要等選班級好了才放入)
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit()
+                        .putInt("teacherId", teacherId)
+                        .putInt("subjectId",subjectId)
+                        .putInt("classId",classId)
+                        .putString("className",className)
+                        .apply();
+
+                //切換fragment
+                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
+
+            }
+        });
 
 
         return view;
 
     }
-    private boolean isUserValid(String name,String password) {
+
+    //隱藏右上選單
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.setGroupVisible(0, false);
+
+    }
+
+    private boolean isUserValid(String name, String password) {
         boolean isUserValid = false;
 
         if (networkConnected()) {
@@ -121,8 +190,8 @@ public class LoginFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
         }
-            return isUserValid;
-        }
+        return isUserValid;
+    }
 
 
     @Override
@@ -132,6 +201,7 @@ public class LoginFragment extends Fragment {
             loginTask.cancel(true);
         }
     }
+
     private boolean networkConnected() {
         ConnectivityManager conManager =
                 (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

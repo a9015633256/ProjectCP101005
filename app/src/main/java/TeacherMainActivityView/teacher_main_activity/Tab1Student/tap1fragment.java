@@ -2,7 +2,6 @@ package TeacherMainActivityView.teacher_main_activity.Tab1Student;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,7 +32,6 @@ import java.util.List;
 
 import TeacherMainActivityView.CommonPart.Common;
 import TeacherMainActivityView.CommonPart.MyTask;
-import TeacherMainActivityView.teacher_main_activity.Tab2Teacher.ClassSubjectTeacher;
 
 //Tab學生資料
 public class tap1fragment extends Fragment {
@@ -44,8 +42,6 @@ public class tap1fragment extends Fragment {
     private RecyclerView rvStudents;
     private StudentGetImageTask studentGetImageTask;
     private FloatingActionButton btAdd;
-    private String c;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,9 +58,6 @@ public class tap1fragment extends Fragment {
         });
         rvStudents = view.findViewById(R.id.contact_recyclerview);
         rvStudents.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        getClassName();
-
         btAdd = view.findViewById(R.id.btAdd);//浮動按鈕
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +69,33 @@ public class tap1fragment extends Fragment {
         });
 
         return view;
+    }
 
+    private void showAllStudents() {
+        if (Common.networkConnected(getActivity())) {//連結網路
+            String url = Common.URL + "/StudentServlet";
+            List<Students> students = null;
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "getAll");//利用jason物件取得所有資料
+            String jsonOut = jsonObject.toString();//jasonout.輸出
+            studentsGetAllTask = new MyTask(url, jsonOut);
+            try {
+                String jsonIn = studentsGetAllTask.execute().get();
+                Log.d(TAG, jsonIn);
+                Type listType = new TypeToken<List<Students>>() {
+                }.getType();
+                students = new Gson().fromJson(jsonIn, listType);
+            } catch (Exception e) {
+                Log.e(TAG, e.toString());
+            }
+            if (students == null || students.isEmpty()) {
+                Common.showToast(getActivity(), R.string.msg_NoSpotsFound);
+            } else {
+                rvStudents.setAdapter(new StudentRecyclerViewAdapter(getActivity(), students));
+            }
+        } else {
+            Common.showToast(getActivity(), R.string.msg_NoNetwork);
+        }
     }
 
     @Override
@@ -85,46 +104,14 @@ public class tap1fragment extends Fragment {
         showAllStudents();
     }
 
-    private void showAllStudents() {
-        if (Common.networkConnected(getActivity())) {//連結網路
-            String url = Common.URL + "/StudentServlet";
-            List<ClassStudentMember> classStudentMembers = null;
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "findStudents");//利用jason物件取得所有資料
-            jsonObject.addProperty("Class_Name", c);
-            String jsonOut = jsonObject.toString();//jasonout.輸出
-            studentsGetAllTask = new MyTask(url, jsonOut);
-            try {
-                String jsonIn = studentsGetAllTask.execute().get();
-                Log.d(TAG, jsonIn);
-                Type listType = new TypeToken<List<ClassStudentMember>>() {
-                }.getType();
-                classStudentMembers = new Gson().fromJson(jsonIn, listType);
-            } catch (Exception e) {
-                Log.e(TAG, e.toString());
-            }
-            if (classStudentMembers == null || classStudentMembers.isEmpty()) {
-                Common.showToast(getActivity(), R.string.msg_NoSpotsFound);
-            } else {
-                rvStudents.setAdapter(new StudentRecyclerViewAdapter(getActivity(), classStudentMembers));
-            }
-        } else {
-            Common.showToast(getActivity(), R.string.msg_NoNetwork);
-        }
-    }
-    private void getClassName() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
-        c = preferences.getString("c", "");
-    }
-
     private class StudentRecyclerViewAdapter extends RecyclerView.Adapter<StudentRecyclerViewAdapter.MyViewHolder> {
         private LayoutInflater layoutInflater;
-        private List<ClassStudentMember> classStudentMembers;
+        private List<Students> students;
         private int imageSize;
 
-        StudentRecyclerViewAdapter(Context context, List<ClassStudentMember> classStudentMembers) {
+        StudentRecyclerViewAdapter(Context context, List<Students> students) {
             layoutInflater = LayoutInflater.from(context);
-            this.classStudentMembers = classStudentMembers;
+            this.students = students;
             /* 螢幕寬度除以4當作將圖的尺寸 */
             imageSize = getResources().getDisplayMetrics().widthPixels / 4;//設定圖片大小
         }
@@ -143,7 +130,7 @@ public class tap1fragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return classStudentMembers.size();
+            return students.size();
         }
 
 
@@ -155,13 +142,13 @@ public class tap1fragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
-            final ClassStudentMember classStudentMember = classStudentMembers.get(position);
+            final Students student = students.get(position);
             String url = Common.URL + "/StudentServlet";
-            int id = classStudentMember.getId();
-            studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
-            studentGetImageTask.execute();
-            myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
-            myViewHolder.studentPhone.setText(classStudentMember.getStudent_Phone());
+            int id = student.getId();
+            studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);//(URL,ID,縮圖大小,show image)//設定圖片物件及取得
+            studentGetImageTask.execute();//取得圖片
+            myViewHolder.studentName.setText(student.getStudent_Name());
+            myViewHolder.studentPhone.setText(student.getStudent_Phone());
 
 
             myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {//長按刪除，更新的部分
@@ -179,7 +166,7 @@ public class tap1fragment extends Fragment {
                                         String url = Common.URL + "/StudentServlet";
                                         JsonObject jsonObject = new JsonObject();
                                         jsonObject.addProperty("action", "studentsDelete");
-                                        jsonObject.addProperty("students", new Gson().toJson(classStudentMember));
+                                        jsonObject.addProperty("students", new Gson().toJson(student));
                                         int count = 0;
                                         try {
                                             studentsDeleteTask = new MyTask(url, jsonObject.toString());
@@ -191,7 +178,7 @@ public class tap1fragment extends Fragment {
                                         if (count == 0) {
                                             Common.showToast(getActivity(), R.string.msg_DeleteFail);
                                         } else {
-                                            classStudentMembers.remove(classStudentMember);
+                                            students.remove(student);
                                             StudentRecyclerViewAdapter.this.notifyDataSetChanged();
                                             Common.showToast(getActivity(), R.string.msg_DeleteSuccess);
                                         }
