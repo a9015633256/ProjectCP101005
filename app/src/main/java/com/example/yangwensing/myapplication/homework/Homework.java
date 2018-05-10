@@ -12,6 +12,9 @@ public class Homework implements Serializable{
     //為了新增作業資料而新增
     private int subjectId, teacherId, classId;
 
+    public Homework() {
+    }
+
     public Homework(int id, String subject, String teacher, String title, String content, Date date) {
         super();
         this.id = id;

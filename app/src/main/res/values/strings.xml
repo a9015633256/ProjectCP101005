@@ -13,7 +13,7 @@
     <string name="title_homework">Homework</string>
     <string name="title_exam">Exam</string>
     <string name="title_contact">Teacher List</string>
-    <string name="text_studentId">student ID:</string>
+    <string name="text_studentId">Student ID:</string>
     <string name="text_class">Class:</string>
     <string name="text_gender">Gender:</string>
     <string name="text_dayOfBirth">Day of Birth:</string>
@@ -106,4 +106,8 @@
     <string name="text_btNo">No</string>
     <string name="doYouReallyWantToAddThisTeacher">doYouReallyWantToAddThisTeacher?</string>
     <string name="msg_wantToLogOut">Are you sure you want to log out? All unsaved data will be lost!</string>
+    <string name="text_checkHomework">Confirm Change</string>
+    <string name="text_check">Didn\'t Hand In</string>
+    <string name="text_tabHomeworkContent">Content</string>
+    <string name="text_tabHomeworkCheck">Handing Status</string>
 </resources>

@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tlForTeacherHomework"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+
+    </android.support.design.widget.TabLayout>
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"

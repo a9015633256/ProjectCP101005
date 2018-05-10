@@ -109,7 +109,7 @@ public class LoginFragment extends Fragment {
                         bottomNavigationView.setVisibility(View.VISIBLE);
 
                     }else{
-                        Fragment studentInfoFragment = new StudentInfoFragment();
+                        Fragment studentHomeworkFragment = new StudentHomeworkFragment();
 
 //                        Bundle bundle = new Bundle();
 //                        bundle.putString("name", user);
@@ -119,7 +119,7 @@ public class LoginFragment extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                        fragmentTransaction.addToBackStack(null);
 
-                        fragmentTransaction.replace(R.id.content,studentInfoFragment);
+                        fragmentTransaction.replace(R.id.content,studentHomeworkFragment);
                         fragmentTransaction.commit();
                         bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -177,7 +177,7 @@ public class LoginFragment extends Fragment {
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment(),"TeacherHomeworkFragment").commit();
 //                bottomNavigationView.setVisibility(View.VISIBLE);
 
             }

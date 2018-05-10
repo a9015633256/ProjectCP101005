@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,11 +18,13 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.contact.StudentContactFragment;
 import com.example.yangwensing.myapplication.exam.StudentExamFragment;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
+import com.example.yangwensing.myapplication.homework.TeacherHomeworkCheckFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.BottomNavigationViewHelper;
@@ -29,6 +32,7 @@ import com.example.yangwensing.myapplication.main.Common;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnForStudent;
+    private TabLayout tlForTeacherHomeworkCheck;
     private static int alarmType = 0;
 
 
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         bnForStudent = findViewById(R.id.bnForStudent);
         BottomNavigationViewHelper.removeShiftMode(bnForStudent);
         bnForStudent.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListenerForStudent);
+        
+
 
 
         Fragment loginFragment = new LoginFragment();
@@ -49,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, loginFragment);
         fragmentTransaction.commit();
+
+        //tabLayout給老師作業勾選
+        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
+        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
+        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
 
 
     }

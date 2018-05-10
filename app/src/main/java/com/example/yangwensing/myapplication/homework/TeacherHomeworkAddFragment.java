@@ -69,12 +69,11 @@ public class TeacherHomeworkAddFragment extends Fragment {
                     jsonObject.addProperty("action", "insertHomework");
                     jsonObject.addProperty("homework", new Gson().toJson(homework));
 
-                    int newHomeworkId = -1;
                     try {
                         String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
-                        newHomeworkId = Integer.valueOf(jsonIn);
+                        int newHomeworkId = Integer.valueOf(jsonIn);
 
-                        if (newHomeworkId == -1) {
+                        if (newHomeworkId == 0) {
 
                             Common.showToast(getActivity(), R.string.text_addHomeworkFailed);
                         } else {
