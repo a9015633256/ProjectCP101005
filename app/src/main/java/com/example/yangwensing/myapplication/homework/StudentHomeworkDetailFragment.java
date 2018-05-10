@@ -38,8 +38,9 @@ public class StudentHomeworkDetailFragment extends Fragment {
 
         findViews(view);
 
-        bottomNavigationView = getActivity().findViewById(R.id.navigation);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
         bottomNavigationView.setVisibility(View.GONE);
+
 
 
         //取得上一頁資料

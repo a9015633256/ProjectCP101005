@@ -76,12 +76,11 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
                         if (newHomeworkId == -1) {
 
-                            Common.showToast(getActivity(), "Establish homework failed!!");
+                            Common.showToast(getActivity(), R.string.text_addHomeworkFailed);
                         } else {
 
-                            Common.showToast(getActivity(), "Establish succeeded!!");
-                            getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
-
+                            Common.showToast(getActivity(), R.string.text_addHomeworkSucceeded);
+                            getFragmentManager().popBackStack();
 
                         }
 

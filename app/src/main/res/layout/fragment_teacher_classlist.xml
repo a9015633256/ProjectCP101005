@@ -9,11 +9,12 @@
     android:padding="16dp">
 
 
-    <!--&lt;!&ndash;swipeRefresh下拉更新&ndash;&gt;-->
-    <!--<android.support.v4.widget.SwipeRefreshLayout-->
-        <!--android:id="@+id/swipeRefreshLayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/caselect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.TabLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvNews"
@@ -22,29 +23,29 @@
 
 
 
-    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
-    <Button
-        android:id="@+id/btttCreat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="建立班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
-    <Button
-        android:id="@+id/btJoin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="加入班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
-    <Button
-        android:id="@+id/btDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="刪除班級"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/btttCreat"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="建立班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/btJoin"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="加入班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
+    <!--<Button-->
+        <!--android:id="@+id/btDelete"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="刪除班級"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@color/Project"/>-->
 
     <!-- build.gradle (Module:app) must add [com.android.support:design] API -->
     <android.support.design.widget.CoordinatorLayout

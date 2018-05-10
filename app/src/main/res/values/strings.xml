@@ -32,8 +32,8 @@
     <string name="title_infoEdit">Editing Info</string>
     <string name="title_navigation_info">Info</string>
     <string name="text_confirmEditInfo">Apply Changes</string>
-    <string name="text_Exit">Exit</string>
-    <string name="msg_WantToExit">Are you sure you want to leave? All unsaved data will be lost!</string>
+    <string name="text_exit">Exit</string>
+    <string name="msg_wantToExit">Are you sure you want to leave? All unsaved data will be lost!</string>
     <string name="msg_WantToDelete">Are you sure you want to delete this item? This is an irreversible action!</string>
     <string name="text_Yes">Exit</string>
     <string name="text_No">Cancel</string>
@@ -49,6 +49,14 @@
     <string name="text_deleteHomework">Delete Homework</string>
     <string name="text_delete">delete</string>
     <string name="text_teacher">Teacher</string>
+    <string name="text_address">Address:</string>
+    <string name="text_addHomeworkFailed">Establish homework failed!!</string>
+    <string name="text_addHomeworkSucceeded">Establish succeeded!!</string>
+    <string name="text_editStudentInfoSucceeded">Update succeeded!!</string>
+    <string name="text_editStudentInfoFailed">Update Failed!!</string>
+    <string name="text_takePhoto">Take Photo</string>
+    <string name="text_pickPhoto">Pick Photo</string>
+    <string name="msg_NoCameraAppsFound">No Camera Apps Found!!</string>
     <string-array name="subject">
         <item>國文</item>
         <item>英文</item>
@@ -97,4 +105,5 @@
     <string name="text_btYes">Yes</string>
     <string name="text_btNo">No</string>
     <string name="doYouReallyWantToAddThisTeacher">doYouReallyWantToAddThisTeacher?</string>
+    <string name="msg_wantToLogOut">Are you sure you want to log out? All unsaved data will be lost!</string>
 </resources>

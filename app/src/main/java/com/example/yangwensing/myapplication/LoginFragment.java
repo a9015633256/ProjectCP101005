@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content, fragmentRegister);
+                fragmentTransaction.replace(R.id.content,fragmentRegister);
                 fragmentTransaction.commit();
 
 
@@ -68,39 +68,40 @@ public class LoginFragment extends Fragment {
                 String user = etName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                if (isUserValid(user, password)) {
-                    Fragment classManager = new ClassManager();
+                    if (isUserValid(user,password)) {
+                        Fragment classManager = new ClassManager();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", user);
-                    classManager.setArguments(bundle);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", user);
+                        classManager.setArguments(bundle);
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                        fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.content, classManager);
-                    fragmentTransaction.commit();
-                    bottomNavigationView.setVisibility(View.VISIBLE);
+                        fragmentTransaction.replace(R.id.content,classManager);
+                        fragmentTransaction.commit();
+                        bottomNavigationView.setVisibility(View.VISIBLE);
 
 
-                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Success", Toast.LENGTH_SHORT).show();
 
-                }
+                    } else{
+                        Toast.makeText(getActivity(),"fail", Toast.LENGTH_SHORT).show();
+
+                    }
 
 
             }
         });
 
 
+
         return view;
 
     }
-
-    private boolean isUserValid(String name, String password) {
+    private boolean isUserValid(String name,String password) {
         boolean isUserValid = false;
 
         if (networkConnected()) {
@@ -120,8 +121,8 @@ public class LoginFragment extends Fragment {
                 Log.e(TAG, e.toString());
             }
         }
-        return isUserValid;
-    }
+            return isUserValid;
+        }
 
 
     @Override
@@ -131,7 +132,6 @@ public class LoginFragment extends Fragment {
             loginTask.cancel(true);
         }
     }
-
     private boolean networkConnected() {
         ConnectivityManager conManager =
                 (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);

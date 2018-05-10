@@ -26,7 +26,7 @@ public class StudentContactDetailFragment extends Fragment {
 
         findViews(view);
 
-        bottomNavigationView = getActivity().findViewById(R.id.navigation);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
         bottomNavigationView.setVisibility(View.GONE);
 
         return view; //要改成回傳view

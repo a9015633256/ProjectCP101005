@@ -87,7 +87,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                         } else {
 
                             Common.showToast(getActivity(), "Update succeeded!!");
-                            getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
+                            getFragmentManager().popBackStack();
 
 
                         }
@@ -189,7 +189,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                             } else {
 
                                 Common.showToast(getActivity(), "Delete succeeded!!");
-                                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment()).commit();
+                                getFragmentManager().popBackStack();
 
 
                             }
