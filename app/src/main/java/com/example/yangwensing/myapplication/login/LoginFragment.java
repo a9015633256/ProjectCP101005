@@ -102,7 +102,7 @@ public class LoginFragment extends Fragment {
 
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.addToBackStack(null);
+//                        fragmentTransaction.addToBackStack(null);
 
                         fragmentTransaction.replace(R.id.content,classManager);
                         fragmentTransaction.commit();
