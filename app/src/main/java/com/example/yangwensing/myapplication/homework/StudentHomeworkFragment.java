@@ -199,7 +199,7 @@ public class StudentHomeworkFragment extends Fragment {
                 tvTitle.setText(homeworkIsDone.getTitle());
 
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
-                if (!homeworkIsDone.isHomewokDone()) {
+                if (homeworkIsDone.isHomeworkDone()) {
                     tvIsCompleted.setText("未完成");
                 }
 

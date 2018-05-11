@@ -37,6 +37,8 @@ public class TeacherHomeworkFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton fabAddHomework;
 
+    private List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
+
     //裝偏好設定檔儲存的資料
     private int classId;
     private String className;
@@ -49,6 +51,20 @@ public class TeacherHomeworkFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_homework, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
+        //假如頁面重疊、消滅頁面
+        if (getFragmentManager() != null) {
+            Fragment fragment = getFragmentManager().findFragmentByTag("TeacherHomeworkCheckFragment");
+            if (fragment != null) {
+                getFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+
+            Fragment fragment2 = getFragmentManager().findFragmentByTag("TeacherHomeworkUpdateDeleteFragment");
+            if (fragment2 != null) {
+                getFragmentManager().beginTransaction().remove(fragment2).commit();
+
+            }
+        }
+
         getDataFromPref();
 
         getActivity().setTitle(className + "  Homework Overview");
@@ -56,8 +72,28 @@ public class TeacherHomeworkFragment extends Fragment {
         findViews(view);
 
         //取得db資料
-        List<Homework> homeworkList; //放db回傳資料
-        List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
+        getDataFromDB();
+
+
+        //rv
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(hashSet, getActivity());
+        recyclerView.setAdapter(homeworkAdapter);
+
+        //增加作業
+        fabAddHomework.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkAddFragment()).addToBackStack(null).commit();
+            }
+        });
+
+
+        return view; //要改成回傳view
+    }
+
+    private void getDataFromDB() {
 
         if (Common.networkConnected(getActivity())) {
 
@@ -74,7 +110,7 @@ public class TeacherHomeworkFragment extends Fragment {
                 Type listType = new TypeToken<List<HomeworkIsDone>>() {
                 }.getType();
 
-                homeworkList = gson.fromJson(jsonIn, listType);
+                List<Homework> homeworkList = gson.fromJson(jsonIn, listType);
 
                 //回傳資料按日期整理
                 for (Homework homework : homeworkList) {
@@ -115,23 +151,12 @@ public class TeacherHomeworkFragment extends Fragment {
 
         }
 
-        //rv
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(hashSet, getActivity());
-        recyclerView.setAdapter(homeworkAdapter);
+    }
 
-        //增加作業
-        fabAddHomework.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.content, new TeacherHomeworkAddFragment()).commit();
-            }
-        });
-
-
-        return view; //要改成回傳view
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        hashSet.clear();
     }
 
     private void getDataFromPref() {
@@ -201,7 +226,9 @@ public class TeacherHomeworkFragment extends Fragment {
                         TeacherHomeworkUpdateDeleteFragment teacherHomeworkUpdateDeleteFragment = new TeacherHomeworkUpdateDeleteFragment();
                         teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkUpdateDeleteFragment).addToBackStack(null).commit();
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkUpdateDeleteFragment,"TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
+                        }
 
 
                     }

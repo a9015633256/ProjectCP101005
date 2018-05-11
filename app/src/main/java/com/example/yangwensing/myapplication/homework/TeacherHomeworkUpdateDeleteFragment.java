@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +28,9 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     //    private BottomNavigationView bottomNavigationView;
     private EditText etTitle, etContent;
     private Button btUpdate;
+    private TabLayout tabLayout;
+    private TabLayout.OnTabSelectedListener onTabSelectedListener;
+
 
     //接上一頁資料用
     private static Homework homework;
@@ -45,8 +49,9 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
+
         //取得上一頁資料
-        Bundle bundle = getArguments();
+        final Bundle bundle = getArguments();
         if (bundle != null) {
             homework = (Homework) bundle.getSerializable("homework");
         }
@@ -57,6 +62,45 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         } else {
             Common.showToast(getActivity(), R.string.text_data_error);
         }
+
+        //tabLayout給老師作業勾選
+        tabLayout = getActivity().findViewById(R.id.tlForTeacherHomework);
+        tabLayout.getTabAt(0).select();
+        tabLayout.setVisibility(View.VISIBLE);
+
+        onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        break;
+                    case 1:
+                        TeacherHomeworkCheckFragment teacherHomeworkCheckFragment = new TeacherHomeworkCheckFragment();
+                        teacherHomeworkCheckFragment.setArguments(bundle);
+
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkCheckFragment, "TeacherHomeworkCheckFragment").commit();
+                        }
+                        break;
+                    default:
+                        break;
+
+
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        };
+        tabLayout.addOnTabSelectedListener(onTabSelectedListener);
 
 
         btUpdate.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +119,12 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                     jsonObject.addProperty("homeworkTitle", title);
                     jsonObject.addProperty("homeworkContent", content);
 
-                    int count = -1;
 
                     try {
                         String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
-                        count = Integer.valueOf(jsonIn);
+                        int count = Integer.valueOf(jsonIn);
 
-                        if (count == -1) {
+                        if (count == 0) {
 
                             Common.showToast(getActivity(), "Update homework failed!!");
                         } else {
@@ -113,21 +156,13 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         return view; //要改成回傳view
     }
 
-    private void findViews(View view) {
-        etTitle = view.findViewById(R.id.etAddHomeworkTitle);
-        etContent = view.findViewById(R.id.etAddHomeworkContent);
-        btUpdate = view.findViewById(R.id.btUpdateHomework);
-
-
-    }
 
     @Override
-    public void onStop() {
-//        bottomNavigationView.setVisibility(View.VISIBLE);
-
-        super.onStop();
+    public void onDestroyView() {
+        tabLayout.setVisibility(View.GONE);
+        tabLayout.removeOnTabSelectedListener(onTabSelectedListener);
+        super.onDestroyView();
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -154,6 +189,15 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private void findViews(View view) {
+        etTitle = view.findViewById(R.id.etAddHomeworkTitle);
+        etContent = view.findViewById(R.id.etAddHomeworkContent);
+        btUpdate = view.findViewById(R.id.btUpdateHomework);
+
+
+    }
+
+
     public static class AlertDialogFragment
             extends DialogFragment implements DialogInterface.OnClickListener {
         @NonNull
@@ -179,12 +223,12 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                         jsonObject.addProperty("action", "deleteHomework");
                         jsonObject.addProperty("homeworkId", homework.getId());
 
-                        int count = -1;
+                        int count = 0;
                         try {
                             String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
                             count = Integer.valueOf(jsonIn);
 
-                            if (count == -1) {
+                            if (count == 0) {
                                 Common.showToast(getActivity(), "Delete homework failed!!");
                             } else {
 
