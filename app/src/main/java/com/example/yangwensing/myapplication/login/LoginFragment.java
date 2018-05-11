@@ -115,6 +115,10 @@ public class LoginFragment extends Fragment {
                     } else {
 
                         getStudentId(user, password);
+                        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                        preferences.edit()
+                                .putString("studentnumber", user)
+                                .apply();
 
                         //底部導覽列選第一項
                         bnForStudent.setSelectedItemId(R.id.navigation_homework);
