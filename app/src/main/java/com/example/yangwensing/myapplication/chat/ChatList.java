@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -50,6 +51,7 @@ public class ChatList extends Fragment {
     private RecyclerView rvChatlist;
     private MyTask chatlistTask;
     String sender = "";
+    private BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
@@ -57,6 +59,7 @@ public class ChatList extends Fragment {
         View view = inflater.inflate(R.layout.chatlist, container, false);
         rvChatlist = view.findViewById(R.id.rvchatlist);
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
@@ -70,7 +73,10 @@ public class ChatList extends Fragment {
     public void onStart() {
         super.onStart();
         showAllcanchat();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
     }
+
 
 
     private class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.MyViewHolder> {
@@ -109,7 +115,7 @@ public class ChatList extends Fragment {
 
                     fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.content,chatFragment);
+                    fragmentTransaction.replace(R.id.main_content,chatFragment);
                     fragmentTransaction.commit();
                 }
             });
@@ -168,5 +174,7 @@ public class ChatList extends Fragment {
         if (chatlistTask != null) {
             chatlistTask.cancel(true);
         }
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

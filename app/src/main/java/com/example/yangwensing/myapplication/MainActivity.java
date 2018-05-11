@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Fragment loginFragment = new LoginFragment();
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, loginFragment);

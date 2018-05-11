@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -63,7 +64,7 @@ public class ChatFragment extends Fragment {
 
     private Button btsend;
     private EditText etmessage;
-
+    private BottomNavigationView bottomNavigationView;
 
 
     @Nullable
@@ -77,6 +78,7 @@ public class ChatFragment extends Fragment {
 
         btsend = view.findViewById(R.id.btSend);
         etmessage = view.findViewById(R.id.etMessage);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
 
@@ -224,5 +226,16 @@ public class ChatFragment extends Fragment {
                 scrollView.fullScroll(View.FOCUS_DOWN);//自動捲動到最下面
             }
         });
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+    public void onStop() {
+        super.onStop();
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }
