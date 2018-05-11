@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -34,6 +35,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
     //接上一頁資料用
     private static Homework homework;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Nullable
@@ -43,9 +45,6 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         getActivity().setTitle(R.string.title_homeworkUpdateDelete);
 
         findViews(view);
-
-//        bottomNavigationView = getActivity().findViewById(R.id.navigation);
-//        bottomNavigationView.setVisibility(View.GONE);
 
         setHasOptionsMenu(true);
 
@@ -79,7 +78,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                         teacherHomeworkCheckFragment.setArguments(bundle);
 
                         if (getFragmentManager() != null) {
-                            getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkCheckFragment, "TeacherHomeworkCheckFragment").commit();
+                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkCheckFragment, "TeacherHomeworkCheckFragment").commit();
                         }
                         break;
                     default:
@@ -156,6 +155,23 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         return view; //要改成回傳view
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        super.onStop();
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -193,6 +209,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
         etTitle = view.findViewById(R.id.etAddHomeworkTitle);
         etContent = view.findViewById(R.id.etAddHomeworkContent);
         btUpdate = view.findViewById(R.id.btUpdateHomework);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
     }

@@ -12,8 +12,14 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.chat.ChatWebSocketClient;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by nameless on 2018/4/23.
@@ -26,7 +32,49 @@ public class Common {
     public final static String PREF_FILE = "preference";
     public final static String URL = "http://10.0.2.2:8080/SchoolConnectionBook";
     public final static String URLForMingTa = "http://10.0.2.2:8080/iContact";
+    public static final String SERVER_URI =
+            "http://10.0.2.2:8080/PleaseLogin/TwoChatServer/";
     public static final int PERMISSION_READ_EXTERNAL_STORAGE = 0;
+    public static ChatWebSocketClient chatWebSocketClient;
+
+
+
+    // 建立WebSocket連線
+    public static void connectServer(Context context, String userName) {
+        URI uri = null;
+        try {
+            uri = new URI(SERVER_URI + userName);
+        } catch (URISyntaxException e) {
+            Log.e(TAG, e.toString());
+        }
+        if (chatWebSocketClient == null) {
+            chatWebSocketClient = new ChatWebSocketClient(uri, context);
+            chatWebSocketClient.connect();
+        }
+    }
+
+    // 中斷WebSocket連線
+    public static void disconnectServer() {
+        if (chatWebSocketClient != null) {
+            chatWebSocketClient.close();
+            chatWebSocketClient = null;
+        }
+    }
+    public static void setUserName(Context context, String userName) {
+        SharedPreferences preferences =
+                context.getSharedPreferences("user", MODE_PRIVATE);
+        preferences.edit().putString("userName", userName).apply();
+    }
+
+    public static String getUserName(Context context) {
+        SharedPreferences preferences =
+                context.getSharedPreferences("user", MODE_PRIVATE);
+        String userName = preferences.getString("userName", "");
+        Log.d(TAG, "userName = " + userName);
+        return userName;
+    }
+
+
 
 
     //檢查網路

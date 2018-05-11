@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,6 +50,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private List<HomeworkCheck> newHomeworkCheckList = new ArrayList<>();
     private TabLayout tabLayout;
     private TabLayout.OnTabSelectedListener onTabSelectedListener;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Nullable
@@ -84,7 +86,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
                         TeacherHomeworkUpdateDeleteFragment teacherHomeworkUpdateDeleteFragment = new TeacherHomeworkUpdateDeleteFragment();
                         teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
                         if (getFragmentManager() != null) {
-                            getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkUpdateDeleteFragment, "TeacherHomeworkUpdateDeleteFragment").commit();
+                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment, "TeacherHomeworkUpdateDeleteFragment").commit();
                         }
                         break;
                     case 1:
@@ -174,6 +176,23 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        super.onStop();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         tabLayout.setVisibility(View.GONE);
@@ -195,6 +214,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvCheckList);
         btCheck = view.findViewById(R.id.btCheckHomework);
+        bottomNavigationView= getActivity().findViewById(R.id.btNavigation_Bar);
 
 
     }

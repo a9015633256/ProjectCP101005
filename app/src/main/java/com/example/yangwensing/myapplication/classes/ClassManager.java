@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.chat.ChatList;
 import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
@@ -65,6 +66,7 @@ public class ClassManager extends Fragment {
 //        btdelete = view.findViewById(R.id.btDelete);
 //        btCreat = view.findViewById(R.id.btttCreat);
 //        btJoin = view.findViewById(R.id.btJoin);
+
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
@@ -104,6 +106,7 @@ public class ClassManager extends Fragment {
 
             }
         });
+
 
 //點擊方塊style
 //        btCreat.setOnClickListener(new View.OnClickListener() {

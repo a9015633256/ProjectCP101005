@@ -24,6 +24,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -112,6 +113,7 @@ public class tap1fragment extends Fragment {
             Common.showToast(getActivity(), R.string.msg_NoNetwork);
         }
     }
+
     private void getClassName() {
         SharedPreferences preferences = getActivity().getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
         c = preferences.getString("c", "");
@@ -206,10 +208,28 @@ public class tap1fragment extends Fragment {
                     return true;
                 }
             });
+            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int studentId = classStudentMember.getId();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("studentIdForTeacher", studentId);
+
+                    StudentInfoFragment studentInfoFragment=  new StudentInfoFragment();
+                    studentInfoFragment.setArguments(bundle);
+
+                    if (getFragmentManager() != null) {
+                        getFragmentManager().beginTransaction().replace(R.id.content, studentInfoFragment).addToBackStack(null).commit();
+                    }
+
+
+                }
+            });
+
         }
-
     }
-
 
     @Override
     public void onStop() {

@@ -3,10 +3,7 @@ package com.example.yangwensing.myapplication.chat;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,22 +11,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.chat.ChatList;
-import com.example.yangwensing.myapplication.classes.ClassCreate;
-import com.example.yangwensing.myapplication.classes.ClassManager;
-import com.example.yangwensing.myapplication.classes.Classes;
-import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
-import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -37,7 +24,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.security.PublicKey;
 import java.util.List;
 
 import static com.example.yangwensing.myapplication.info.StudentInfoEditFragment.TAG;
@@ -46,12 +32,11 @@ import static com.example.yangwensing.myapplication.info.StudentInfoEditFragment
  * Created by nameless on 2018/5/10.
  */
 
-public class ChatList extends Fragment {
+public class MotherList extends Fragment {
 
     private RecyclerView rvChatlist;
     private MyTask chatlistTask;
     String sender = "";
-    private BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
@@ -59,11 +44,11 @@ public class ChatList extends Fragment {
         View view = inflater.inflate(R.layout.chatlist, container, false);
         rvChatlist = view.findViewById(R.id.rvchatlist);
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
-        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+
 
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        sender = preferences.getString("name","user");
+        sender = preferences.getString("studentnumber","user");
 
 
 
@@ -72,11 +57,8 @@ public class ChatList extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        showAllcanchat();
-        //隱藏底部導覽列
-        bottomNavigationView.setVisibility(View.GONE);
+        showmothercanchat();
     }
-
 
 
     private class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.MyViewHolder> {
@@ -115,7 +97,7 @@ public class ChatList extends Fragment {
 
                     fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.main_content,chatFragment);
+                    fragmentTransaction.replace(R.id.content,chatFragment);
                     fragmentTransaction.commit();
                 }
             });
@@ -140,13 +122,13 @@ public class ChatList extends Fragment {
             }
         }
     }
-    private void showAllcanchat() {
+    private void showmothercanchat() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
 
             List<ChatLists> chatLists = null;
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "getchatlist");
+            jsonObject.addProperty("action", "getmotherlist");
             jsonObject.addProperty("senderte",sender);
             String jsonOut = jsonObject.toString();
             chatlistTask = new MyTask(url, jsonOut);
@@ -163,7 +145,7 @@ public class ChatList extends Fragment {
                 Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
 
             } else {
-                rvChatlist.setAdapter(new ChatList.ChatListRecyclerViewAdapter(getActivity(), chatLists));
+                rvChatlist.setAdapter(new MotherList.ChatListRecyclerViewAdapter(getActivity(), chatLists));
             }
         } else {
             Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
@@ -174,7 +156,5 @@ public class ChatList extends Fragment {
         if (chatlistTask != null) {
             chatlistTask.cancel(true);
         }
-        //重新顯示底部導覽列
-        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

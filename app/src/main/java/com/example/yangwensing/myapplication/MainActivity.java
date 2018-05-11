@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         Fragment loginFragment = new LoginFragment();
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, loginFragment);
@@ -117,11 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
                 new AlertDialogFragment().show(getSupportFragmentManager(), "exit"); //呼叫警示視窗fragment
 
-                //清除所有backStack
-                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                //回到登入頁面
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
 
                break;
             case R.id.menu_settings:
