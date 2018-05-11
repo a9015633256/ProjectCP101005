@@ -42,9 +42,18 @@ public class StudentInfoFragment extends Fragment {
 
         findViews(view);
 
-        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.getInt("studentIdForTeacher") != 0) {
+            studentId = bundle.getInt("studentIdForTeacher");
 
-        studentId = Common.getDataFromPref(getActivity(), "studentId", 0);
+
+        } else {
+            setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+            studentId = Common.getDataFromPref( getActivity(), "studentId", 0);
+
+        }
+
+
 
         //取得db資訊並顯示在畫面上
         getStudentInfo();

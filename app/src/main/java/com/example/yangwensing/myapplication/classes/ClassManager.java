@@ -1,6 +1,7 @@
 package com.example.yangwensing.myapplication.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,6 +35,8 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.security.PublicKey;
 import java.util.List;
+
+import TeacherMainActivityView.teacher_main_activity.MainActivity;
 
 public class ClassManager extends Fragment {
 
@@ -364,11 +367,28 @@ public class ClassManager extends Fragment {
             return classes.size();
         }
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder, int position) {
             final Classes c = classes.get(position);
             String url = Common.URL + "/LoginHelp";
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                    String classis = holder.tvClass.getText().toString();
+                    preferences.edit()
+                            .putString("c",classis)
+                            .apply();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("c",classis);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("tvclass",bundle);
+                    startActivity(intent);
+
+                }
+            });
 
         }
 

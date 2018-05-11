@@ -22,6 +22,6 @@ public class Classes implements Serializable {
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
 	}
-	
-	
+
+
 }
