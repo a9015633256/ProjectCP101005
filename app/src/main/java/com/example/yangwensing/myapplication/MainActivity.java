@@ -215,5 +215,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        //結束程式時
+        //重置偏好設定檔儲存的登入設定
+        SharedPreferences preferences = getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        preferences.edit()
+                .putInt("studentId", 0)
+                .putInt("teacherId", 0)
+                .putInt("subjectId", 0)
+                .putInt("classId", 0)
+                .putString("className", "")
+                .apply();
+        super.onDestroy();
+    }
 }
