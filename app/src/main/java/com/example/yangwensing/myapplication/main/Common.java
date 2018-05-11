@@ -24,7 +24,7 @@ public class Common {
     //常用字串
     private static final String TAG = "Common";
     public final static String PREF_FILE = "preference";
-    public final static String URL = "http://10.0.2.2:8080/PleaseLogin";
+    public final static String URL = "http://10.0.2.2:8080/SchoolConnectionBook";
     public final static String URLForMingTa = "http://10.0.2.2:8080/iContact";
     public static final int PERMISSION_READ_EXTERNAL_STORAGE = 0;
 

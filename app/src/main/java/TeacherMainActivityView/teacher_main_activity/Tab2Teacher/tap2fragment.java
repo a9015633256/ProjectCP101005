@@ -165,4 +165,16 @@ public class tap2fragment extends Fragment {
 
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (teacherGetImageTask != null) {
+            teacherGetImageTask.cancel(true);
+        }
+        if (ClassSubjectTeacherTask != null) {
+            ClassSubjectTeacherTask.cancel(true);
+        }
+
+    }
 }
