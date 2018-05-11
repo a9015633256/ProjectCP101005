@@ -21,7 +21,7 @@ public class Common {
     }
 
     //常用字串
-    public final static String URL = "http://10.0.2.2:8080/PleaseLogin";
+    public final static String URL = "http://10.0.2.2:8080/SchoolConnectionBook";
     public final static String URLForMingTa = "http://10.0.2.2:8080/iContact";
     public final static String PREF_FILE = "preference";
     private static final String TAG = "Common";
