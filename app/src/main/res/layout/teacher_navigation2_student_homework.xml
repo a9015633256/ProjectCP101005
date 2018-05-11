@@ -8,14 +8,14 @@
     android:fitsSystemWindows="true"
     tools:context="TeacherMainActivityView.teacher_main_activity.MainActivity">
 
-    <TextView
-        android:id="@+id/tvTitle2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="GoodMorning2"
-        android:textSize="30sp"
-        android:textAlignment="center"/>
+    <!--<TextView-->
+        <!--android:id="@+id/tvTitle2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="80dp"-->
+        <!--android:text="GoodMorning2"-->
+        <!--android:textSize="30sp"-->
+        <!--android:textAlignment="center"/>-->
 
     <RelativeLayout
         android:id="@+id/bottomBar"

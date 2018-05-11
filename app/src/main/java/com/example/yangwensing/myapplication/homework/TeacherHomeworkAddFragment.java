@@ -31,6 +31,7 @@ public class TeacherHomeworkAddFragment extends Fragment {
     private String className;
     private int teacherId;
     private int subjectId;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Nullable
@@ -104,6 +105,17 @@ public class TeacherHomeworkAddFragment extends Fragment {
         return view; //要改成回傳view
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+
     private void getDataFromPref() {
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         teacherId = preferences.getInt("teacherId", 0);
@@ -118,13 +130,15 @@ public class TeacherHomeworkAddFragment extends Fragment {
         etTitle = view.findViewById(R.id.etAddHomeworkTitle);
         etContent = view.findViewById(R.id.etAddHomeworkContent);
         btAdd = view.findViewById(R.id.btAddHomework);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
     }
 
     @Override
     public void onStop() {
-//        bottomNavigationView.setVisibility(View.VISIBLE);
+//重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         super.onStop();
     }
