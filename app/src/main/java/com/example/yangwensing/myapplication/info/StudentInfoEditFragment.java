@@ -187,14 +187,6 @@ public class StudentInfoEditFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        //重新顯示底部導覽列
-        bottomNavigationView.setVisibility(View.VISIBLE);
-
-        super.onStop();
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case Common.PERMISSION_READ_EXTERNAL_STORAGE:
@@ -364,7 +356,13 @@ public class StudentInfoEditFragment extends Fragment {
     }
 
 
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
+        super.onStop();
+    }
 
 
     //datePicker選生日

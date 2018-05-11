@@ -57,7 +57,6 @@ public class StudentHomeworkFragment extends Fragment {
         getActivity().setTitle(R.string.title_homework);
 
 
-
         btttest = view.findViewById(R.id.btttest);
         btttest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,19 +64,18 @@ public class StudentHomeworkFragment extends Fragment {
                 Fragment motherList = new MotherList();
 
 
-
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,motherList);
+                fragmentTransaction.replace(R.id.content, motherList);
                 fragmentTransaction.commit();
             }
         });
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        ccc = preferences.getString("","user");
+        ccc = preferences.getString("", "user");
 
 
         findViews(view);
