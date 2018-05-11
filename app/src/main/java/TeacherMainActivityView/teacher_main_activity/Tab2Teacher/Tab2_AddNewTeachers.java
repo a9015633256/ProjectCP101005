@@ -4,6 +4,7 @@ package TeacherMainActivityView.teacher_main_activity.Tab2Teacher;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +42,8 @@ public class Tab2_AddNewTeachers extends Fragment {
     private RecyclerView rlTeachers;
     private MyTask SearchTask;
     private TeacherGetImageTask teacherGetImageTask;
+    private MyTask InsertTask;
+    private int classId;
 
     @Nullable
     @Override
@@ -103,6 +106,7 @@ public class Tab2_AddNewTeachers extends Fragment {
         private LayoutInflater layoutInflater;
         private List<Teachers> teachers;
         private int imageSize;
+        private int classId = 0;
 
         public rlSearchTeacher(Context context, List<Teachers> teachers) {
             layoutInflater = LayoutInflater.from(context);
@@ -139,11 +143,17 @@ public class Tab2_AddNewTeachers extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
             final Teachers teacher = teachers.get(position);
             String url = Common.URL + "/TeachersListServerlet";
-            int id = teacher.getId();
+            final int id = teacher.getId();
             teacherGetImageTask = new TeacherGetImageTask(url, id, imageSize, myViewHolder.teacherImageview);
             teacherGetImageTask.execute();
             myViewHolder.teacherName.setText(teacher.getTeacher_Account());
             myViewHolder.teacherPhone.setText(teacher.getTeacher_Phone());
+
+            classId = getClassId();
+
+            SharedPreferences preferences = getActivity().getSharedPreferences
+                    (com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+            preferences.edit().putInt("id", id);
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -152,7 +162,24 @@ public class Tab2_AddNewTeachers extends Fragment {
                             .setMessage(R.string.doYouReallyWantToAddThisTeacher)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    if (Common.networkConnected(getActivity())) {
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "SubjectTeacherInsert");
+                                        jsonObject.addProperty("Class_Name", classId);
+                                        jsonObject.addProperty("Class_SubjectTeacher", id);
+                                        try {
+                                            InsertTask = new MyTask(Common.URL + "/TeachersListServerlet", jsonObject.toString());
+                                            int count = Integer.valueOf(InsertTask.execute().get());
+                                            if (count == 0) {
+                                                Toast.makeText(getActivity(), "SignUp Success", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch (Exception e) {
+                                            Log.e(TAG, "error message" + toString());
+                                        }
 
+                                    } else {
+                                        Toast.makeText(getActivity(), "NetWork connection fail", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             })
                             .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -177,5 +204,12 @@ public class Tab2_AddNewTeachers extends Fragment {
         }
         ((MainActivity) getActivity()).showFloatingActionButton();
     }
+
+    private int getClassId() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+        int id = preferences.getInt("classId", 0);
+        return id;
+    }
+
 
 }

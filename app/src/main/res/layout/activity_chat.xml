@@ -21,6 +21,8 @@
             android:layout_marginLeft="6dp"
             android:background="#ffffff">
 
+
+
             <EditText
                 android:id="@+id/etMessage"
                 android:layout_width="0dp"
@@ -35,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:text="send"/>
+
         </LinearLayout>
 
 
@@ -50,18 +53,14 @@
         android:layout_alignParentTop="true"
         android:background="#ffffdd">
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/layout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical"-->
-            <!--android:padding="12dp" />-->
-
-        <TextView
-            android:id="@+id/tvMessage"
+        <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:padding="12dp" />
+
+
 
     </ScrollView>
 
