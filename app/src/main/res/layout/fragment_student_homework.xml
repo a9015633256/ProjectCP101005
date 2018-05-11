@@ -13,13 +13,7 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
-    <Button
-        android:id="@+id/btttest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:layout_marginTop="16dp"
-        android:background="@color/Project"/>
+    
 
 
 </LinearLayout>

@@ -42,7 +42,7 @@ public class StudentHomeworkFragment extends Fragment {
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
     private List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
-    Button btttest;
+
 
 
     private int studentId;
@@ -58,21 +58,7 @@ public class StudentHomeworkFragment extends Fragment {
 
 
 
-        btttest = view.findViewById(R.id.btttest);
-        btttest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment motherList = new MotherList();
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.addToBackStack(null);
-
-                fragmentTransaction.replace(R.id.content,motherList);
-                fragmentTransaction.commit();
-            }
-        });
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         ccc = preferences.getString("","user");

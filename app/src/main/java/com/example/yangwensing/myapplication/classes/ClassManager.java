@@ -44,7 +44,6 @@ public class ClassManager extends Fragment {
     private RecyclerView rvClass;
     private MyTask classgetTask;
 //    private Button btdelete,btCreat,btJoin;
-    private Button bttest;
     private TabLayout caselect;
     List<Classes> classes = null;
 
@@ -67,7 +66,7 @@ public class ClassManager extends Fragment {
 //        btdelete = view.findViewById(R.id.btDelete);
 //        btCreat = view.findViewById(R.id.btttCreat);
 //        btJoin = view.findViewById(R.id.btJoin);
-        bttest = view.findViewById(R.id.bttest);
+
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
@@ -107,21 +106,7 @@ public class ClassManager extends Fragment {
 
             }
         });
-        bttest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment chatList = new ChatList();
 
-
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                fragmentTransaction.addToBackStack(null);
-
-                fragmentTransaction.replace(R.id.content,chatList);
-                fragmentTransaction.commit();
-            }
-        });
 
 //點擊方塊style
 //        btCreat.setOnClickListener(new View.OnClickListener() {
