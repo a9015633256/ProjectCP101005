@@ -365,6 +365,7 @@ public class ClassManager extends Fragment {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("tvclass",bundle);
                     startActivity(intent);
+
                 }
             });
 
