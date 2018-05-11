@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.chat.ChatList;
 import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
@@ -40,6 +41,7 @@ public class ClassManager extends Fragment {
     private RecyclerView rvClass;
     private MyTask classgetTask;
 //    private Button btdelete,btCreat,btJoin;
+    private Button bttest;
     private TabLayout caselect;
     List<Classes> classes = null;
 
@@ -62,6 +64,7 @@ public class ClassManager extends Fragment {
 //        btdelete = view.findViewById(R.id.btDelete);
 //        btCreat = view.findViewById(R.id.btttCreat);
 //        btJoin = view.findViewById(R.id.btJoin);
+        bttest = view.findViewById(R.id.bttest);
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
@@ -99,6 +102,24 @@ public class ClassManager extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
+        bttest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment chatList = new ChatList();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("sender", user);
+                chatList.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.replace(R.id.content,chatList);
+                fragmentTransaction.commit();
             }
         });
 

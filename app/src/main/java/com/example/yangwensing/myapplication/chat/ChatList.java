@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.chat.ChatList;
+import com.example.yangwensing.myapplication.classes.ClassCreate;
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.classes.Classes;
 import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
@@ -92,6 +93,25 @@ public class ChatList extends Fragment {
             final ChatLists cl = chatLists.get(position);
             String url = Common.URL + "/LoginHelp";
             holder.tvreceiver.setText(cl.getReceiver());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Fragment chatFragment = new ChatFragment();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("receiver", cl.getReceiver());
+                    bundle.putString("sender",sender);
+                    chatFragment.setArguments(bundle);
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.replace(R.id.content,chatFragment);
+                    fragmentTransaction.commit();
+                }
+            });
 
         }
 
