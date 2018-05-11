@@ -58,8 +58,9 @@ public class ChatList extends Fragment {
         rvChatlist = view.findViewById(R.id.rvchatlist);
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        final Bundle bundle = getArguments();
-        sender = bundle.getString("sender");
+
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        sender = preferences.getString("name","user");
 
 
 

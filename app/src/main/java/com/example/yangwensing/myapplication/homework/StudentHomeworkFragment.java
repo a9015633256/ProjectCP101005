@@ -64,8 +64,6 @@ public class StudentHomeworkFragment extends Fragment {
             public void onClick(View v) {
                 Fragment motherList = new MotherList();
 
-
-
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

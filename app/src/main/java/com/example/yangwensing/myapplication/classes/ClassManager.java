@@ -112,9 +112,6 @@ public class ClassManager extends Fragment {
             public void onClick(View v) {
                 Fragment chatList = new ChatList();
 
-                Bundle bundle = new Bundle();
-                bundle.putString("sender", user);
-                chatList.setArguments(bundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
