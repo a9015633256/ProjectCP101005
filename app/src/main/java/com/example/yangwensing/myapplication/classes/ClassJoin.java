@@ -6,18 +6,31 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nameless on 2018/4/26.
@@ -25,27 +38,75 @@ import com.example.yangwensing.myapplication.main.Common;
 
 public class ClassJoin extends Fragment {
 
-    String user ="";
-
+    private String user ="";
+    private final static String TAG = "ResultFragment";
+    private MyTask myTask;
+    private RecyclerView recycler;
+    private EditText etSearch;
+    private Button btSearch;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.classjoin, container, false);
-
         getActivity().setTitle("加入班級");
-
+        recycler = view.findViewById(R.id.recyclerr);
+        recycler.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+        etSearch = view.findViewById(R.id.etSearch);
+        btSearch = view.findViewById(R.id.btSearch);
         Bundle bundle = getArguments();
         user = bundle.getString("name");
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                find();
 
-
-//        getFragmentManager().popBackStack("cm",0);
-
+            }
+        });
 
         return view;
     }
+
+        private boolean find () {
+
+            boolean isUserValid = false;
+            if (Common.networkConnected(getActivity())) {
+                List<Classa> users = new ArrayList<>();
+                String id = etSearch.getText().toString();
+                String url = Common.URL + "//LoginHelp";
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action", "findByClass");
+                jsonObject.addProperty("id", id);
+                String jsonOut = jsonObject.toString();
+                myTask = new MyTask(url, jsonOut);
+                try {
+                    String jsonIN = myTask.execute().get();
+                    Classa user = new Gson().fromJson(jsonIN, Classa.class);
+                    users.add(user);
+                    if (user == null) {
+                        Common.showToast(getActivity(), "Invalid Find ClassCode");
+
+                    } else {
+                        recycler.setAdapter(new ClassaAdapter(getActivity(), users));
+                        Common.showToast(getActivity(), "success");
+                    }
+
+
+                } catch (Exception e) {
+                    Log.e(TAG, "error message" + toString());
+                }
+            }
+            return isUserValid;
+
+
+
+
+//        getFragmentManager().popBackStack("cm",0);
+    }
+
+
+
 
 
 
@@ -136,5 +197,54 @@ public class ClassJoin extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    class ClassaAdapter extends RecyclerView.Adapter<ClassaAdapter.MyViewHolder> {
+        private  LayoutInflater layoutInflater;
+        private  List<Classa> aclass;
+
+
+
+
+        public ClassaAdapter(FragmentActivity activity, List<Classa> aclass) {
+            layoutInflater = LayoutInflater.from(activity);
+            this.aclass = aclass;
+        }
+
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View itemView = layoutInflater.inflate(R.layout.joinclass_item,parent,false);
+            return new MyViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            Classa classs = aclass.get(position);
+            String text =getString(R.string.ClassNam) + classs.getName();
+
+            holder.tvAll.setText(text);
+        }
+
+
+
+        @Override
+        public int getItemCount() {
+            return aclass.size();
+        }
+
+        class MyViewHolder extends RecyclerView.ViewHolder {
+
+            TextView tvAll;
+            public MyViewHolder(View itemView) {
+                super(itemView);
+                tvAll = itemView.findViewById(R.id.ClassAll);
+
+
+            }
+        }
+
+
     }
 }

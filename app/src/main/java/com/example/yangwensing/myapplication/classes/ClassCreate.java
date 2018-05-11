@@ -8,36 +8,96 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
+import com.google.gson.JsonObject;
 
 /**
  * Created by nameless on 2018/4/26.
  */
 
 public class ClassCreate extends Fragment{
-
+    private final static String TAG = "MainFragment";
+    private EditText etClass;
+    private Button btSure;
+    private MyTask myTask;
     String user ="";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.classcreate, container, false);
-
         getActivity().setTitle("建立班級");
 
+        etClass = view.findViewById(R.id.etClass);
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
-        Bundle bundle = getArguments();
-        user = bundle.getString("name");
+//        Bundle bundle = getArguments();
+//        user = bundle.getString("name");
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        user = preferences.getString("name","0");
+
+        btSure = view.findViewById(R.id.btSure);
+        btSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isValid = true;
+                String ClassName = etClass.getText().toString();
+                if (ClassName.trim().isEmpty()) {
+                    etClass.setError("InValid ClassName");
+                    isValid = false;
+                }
+                if (isValid)
+                    if (Common.networkConnected(getActivity())) {
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action", "insertClass");
+                        jsonObject.addProperty("ClassName", ClassName);
+                        jsonObject.addProperty("ClassTeacher",user);
+
+
+                        try {
+                            myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                            int count = Integer.valueOf(myTask.execute().get());
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            if (count == 0) {
+                                Toast.makeText(getActivity(), "Add failed!",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                Fragment fragment = new ClassManager();
+                                getFragmentManager().beginTransaction()
+                                        .replace(R.id.content, fragment)
+                                        .addToBackStack(null).commit();
+                            }
+
+                        } catch (Exception e) {
+                            Log.e(TAG, "error massage" + e.toString());
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "connection to network failed",
+                                Toast.LENGTH_SHORT).show();
+                    }
+            }
+
+
+        });
+
+
+
+
+
 
 //        getFragmentManager().popBackStack("cm",0);
 
