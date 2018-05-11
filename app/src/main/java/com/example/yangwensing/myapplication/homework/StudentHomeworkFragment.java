@@ -9,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,10 @@ public class StudentHomeworkFragment extends Fragment {
 
         getActivity().setTitle(R.string.title_homework);
 
+        findViews(view);
+
         //取得偏好設定存的學生id
         getDataFromPref();
-
-        findViews(view);
 
 
         //取得db資料
@@ -67,6 +68,7 @@ public class StudentHomeworkFragment extends Fragment {
         return view; //要改成回傳view
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -79,6 +81,7 @@ public class StudentHomeworkFragment extends Fragment {
         bottomNavigationView.setVisibility(View.VISIBLE); //放在onResume才不會比畫面還快顯示出來
 
     }
+
 
     private void getDataFromDB() {
 
@@ -101,34 +104,35 @@ public class StudentHomeworkFragment extends Fragment {
 
                 homeworkIsDoneList = gson.fromJson(jsonIn, listType);
 
+                if (homeworkIsDoneList != null) {
+                    //回傳資料按日期整理
+                    for (HomeworkIsDone homeworkIsDone : homeworkIsDoneList) {
 
+                        //日期取出、換民國
+                        Date date = homeworkIsDone.getDate();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(date);
+                        calendar.roll(Calendar.YEAR, -1911);
+                        Date dateTaiwan = calendar.getTime();
 
-                //回傳資料按日期整理
-                for (HomeworkIsDone homeworkIsDone : homeworkIsDoneList) {
+                        //日期整理格式
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy年 M月 dd日", Locale.TAIWAN);
+                        String formattedDate = simpleDateFormat.format(dateTaiwan);
 
-                    //日期取出、換民國
-                    Date date = homeworkIsDone.getDate();
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(date);
-                    calendar.roll(Calendar.YEAR, -1911);
-                    Date dateTaiwan = calendar.getTime();
+                        //對比是否有此作業日期->有則把作業加入已存在日期、無則新創AssignDate物件並放入
+                        int index = hashSet.indexOf(new AssignDate(formattedDate));
+                        if (index == -1) {
+                            AssignDate assignDate = new AssignDate(formattedDate);
+                            hashSet.add(assignDate);
+                            assignDate.add(homeworkIsDone);
+                        } else {
+                            hashSet.get(index).add(homeworkIsDone);
 
-                    //日期整理格式
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy年 M月 dd日", Locale.TAIWAN);
-                    String formattedDate = simpleDateFormat.format(dateTaiwan);
-
-                    //對比是否有此作業日期->有則把作業加入已存在日期、無則新創AssignDate物件並放入
-                    int index = hashSet.indexOf(new AssignDate(formattedDate));
-                    if (index == -1) {
-                        AssignDate assignDate = new AssignDate(formattedDate);
-                        hashSet.add(assignDate);
-                        assignDate.add(homeworkIsDone);
-                    } else {
-                        hashSet.get(index).add(homeworkIsDone);
+                        }
 
                     }
-
                 }
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -141,9 +145,6 @@ public class StudentHomeworkFragment extends Fragment {
             Common.showToast(getActivity(), R.string.text_no_network);
 
         }
-
-
-
 
 
     }

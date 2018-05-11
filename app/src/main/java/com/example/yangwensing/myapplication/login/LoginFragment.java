@@ -38,9 +38,10 @@ import com.google.gson.JsonObject;
 public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
+    private int studentId;
 
     //帳號比對格式
-    String accoutwho ="\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
+    String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
 
     //底部導覽列跟浮動按鈕
     private BottomNavigationView bottomNavigationView;
@@ -91,9 +92,9 @@ public class LoginFragment extends Fragment {
                 String user = etName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                if (isUserValid(user,password)) {
+                if (isUserValid(user, password)) {
 
-                    if(user.matches(accoutwho)) {
+                    if (user.matches(accoutwho)) {
                         Fragment classManager = new ClassManager();
 
                         Bundle bundle = new Bundle();
@@ -110,33 +111,25 @@ public class LoginFragment extends Fragment {
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                        fragmentTransaction.addToBackStack(null);
 
-                        fragmentTransaction.replace(R.id.content,classManager);
+                        fragmentTransaction.replace(R.id.content, classManager);
                         fragmentTransaction.commit();
-                        bottomNavigationView.setVisibility(View.VISIBLE);
+//                        bottomNavigationView.setVisibility(View.VISIBLE);
 
-                    }else{
-                        Fragment studentHomeworkFragment = new StudentHomeworkFragment();
+                    } else {
 
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("name", user);
-//                        thisisstudent.setArguments(bundle);
+                        getStudentId(user, password);
 
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                        fragmentTransaction.addToBackStack(null);
-
-                        fragmentTransaction.replace(R.id.content,studentHomeworkFragment);
-                        fragmentTransaction.commit();
+                        //底部導覽列選第一項
+                        bottomNavigationView.setSelectedItemId(R.id.navigation_homework);
                         bottomNavigationView.setVisibility(View.VISIBLE);
 
                     }
 
 
+                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
-
-                } else{
-                    Toast.makeText(getActivity(),"fail",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -157,7 +150,8 @@ public class LoginFragment extends Fragment {
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new StudentHomeworkFragment()).commit();
+                //底部導覽列選第一項
+                bottomNavigationView.setSelectedItemId(R.id.navigation_homework);
                 bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
@@ -177,13 +171,13 @@ public class LoginFragment extends Fragment {
                 SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
                 preferences.edit()
                         .putInt("teacherId", teacherId)
-                        .putInt("subjectId",subjectId)
-                        .putInt("classId",classId)
-                        .putString("className",className)
+                        .putInt("subjectId", subjectId)
+                        .putInt("classId", classId)
+                        .putString("className", className)
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment(),"TeacherHomeworkFragment").commit();
+                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment(), "TeacherHomeworkFragment").commit();
 //                bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
@@ -209,9 +203,9 @@ public class LoginFragment extends Fragment {
         if (networkConnected()) {
             String url = Common.URL + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
-            if(name.matches(accoutwho)){
+            if (name.matches(accoutwho)) {
                 jsonObject.addProperty("action", "findByName");
-            }else{
+            } else {
                 jsonObject.addProperty("action", "findbyStudent");
             }
             jsonObject.addProperty("name", name);
@@ -245,4 +239,40 @@ public class LoginFragment extends Fragment {
         NetworkInfo networkInfo = conManager != null ? conManager.getActiveNetworkInfo() : null;
         return networkInfo != null && networkInfo.isConnected();
     }
+
+    //取得學生id
+    private void getStudentId(String name, String password) {
+
+
+        if (Common.networkConnected(getActivity())) {
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findStudentIdByNameAndPassword");
+            jsonObject.addProperty("name", name);
+            jsonObject.addProperty("password", password);
+            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+
+            try {
+
+                String jsonIn = getHomeworkTask.execute().get();
+
+                studentId = Integer.valueOf(jsonIn);
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit().putInt("studentId", studentId).apply();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Common.showToast(getActivity(), R.string.text_no_server);
+
+            }
+
+
+        } else {
+            Common.showToast(getActivity(), R.string.text_no_network);
+
+        }
+    }
+
+
 }
