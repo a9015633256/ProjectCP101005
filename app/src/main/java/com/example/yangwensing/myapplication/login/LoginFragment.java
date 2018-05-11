@@ -44,9 +44,7 @@ public class LoginFragment extends Fragment {
     String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
 
     //底部導覽列跟浮動按鈕
-    private BottomNavigationView bottomNavigationView;
-    private FloatingActionButton fabShortcutToStudent;
-    private FloatingActionButton fabShortcutToTeacher;
+    private BottomNavigationView bnForStudent;
 
 
     @Nullable
@@ -57,17 +55,16 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
-        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
+        bnForStudent = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
-        fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
-        fabShortcutToTeacher = view.findViewById(R.id.fabShortCutToTeacher);
+        FloatingActionButton fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
+        FloatingActionButton fabShortcutToTeacher = view.findViewById(R.id.fabShortCutToTeacher);
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
-        //回到此頁面時隱藏底部導覽列並把預設恢復為第一個
-        bottomNavigationView.setVisibility(View.GONE);
-        bottomNavigationView.setSelectedItemId(0);
+        //回到此頁面時隱藏底部導覽列
+        bnForStudent.setVisibility(View.GONE);
 
 
         btRegister.setOnClickListener(new View.OnClickListener() {
@@ -120,8 +117,8 @@ public class LoginFragment extends Fragment {
                         getStudentId(user, password);
 
                         //底部導覽列選第一項
-                        bottomNavigationView.setSelectedItemId(R.id.navigation_homework);
-                        bottomNavigationView.setVisibility(View.VISIBLE);
+                        bnForStudent.setSelectedItemId(R.id.navigation_homework);
+                        bnForStudent.setVisibility(View.VISIBLE);
 
                     }
 
@@ -151,8 +148,8 @@ public class LoginFragment extends Fragment {
 
                 //切換fragment
                 //底部導覽列選第一項
-                bottomNavigationView.setSelectedItemId(R.id.navigation_homework);
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                bnForStudent.setSelectedItemId(R.id.navigation_homework);
+                bnForStudent.setVisibility(View.VISIBLE);
 
             }
         });
