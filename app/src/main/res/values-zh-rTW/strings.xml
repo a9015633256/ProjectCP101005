@@ -27,5 +27,8 @@
     <string name="Class">班級 :</string>
     <string name="Teacher">老師 :</string>
     <string name="Analysis">分析圖</string>
+    <string name="ExamSubject1">考試科目 : </string>
+    <string name="ClassCode">班級代碼: </string>
+
 
 </resources>

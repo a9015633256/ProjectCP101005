@@ -142,4 +142,7 @@
     <string name="sure">Sure</string>
     <string name="AchievementS">Performance Analysis Chart</string>
     <string name="Analysis">Analysis</string>
+    <string name="ExamSubject1">ExamSubject : </string>
+    <string name="ClassCode">ClassCode: </string>
+
 </resources>

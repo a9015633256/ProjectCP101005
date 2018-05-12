@@ -2,11 +2,14 @@ package com.example.yangwensing.myapplication.classes;
 
 public class Classa {
 	private String name;
-	private int id;
-	public Classa(String name, int id) {
+	private int id,classname,teacherid;
+	public Classa(int id, String name,int classname,int teacherid) {
 		super();
-		this.name = name;
+
 		this.id = id;
+		this.name = name;
+		this.classname = classname;
+		this.teacherid = teacherid;
 
 	}
 
@@ -26,6 +29,19 @@ public class Classa {
 		this.id = id;
 	}
 
+	public int getClassname() {
+		return classname;
+	}
 
+	public void setClassname(int classname) {
+		this.classname = classname;
+	}
 
+	public int getTeacherid() {
+		return teacherid;
+	}
+
+	public void setTeacherid(int teacherid) {
+		this.teacherid = teacherid;
+	}
 }

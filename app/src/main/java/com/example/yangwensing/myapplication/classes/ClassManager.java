@@ -17,12 +17,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -31,7 +30,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.security.PublicKey;
 import java.util.List;
 
 public class ClassManager extends Fragment {
@@ -42,7 +40,6 @@ public class ClassManager extends Fragment {
 //    private Button btdelete,btCreat,btJoin;
     private TabLayout caselect;
     List<Classes> classes = null;
-
 
     String user ="";
 
@@ -346,15 +343,21 @@ public class ClassManager extends Fragment {
             return classes.size();
         }
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(final MyViewHolder holder, int position) {
             final Classes c = classes.get(position);
             String url = Common.URL + "/LoginHelp";
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
+            String e = String.valueOf(c.getId());
+            holder.tvClassCode.setText(e);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Fragment fragment = new ClassManager();
+                    Bundle b = new Bundle();
+                    String id = String.valueOf(c.getId());
+                    b.putString("ClassID",id);
+                    Fragment fragment = new ExamFragment();
+                    fragment.setArguments(b);
                     getFragmentManager().beginTransaction()
                             .replace(R.id.content, fragment)
                             .addToBackStack(null).commit();
@@ -366,12 +369,14 @@ public class ClassManager extends Fragment {
 
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView tvClass, tvTeacher;
+            TextView tvClass, tvTeacher,tvClassCode;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 tvClass = itemView.findViewById(R.id.tvClass);
                  tvTeacher= itemView.findViewById(R.id.tvTeacher);
+                 tvClassCode = itemView.findViewById(R.id.tvClassCode);
+
 
             }
         }

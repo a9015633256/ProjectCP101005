@@ -1,6 +1,8 @@
 package com.example.yangwensing.myapplication.ExamSubject;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.classes.CreateSubject;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -35,6 +38,10 @@ public class ExamFragment extends Fragment {
     private final static String TAG = "ExamFragment";
     private MyTask myTask;
     private RecyclerView recyclerView;
+    String user = "";
+    String Classid= "";
+    String Subject = "";
+    String Teacher = "";
 
 
 
@@ -45,27 +52,35 @@ public class ExamFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerr);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         List<Exam> exams = new ArrayList<>();
-
+        Bundle b = getArguments();
+        Classid = b.getString("ClassID");
 
         Button btAdd = view.findViewById(R.id.btAdd);
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bb = getArguments();
+                String Class = bb.getString("ClassID");
+                bb.putString("ClassID",Class);
                 Fragment fragment = new CreateSubject();
+                fragment.setArguments(bb);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_content, fragment);
+                fragmentTransaction.replace(R.id.content, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
+
+
         });
         setHasOptionsMenu(true);
 
 
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/Subject";
+            String url = Common.URL + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "Exam");
+            jsonObject.addProperty("id",Classid);
             String jsonOut = jsonObject.toString();
 
 
@@ -91,6 +106,8 @@ public class ExamFragment extends Fragment {
     }
 
 
+
+
     class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
         private LayoutInflater layoutInflater;
         private List<Exam> exams;
@@ -110,10 +127,22 @@ public class ExamFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
             final Bundle bundle = new Bundle();
             final Exam exams1 = exams.get(position);
-            final String text ="ExamSubject : " + exams1.getExamtitle();
+            final String text =getString(R.string.ExamSubject1) + exams1.getExamtitle();
+
+            Teacher = String.valueOf(exams1.getTeacherid());
+            Subject = String.valueOf(exams1.getExamsubjectid());
+            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+            preferences.edit().putString("Subject", Subject)
+            .putString("Teacher",Teacher).putString("ClassID",Classid).apply();
+
+
+//            Bundle b = new Bundle();
+//            b.putString("Subject",Subject);
+//            Fragment f = new CreateSubject();
+//            f.setArguments(b);
+
             bundle.putString("name", text);
             holder.tvExam.setText(text);
             holder.tvSingIn.setOnClickListener(new View.OnClickListener() {
@@ -121,11 +150,15 @@ public class ExamFragment extends Fragment {
                 public void onClick(View v) {
 
                     Fragment fragment = new AchievementFragment();
-                    bundle.putString("ID",String.valueOf(exams1.getId()));
+                    bundle.putString("ID",Classid);
+                    Subject = String.valueOf(exams1.getSubjectid());
+                    bundle.putString("Subject", Subject);
+
                     fragment.setArguments(bundle);
+
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_content, fragment);
+                    fragmentTransaction.replace(R.id.content, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
@@ -135,14 +168,14 @@ public class ExamFragment extends Fragment {
                 public void onClick(View v) {
                     Exam X = null;
 
-                    String id = String.valueOf(exams1.getId());
+                    String id = String.valueOf(exams1.getSubjectid());
 
                     if (Common.networkConnected(getActivity())){
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action","findByitem");
                         jsonObject.addProperty("item",id);
                         try {
-                        myTask = new MyTask(Common.URL+"/Subject",jsonObject.toString());
+                        myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
                             String jsonIn = myTask.execute().get();
                             Log.d(TAG, jsonIn);
 //                            Type listType = new TypeToken<List<Exam>>() {
@@ -163,11 +196,12 @@ public class ExamFragment extends Fragment {
                             b.putString("title",title);
                             b.putString("date",date);
                             b.putString("content",content);
-                            b.putString("id", String.valueOf(exams1.getId()));
+                            b.putString("id", String.valueOf(exams1.getSubjectid()));
+                            b.putString("ClassID",Classid);
                             fragment.setArguments(b);
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.main_content, fragment);
+                            fragmentTransaction.replace(R.id.content, fragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                             recyclerView.getAdapter().notifyDataSetChanged();
@@ -193,16 +227,17 @@ public class ExamFragment extends Fragment {
 
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
+                            String Subject = String.valueOf(exams1.getSubjectid());
                             switch (item.getItemId()) {
                                 case R.id.DeleteSubject:
                                     if (Common.networkConnected(getActivity())) {
                                         JsonObject jsonObject = new JsonObject();
-                                        jsonObject.addProperty("action", "delete");
-                                        jsonObject.addProperty("subject", new Gson().toJson(exams1));
+                                        jsonObject.addProperty("action", "deleteSubject");
+                                        jsonObject.addProperty("subject", Subject);
                                         int count = 0;
 
                                         try {
-                                            myTask = new MyTask(Common.URL + "/Subject", jsonObject.toString());
+                                            myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
                                             String result = myTask.execute().get();
                                             count = Integer.valueOf(result);
                                         } catch (Exception e) {

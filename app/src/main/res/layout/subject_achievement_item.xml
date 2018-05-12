@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     >
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvNumber"
@@ -17,12 +19,13 @@
             android:id="@+id/tvName"
             android:textSize="18sp"
             android:layout_width="190dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="120dp"
             android:layout_height="wrap_content"
            />
 
 
         <EditText
+            android:layout_alignParentRight="true"
             android:id="@+id/etAchievement"
             android:layout_width="50dp"
             android:layout_marginStart="22dp"
@@ -30,5 +33,5 @@
             android:inputType="number" />
 
 
-
+</RelativeLayout>
 </LinearLayout>

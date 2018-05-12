@@ -1,6 +1,8 @@
-package com.example.yangwensing.myapplication.ExamSubject;
+package com.example.yangwensing.myapplication.classes;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.ExamSubject.AddSubject;
+import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -30,7 +34,10 @@ public class CreateSubject extends Fragment {
     private MyTask myTask;
     private EditText etTeacher, etSubject, etDate, etTitle, etContent;
     private Button btSure,btUpdate;
-    private int classid,id;
+    private String Classid = "";
+    private String Subjectid = "";
+    private String Teacherid = "";
+
 
 
     @Nullable
@@ -44,6 +51,12 @@ public class CreateSubject extends Fragment {
         etDate.setInputType(InputType.TYPE_NULL);
         btUpdate = view.findViewById(R.id.btUpdate);
         btUpdate.setVisibility(View.GONE);
+        Bundle b = getArguments();
+        Classid = b.getString("ClassID");
+
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        Subjectid = preferences.getString("Subject","0");
+        Teacherid = preferences.getString("Teacher","0");
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             @Override
@@ -94,12 +107,10 @@ public class CreateSubject extends Fragment {
             @Override
             public void onClick(View v) {
                 boolean isValid = true;
-                int Teacher = 1;
-                int Subject = 6;
+
                 String Date = etDate.getText().toString();
                 String Title = etTitle.getText().toString();
                 String Content = etContent.getText().toString();
-                classid = 5;
 
 
                 if (Date.trim().isEmpty()) {
@@ -116,24 +127,26 @@ public class CreateSubject extends Fragment {
                 }
                 if (isValid) {
 
-                    Exam exam = new Exam(id,Subject,Teacher,classid,Title,Content,Date);
+                    AddSubject exam = new AddSubject(Subjectid,Teacherid,Classid,Title,Content,Date);
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("action", "Add");
                     jsonObject.addProperty("Subject",new Gson().toJson(exam));
 
 
-                    myTask = new MyTask(Common.URL + "/Subject", jsonObject.toString());
+                    myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
                     try {
                         int count = Integer.valueOf(myTask.execute().get());
                         if (count == 0) {
                             Toast.makeText(getActivity(), "Add failed!",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-
+                            Bundle bb = new Bundle();
+                            bb.putString("ClassID",Classid);
                             Fragment fragment = new ExamFragment();
+                            fragment.setArguments(bb);
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.main_content, fragment);
+                            fragmentTransaction.replace(R.id.content, fragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
