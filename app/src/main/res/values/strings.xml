@@ -143,4 +143,5 @@
     <string name="AchievementS">Performance Analysis Chart</string>
     <string name="Analysis">Analysis</string>
     <string name="text_examScore">Student Score:</string>
+    <string name="text_teacherId">TeacherID</string>
 </resources>

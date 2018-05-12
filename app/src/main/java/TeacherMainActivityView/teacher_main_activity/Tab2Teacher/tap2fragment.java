@@ -157,11 +157,33 @@ public class tap2fragment extends Fragment {
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             final ClassSubjectTeacher classSubjectTeacher = classSubjectTeachers.get(position);
             String url = Common.URL + "/TeachersListServerlet";
-            int id = classSubjectTeacher.getId();
-            teacherGetImageTask = new TeacherGetImageTask(url, id, imageSize, holder.teacherImageView);//(URL,ID,縮圖大小,show image)//設定圖片物件及取得
+            final int id = classSubjectTeacher.getId();
+            final String teacher_Account = classSubjectTeacher.getTeacher_Account();
+            final String teacher_Email = classSubjectTeacher.getTeacher_Email();
+            final String teacher_Phone = classSubjectTeacher.getTeacher_Phone();
+            final int teacher_Gender = classSubjectTeacher.getTeacher_Gender();
+            final String teacher_TakeOfficeDate = classSubjectTeacher.getTeacher_TakeOfficeDate();
+            teacherGetImageTask = new TeacherGetImageTask(url, id, imageSize, holder.teacherImageView);
             teacherGetImageTask.execute();//取得圖片
             holder.teacherName.setText(classSubjectTeacher.getTeacher_Account());
             holder.teacherPhone.setText(classSubjectTeacher.getTeacher_Phone());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences preferences = getActivity().getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+                    preferences.edit()
+                            .putInt("id", id)
+                            .putString("teacher_Account", teacher_Account)
+                            .putString("teacher_Email", teacher_Email)
+                            .putString("teacher_Phone", teacher_Phone)
+                            .putInt("teacher_Gender", teacher_Gender)
+                            .putString("teacher_TakeOfficeDate", teacher_TakeOfficeDate)
+                            .apply();
+
+                    Fragment fragment2 = new Tab2TeacherProfile();
+                    switchFragment(fragment2);
+                }
+            });
 
         }
     }
