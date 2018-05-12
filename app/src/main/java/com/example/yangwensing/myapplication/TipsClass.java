@@ -69,6 +69,7 @@ public class TipsClass {
     Students                        學生的基本資料
     Tab1_StudentCreatAccount        新增學生帳號的介面
     tab1Fragment                    觀看學生列表的介面
+    ClassStudentMember              找尋班級學生
 
 
     *Tab2Teacher
@@ -76,6 +77,8 @@ public class TipsClass {
     Teachers                        老師的基本資料
     Tab2_AddNewTeachers             新增老師的介面
     tap2fragment                    觀看老師列表的介面
+    ClassSubjectTeacjer             找尋班級老師
+    Tab2TeacherProfile              班級老師資料
 
     MainActivity                    老師的主畫面
     Navigation1_ClassManagement     班級管理（之後會刪除
@@ -83,8 +86,6 @@ public class TipsClass {
     Navigation3_Homework            功課管理
     Navigation4_ParentConnection    連絡家長
     TeacherChangeFilePage           更改資料介面
-    TeacherContact                  （假資料，之後會刪除
-    TeacherRecyclerViewAdapter      （假資料，之後會刪除
     TeacherSettingPage              （假資料，之後會刪除
 
 
@@ -123,10 +124,7 @@ public class TipsClass {
     teacher_tab2_teachers_contact       老師的recyclerView
     teacher_tab1_contact_fragment       Tab1畫面
     teacher_tab2_contact_fragment       Tab2畫面
-
-
-
-
+    teacher_tab2_profile                Tab2老師資料
 
 
 

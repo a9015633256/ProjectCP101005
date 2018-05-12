@@ -8,7 +8,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/ivUserPic"
+            android:id="@+id/ivTeahcerPicProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivUserPic"
+            android:layout_below="@id/ivTeahcerPicProfile"
             android:layout_marginTop="30dp"
             android:orientation="vertical">
 
@@ -29,10 +29,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_studentId" />
+                    android:text="@string/text_teacherId" />
 
                 <EditText
-                    android:id="@+id/tvStudentInfoId"
+                    android:id="@+id/tvTeahcerProfileId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
@@ -55,37 +55,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_class" />
-
-                <EditText
-                    android:id="@+id/tvStudentInfoClassName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:inputType="text"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:text="@string/text_name" />
 
                 <EditText
-                    android:id="@+id/tvStudentInfoName"
+                    android:id="@+id/tvTeahcerProfileName"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
@@ -115,7 +88,7 @@
                     android:text="@string/text_gender" />
 
                 <EditText
-                    android:id="@+id/tvStudentInfoGender"
+                    android:id="@+id/tvTeahcerProfileGender"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
@@ -133,7 +106,6 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp">
 
@@ -144,7 +116,7 @@
                     android:text="@string/text_dayOfBirth" />
 
                 <EditText
-                    android:id="@+id/tvStudentInfoDayOfBirth"
+                    android:id="@+id/tvTeahcerProfileDayOfBirth"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
@@ -154,13 +126,9 @@
                     android:enabled="false"
                     android:inputType="text"
                     android:text=""
-                    android:textColor="@color/colorTextBlack"
-
-                    />
-
+                    android:textColor="@color/colorTextBlack" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,7 +144,7 @@
                     android:text="@string/text_phoneNumber" />
 
                 <EditText
-                    android:id="@+id/tvStudentInfoPhoneNumber"
+                    android:id="@+id/tvTeahcerProfilePhoneNumber"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
@@ -187,36 +155,6 @@
                     android:inputType="phone"
                     android:text=""
                     android:textColor="@color/colorTextBlack" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/text_address" />
-
-                <EditText
-                    android:id="@+id/tvStudentInfoAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:gravity="top"
-                    android:lines="5"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack"
-
-                    />
-
 
             </LinearLayout>
 

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.chat.MotherList;
 import com.example.yangwensing.myapplication.contact.StudentContactFragment;
 import com.example.yangwensing.myapplication.exam.StudentExamFragment;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
@@ -45,12 +46,9 @@ public class MainActivity extends AppCompatActivity {
         bnForStudent = findViewById(R.id.bnForStudent);
         BottomNavigationViewHelper.removeShiftMode(bnForStudent);
         bnForStudent.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListenerForStudent);
-        
-
 
 
         Fragment loginFragment = new LoginFragment();
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.content, loginFragment);
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new StudentExamFragment();
                     break;
                 case R.id.navigation_contact:
-                    selectedFragment = new StudentContactFragment();
+                    selectedFragment = new MotherList();
                     break;
                 case R.id.navigation_info:
                     selectedFragment = new StudentInfoFragment();
@@ -118,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 new AlertDialogFragment().show(getSupportFragmentManager(), "exit"); //呼叫警示視窗fragment
 
 
-               break;
+                break;
             case R.id.menu_settings:
                 Toast.makeText(getBaseContext(), "Enter settingsView", Toast.LENGTH_SHORT).show();
                 break;
@@ -210,5 +208,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        //結束程式時
+        //重置偏好設定檔儲存的登入設定
+        SharedPreferences preferences = getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        preferences.edit()
+                .putInt("studentId", 0)
+                .putInt("teacherId", 0)
+                .putInt("subjectId", 0)
+                .putInt("classId", 0)
+                .putString("className", "")
+                .apply();
+        super.onDestroy();
+    }
 }

@@ -73,36 +73,36 @@ public class ClassJoin extends Fragment {
         return view;
     }
 
-        private boolean find () {
+    private boolean find () {
 
-            boolean isUserValid = false;
-            if (Common.networkConnected(getActivity())) {
-                List<Classa> users = new ArrayList<>();
-                String id = etSearch.getText().toString();
-                String url = Common.URL + "//LoginHelp";
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action", "findByClass");
-                jsonObject.addProperty("id", id);
-                String jsonOut = jsonObject.toString();
-                myTask = new MyTask(url, jsonOut);
-                try {
-                    String jsonIN = myTask.execute().get();
-                    Classa user = new Gson().fromJson(jsonIN, Classa.class);
-                    users.add(user);
-                    if (user == null) {
-                        Common.showToast(getActivity(), "Invalid Find ClassCode");
+        boolean isUserValid = false;
+        if (Common.networkConnected(getActivity())) {
+            List<Classa> users = new ArrayList<>();
+            String id = etSearch.getText().toString();
+            String url = Common.URL + "//LoginHelp";
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findByClass");
+            jsonObject.addProperty("id", id);
+            String jsonOut = jsonObject.toString();
+            myTask = new MyTask(url, jsonOut);
+            try {
+                String jsonIN = myTask.execute().get();
+                Classa user = new Gson().fromJson(jsonIN, Classa.class);
+                users.add(user);
+                if (user == null) {
+                    Common.showToast(getActivity(), "Invalid Find ClassCode");
 
-                    } else {
-                        recycler.setAdapter(new ClassaAdapter(getActivity(), users));
-                        Common.showToast(getActivity(), "success");
-                    }
-
-
-                } catch (Exception e) {
-                    Log.e(TAG, "error message" + toString());
+                } else {
+                    recycler.setAdapter(new ClassaAdapter(getActivity(), users));
+                    Common.showToast(getActivity(), "success");
                 }
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "error message" + toString());
             }
-            return isUserValid;
+        }
+        return isUserValid;
 
 
 

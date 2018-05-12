@@ -85,7 +85,7 @@ public class TeacherHomeworkFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkAddFragment()).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.main_content, new TeacherHomeworkAddFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -227,7 +227,7 @@ public class TeacherHomeworkFragment extends Fragment {
                         teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
 
                         if (getFragmentManager() != null) {
-                            getFragmentManager().beginTransaction().replace(R.id.content, teacherHomeworkUpdateDeleteFragment,"TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
+                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment,"TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
                         }
 
 

@@ -47,6 +47,7 @@
         <!--android:layout_marginTop="16dp"-->
         <!--android:background="@color/Project"/>-->
 
+
     <!-- build.gradle (Module:app) must add [com.android.support:design] API -->
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 
 import TeacherMainActivityView.CommonPart.BottomNavigationBarHelper;
 
@@ -21,10 +22,12 @@ public class Navigation3_Homework extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_navigation2_student_homework);
         setTitle(R.string.Homework);
-        TextView title = findViewById(R.id.tvTitle2);
-        title.setText("this is view2");
+//        TextView title = findViewById(R.id.tvTitle2);
+//        title.setText("this is view2");
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, new TeacherHomeworkFragment(), "TeacherHomeworkFragment").commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

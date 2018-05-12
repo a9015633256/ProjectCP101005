@@ -232,37 +232,37 @@ public class ClassDelete extends Fragment {
                             .setTitle("注意")
                             .setMessage("學生資料會跟著消失")
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                            if (Common.networkConnected(getActivity())) {
-                                String url = Common.URL + "/LoginHelp";
-                                JsonObject jsonObject = new JsonObject();
-                                jsonObject.addProperty("action", "delete");
-                                jsonObject.addProperty("classname", c.getClasses());
-                                jsonObject.addProperty("teachername", c.getTeacher());
+                                    if (Common.networkConnected(getActivity())) {
+                                        String url = Common.URL + "/LoginHelp";
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "delete");
+                                        jsonObject.addProperty("classname", c.getClasses());
+                                        jsonObject.addProperty("teachername", c.getTeacher());
 
-                                String jsonOut = jsonObject.toString();
-                                int count = 0;
-                                checkdelteTask = new MyTask(url, jsonOut);
-                                try {
-                                    String result = checkdelteTask.execute().get();
-                                    count = Integer.valueOf(result);
-                                } catch (Exception e) {
-                                    Log.e(TAG, e.toString());
+                                        String jsonOut = jsonObject.toString();
+                                        int count = 0;
+                                        checkdelteTask = new MyTask(url, jsonOut);
+                                        try {
+                                            String result = checkdelteTask.execute().get();
+                                            count = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, e.toString());
+                                        }
+                                        if (count == 0) {
+                                            Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT);
+                                        } else {
+                                            classes.remove(c);
+                                            DeleteRecyclerViewAdapter.this.notifyDataSetChanged();
+                                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT);
+                                        }
+                                    } else {
+                                        Toast.makeText(getActivity(), "no network", Toast.LENGTH_SHORT);
+                                    }
                                 }
-                                if (count == 0) {
-                                    Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT);
-                                } else {
-                                    classes.remove(c);
-                                    DeleteRecyclerViewAdapter.this.notifyDataSetChanged();
-                                    Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT);
-                                }
-                            } else {
-                                Toast.makeText(getActivity(), "no network", Toast.LENGTH_SHORT);
-                            }
-                        }
-                    }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton("no", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
