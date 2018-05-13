@@ -348,23 +348,25 @@ public class ClassManager extends Fragment {
             String url = Common.URL + "/LoginHelp";
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
-            String e = String.valueOf(c.getId());
+            final String e = String.valueOf(c.getId());
             holder.tvClassCode.setText(e);
 
-            Fragment f = new ClassJoin();
-            Bundle b = new Bundle();
-            String t = String.valueOf(c.getTeacherid());
-            b.putString("teacherid",t);
-            f.setArguments(b);
+            String t= String.valueOf(c.getTeacherid());
+            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+            preferences.edit().putString("tt", t).apply();
+
+
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle b = new Bundle();
                     String id = String.valueOf(c.getId());
-
+                    String teacherid = String.valueOf(c.getTeacherid());
+                    b.putString("teacherid",teacherid);
                     b.putString("ClassID",id);
-
+                    Fragment f = new ClassJoin();
+                    f.setArguments(b);
                     Fragment fragment = new ExamFragment();
                     fragment.setArguments(b);
                     getFragmentManager().beginTransaction()

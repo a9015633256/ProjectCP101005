@@ -40,7 +40,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ClassJoin extends Fragment {
 
-    private String user ="";
+    private String user = "";
     private final static String TAG = "ResultFragment";
     private MyTask myTask;
     private RecyclerView recycler;
@@ -60,6 +60,7 @@ public class ClassJoin extends Fragment {
         etSearch = view.findViewById(R.id.etSearch);
         btSearch = view.findViewById(R.id.btSearch);
         Bundle bundle = getArguments();
+
         user = bundle.getString("name");
         btSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +73,7 @@ public class ClassJoin extends Fragment {
         return view;
     }
 
-    private boolean find () {
+    private boolean find() {
 
         boolean isUserValid = false;
         if (Common.networkConnected(getActivity())) {
@@ -104,14 +105,8 @@ public class ClassJoin extends Fragment {
         return isUserValid;
 
 
-
-
 //        getFragmentManager().popBackStack("cm",0);
     }
-
-
-
-
 
 
     @Override
@@ -126,6 +121,7 @@ public class ClassJoin extends Fragment {
         menu.getItem(4).setVisible(false);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -142,7 +138,7 @@ public class ClassJoin extends Fragment {
 
 //                fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,classCreate);
+                fragmentTransaction.replace(R.id.content, classCreate);
                 fragmentTransaction.commit();
 
                 break;
@@ -158,7 +154,7 @@ public class ClassJoin extends Fragment {
 
 //                fragmentTransactionjo.addToBackStack(null);
 
-                fragmentTransactionjo.replace(R.id.content,classJoin);
+                fragmentTransactionjo.replace(R.id.content, classJoin);
                 fragmentTransactionjo.commit();
 
                 break;
@@ -174,7 +170,7 @@ public class ClassJoin extends Fragment {
 
 //                fragmentTransactionde.addToBackStack(null);
 
-                fragmentTransactionde.replace(R.id.content,classdelete);
+                fragmentTransactionde.replace(R.id.content, classdelete);
                 fragmentTransactionde.commit();
 
                 break;
@@ -184,9 +180,9 @@ public class ClassJoin extends Fragment {
                 preferences.edit()
                         .putInt("studentId", 0)
                         .putInt("teacherId", 0)
-                        .putInt("subjectId",0)
-                        .putInt("classId",0)
-                        .putString("className","")
+                        .putInt("subjectId", 0)
+                        .putInt("classId", 0)
+                        .putString("className", "")
                         .apply();
 
                 //清除所有backStack
@@ -204,10 +200,8 @@ public class ClassJoin extends Fragment {
     }
 
     class ClassaAdapter extends RecyclerView.Adapter<ClassaAdapter.MyViewHolder> {
-        private  LayoutInflater layoutInflater;
-        private  List<Classa> aclass;
-
-
+        private LayoutInflater layoutInflater;
+        private List<Classa> aclass;
 
 
         public ClassaAdapter(FragmentActivity activity, List<Classa> aclass) {
@@ -219,44 +213,47 @@ public class ClassJoin extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = layoutInflater.inflate(R.layout.joinclass_item,parent,false);
+            View itemView = layoutInflater.inflate(R.layout.joinclass_item, parent, false);
             return new MyViewHolder(itemView);
         }
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             final Classa classs = aclass.get(position);
-            String text =getString(R.string.ClassNam) + classs.getName();
+            String text = getString(R.string.ClassNam) + classs.getName();
+
 
             holder.tvAll.setText(text);
             holder.ivAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ClassID = String.valueOf(classs.getId());
-                    Teacherid = String.valueOf(classs.getTeacherid());
 
-                    if (Common.networkConnected(getActivity())){
+                    ClassID = String.valueOf(classs.getId());
+                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                    Teacherid = preferences.getString("tt", "");
+
+                    if (Common.networkConnected(getActivity())) {
                         JsonObject jsonObject = new JsonObject();
-                        jsonObject.addProperty("action","Join");
-                        jsonObject.addProperty("ClassId",ClassID);
-                        jsonObject.addProperty("TeacherId",Teacherid);
-                        int count = 0 ;
-                        myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
+                        jsonObject.addProperty("action", "Join");
+                        jsonObject.addProperty("ClassId", ClassID);
+                        jsonObject.addProperty("TeacherId", Teacherid);
+                        int count = 0;
+                        myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
                         try {
                             String result = myTask.execute().get();
                             count = Integer.valueOf(result);
-                        }  catch (Exception e) {
-                            Log.e(TAG,e.toString());
-                        }if (count == 0){
-                            Common.showToast(getActivity(),"Join fail");
-                        }else {
-                            Common.showToast(getActivity(),"Join success");
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
+                        if (count == 0 ) {
+                            Common.showToast(getActivity(), "Join fail");
+                        } else {
+                            Common.showToast(getActivity(), "Join success");
                         }
                     }
                 }
             });
         }
-
 
 
         @Override
@@ -267,6 +264,7 @@ public class ClassJoin extends Fragment {
         class MyViewHolder extends RecyclerView.ViewHolder {
             ImageView ivAdd;
             TextView tvAll;
+
             public MyViewHolder(View itemView) {
                 super(itemView);
                 ivAdd = itemView.findViewById(R.id.ivAdd);
