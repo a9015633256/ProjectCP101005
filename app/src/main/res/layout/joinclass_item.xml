@@ -11,7 +11,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#4993d9"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="30dp"
         app:cardElevation="0dp">
 

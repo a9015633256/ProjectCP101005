@@ -90,7 +90,7 @@ public class ClassJoin extends Fragment {
                 Classa user = new Gson().fromJson(jsonIN, Classa.class);
                 users.add(user);
                 if (user == null) {
-                    Common.showToast(getActivity(), "Invalid Find ClassCode");
+                    Common.showToast(getActivity(), "Not Found ClassCode");
 
                 } else {
                     recycler.setAdapter(new ClassaAdapter(getActivity(), users));
@@ -233,7 +233,7 @@ public class ClassJoin extends Fragment {
             holder.ivAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ClassID = String.valueOf(classs.getClassname());
+                    ClassID = String.valueOf(classs.getId());
                     Teacherid = String.valueOf(classs.getTeacherid());
 
                     if (Common.networkConnected(getActivity())){

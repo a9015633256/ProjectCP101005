@@ -116,14 +116,14 @@
     <string name="ClassSearch">SearchClass</string>
     <string name="etSearch">ClassCode</string>
     <string name="ClassNam">ClassName : </string>
-    <string name="tvsubject">Subject :</string>
+    <string name="tvsubject">Subject : </string>
     <string name="Number">Number</string>
     <string name="Achievement">Achievement</string>
     <string name="_">____________________________________________________________</string>
     <string name="send">Send</string>
     <string name="Teacher">Teacher :</string>
     <string name="Teachers">Teacher</string>
-    <string name="Subject">Subject :</string>
+    <string name="Subject">Subject : </string>
     <string name="Subjects">Subject</string>
     <string name="Date">ExamDate :</string>
     <string name="Dates">YYYY/MM/DD</string>
@@ -144,5 +144,7 @@
     <string name="Analysis">Analysis</string>
     <string name="ExamSubject1">ExamSubject : </string>
     <string name="ClassCode">ClassCode: </string>
+    <string name="text_teacherId">TeacherID</string>
+    <string name="text_examScore">examscore</string>
 
 </resources>

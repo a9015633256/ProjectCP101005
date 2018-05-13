@@ -23,7 +23,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.classes.CreateSubject;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -129,7 +128,7 @@ public class ExamFragment extends Fragment {
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             final Bundle bundle = new Bundle();
             final Exam exams1 = exams.get(position);
-            final String text =getString(R.string.ExamSubject1) + exams1.getExamtitle();
+            final String text =getString(R.string.ExamSubject1) +" "+ exams1.getExamtitle();
 
             Teacher = String.valueOf(exams1.getTeacherid());
             Subject = String.valueOf(exams1.getExamsubjectid());
@@ -138,10 +137,6 @@ public class ExamFragment extends Fragment {
             .putString("Teacher",Teacher).putString("ClassID",Classid).apply();
 
 
-//            Bundle b = new Bundle();
-//            b.putString("Subject",Subject);
-//            Fragment f = new CreateSubject();
-//            f.setArguments(b);
 
             bundle.putString("name", text);
             holder.tvExam.setText(text);

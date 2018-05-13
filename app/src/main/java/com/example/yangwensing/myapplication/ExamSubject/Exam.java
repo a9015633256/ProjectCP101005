@@ -2,7 +2,7 @@ package com.example.yangwensing.myapplication.ExamSubject;
 
 
 class Exam {
-    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,StudentID,examstudent,AchievementID;
+    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,StudentID,examstudent,AchievementID,examsubject;
     private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
@@ -23,18 +23,17 @@ class Exam {
 
     }
 
-    public Exam(int examsubjectid,int StudentID,String classname,
-                int examstudent, String studentid, String name,
-                int AchievementID,int classid,int teacherid,
-                String teacheraccount,String teachername){
+    public Exam(int examsubjectid,int AchievementID,int examstudent,int examsubject,int StudentID,String studentid,String name,
+                int classid,String classname,int teacherid,String teacheraccount,String teachername){
         this.examsubjectid = examsubjectid;
-        this.StudentID = StudentID;
-        this.classname = classname;
+        this.AchievementID = AchievementID;
         this.examstudent = examstudent;
+        this.examsubject = examsubject;
+        this.StudentID = StudentID;
         this.studentid = studentid;
         this.name = name;
-        this.AchievementID = AchievementID;
-        this.classid =classid;
+        this.classid = classid;
+        this.classname = classname;
         this.teacherid = teacherid;
         this.teacheraccount = teacheraccount;
         this.teachername = teachername;
@@ -196,5 +195,13 @@ class Exam {
 
     public void setAchievementID(int achievementID) {
         AchievementID = achievementID;
+    }
+
+    public int getExamsubject() {
+        return examsubject;
+    }
+
+    public void setExamsubject(int examsubject) {
+        this.examsubject = examsubject;
     }
 }
