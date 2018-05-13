@@ -7,7 +7,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -93,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-//        llMain = findViewById(R.id.llMain);
-//        MenuInflater inflater = getMenuInflater();
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.teacher_options_manu, menu);
         return true;

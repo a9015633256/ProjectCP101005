@@ -2,10 +2,17 @@ package com.example.yangwensing.myapplication.ExamSubject;
 
 
 class Exam {
-    private int id, teacher, subject, classid;
-    private String studentid, examtitle, date, title, context, name, classname,teachername;
+    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,StudentID,examstudent,AchievementID;
+    private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
+    public Exam (int classid,String examtitle,int subjectid,int teacherid,int examsubjectid){
+        this.classid = classid;
+        this.examtitle = examtitle;
+        this.subjectid = subjectid;
+        this.teacherid = teacherid;
+        this.examsubjectid = examsubjectid;
+    }
 
     public Exam(int id, String title, String date , String context){
 
@@ -16,25 +23,26 @@ class Exam {
 
     }
 
-    public Exam(int classid,String studentid,String name,String classname,String teachername){
-        this.classid =classid;
+    public Exam(int examsubjectid,int StudentID,String classname,
+                int examstudent, String studentid, String name,
+                int AchievementID,int classid,int teacherid,
+                String teacheraccount,String teachername){
+        this.examsubjectid = examsubjectid;
+        this.StudentID = StudentID;
+        this.classname = classname;
+        this.examstudent = examstudent;
         this.studentid = studentid;
         this.name = name;
-        this.classname = classname;
+        this.AchievementID = AchievementID;
+        this.classid =classid;
+        this.teacherid = teacherid;
+        this.teacheraccount = teacheraccount;
         this.teachername = teachername;
 
     }
 
 
-    public Exam(int id , int subject, int teacher,int classid, String title, String context ,String date) {
-        this.id = id;
-        this.teacher = teacher;
-        this.subject = subject;
-        this.classid = classid;
-        this.date = date;
-        this.title = title;
-        this.context = context;
-    }
+
 
 
     public int getId() {
@@ -134,5 +142,59 @@ class Exam {
         this.teachername = teachername;
     }
 
+    public int getTeacherid() {
+        return teacherid;
+    }
 
+    public void setTeacherid(int teacherid) {
+        this.teacherid = teacherid;
+    }
+
+    public String getTeacheraccount() {
+        return teacheraccount;
+    }
+
+    public void setTeacheraccount(String teacheraccount) {
+        this.teacheraccount = teacheraccount;
+    }
+
+    public int getSubjectid() {
+        return subjectid;
+    }
+
+    public void setSubjectid(int subjectid) {
+        this.subjectid = subjectid;
+    }
+
+    public int getExamsubjectid() {
+        return examsubjectid;
+    }
+
+    public void setExamsubjectid(int examsubjectid) {
+        this.examsubjectid = examsubjectid;
+    }
+
+    public int getStudentID() {
+        return StudentID;
+    }
+
+    public void setStudentID(int studentID) {
+        StudentID = studentID;
+    }
+
+    public int getExamstudent() {
+        return examstudent;
+    }
+
+    public void setExamstudent(int examstudent) {
+        this.examstudent = examstudent;
+    }
+
+    public int getAchievementID() {
+        return AchievementID;
+    }
+
+    public void setAchievementID(int achievementID) {
+        AchievementID = achievementID;
+    }
 }

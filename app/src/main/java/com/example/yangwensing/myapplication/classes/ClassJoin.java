@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
@@ -31,6 +32,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by nameless on 2018/4/26.
@@ -43,6 +45,8 @@ public class ClassJoin extends Fragment {
     private MyTask myTask;
     private RecyclerView recycler;
     private EditText etSearch;
+    private String ClassID = "";
+    private String Teacherid = "";
     private Button btSearch;
 
     @Nullable
@@ -55,6 +59,7 @@ public class ClassJoin extends Fragment {
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
         etSearch = view.findViewById(R.id.etSearch);
         btSearch = view.findViewById(R.id.btSearch);
+
         Bundle bundle = getArguments();
         user = bundle.getString("name");
         btSearch.setOnClickListener(new View.OnClickListener() {
@@ -221,10 +226,36 @@ public class ClassJoin extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Classa classs = aclass.get(position);
+            final Classa classs = aclass.get(position);
             String text =getString(R.string.ClassNam) + classs.getName();
 
             holder.tvAll.setText(text);
+            holder.ivAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ClassID = String.valueOf(classs.getClassname());
+                    Teacherid = String.valueOf(classs.getTeacherid());
+
+                    if (Common.networkConnected(getActivity())){
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("action","Join");
+                        jsonObject.addProperty("ClassId",ClassID);
+                        jsonObject.addProperty("TeacherId",Teacherid);
+                        int count = 0 ;
+                        myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
+                        try {
+                            String result = myTask.execute().get();
+                            count = Integer.valueOf(result);
+                        }  catch (Exception e) {
+                            Log.e(TAG,e.toString());
+                        }if (count == 0){
+                            Common.showToast(getActivity(),"Join fail");
+                        }else {
+                            Common.showToast(getActivity(),"Join success");
+                        }
+                    }
+                }
+            });
         }
 
 
@@ -235,10 +266,11 @@ public class ClassJoin extends Fragment {
         }
 
         class MyViewHolder extends RecyclerView.ViewHolder {
-
+            ImageView ivAdd;
             TextView tvAll;
             public MyViewHolder(View itemView) {
                 super(itemView);
+                ivAdd = itemView.findViewById(R.id.ivAdd);
                 tvAll = itemView.findViewById(R.id.ClassAll);
 
 

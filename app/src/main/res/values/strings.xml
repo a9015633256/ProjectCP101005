@@ -58,11 +58,11 @@
     <string name="text_pickPhoto">Pick Photo</string>
     <string name="msg_NoCameraAppsFound">No Camera Apps Found!!</string>
     <string-array name="subject">
-        <item>JAVA</item>
-        <item>Android_Studio</item>
-        <item>Math</item>
-        <item>English</item>
-        <item>Chinese</item>
+        <item>國文</item>
+        <item>英文</item>
+        <item>數學</item>
+        <item>社會</item>
+        <item>自然</item>
     </string-array>
     <string-array name="anothersubject">
         <item>無</item>
@@ -142,5 +142,7 @@
     <string name="sure">Sure</string>
     <string name="AchievementS">Performance Analysis Chart</string>
     <string name="Analysis">Analysis</string>
-    <string name="text_examScore">Student Score:</string>
+    <string name="ExamSubject1">ExamSubject : </string>
+    <string name="ClassCode">ClassCode: </string>
+
 </resources>
