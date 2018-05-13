@@ -29,7 +29,7 @@
             android:background="@color/Project"/>
 
         <TextView
-            android:id="@+id/tvClass"
+            android:id="@+id/tvClassc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="68dp"
@@ -49,15 +49,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
 
-            android:layout_below="@id/tvClass"
+            android:layout_below="@id/tvClassc"
             android:text="導師:"/>
 
         <TextView
-            android:id="@+id/tvTeacher"
+            android:id="@+id/tvTeacherr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tvClass"
-            android:layout_below="@id/tvClass"
+            android:layout_alignLeft="@id/tvClassc"
+            android:layout_below="@id/tvClassc"
             android:text="Phone No"
             android:textColor="#555555" />
 

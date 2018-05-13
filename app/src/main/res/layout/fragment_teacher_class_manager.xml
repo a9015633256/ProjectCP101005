@@ -22,7 +22,7 @@
             <!--android:src="@drawable/fire" />-->
 
         <TextView
-            android:id="@+id/tvClass"
+            android:id="@+id/tvClassc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
@@ -40,16 +40,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@id/tvClass"
+            android:layout_below="@id/tvClassc"
             android:text="導師:"/>
 
         <TextView
-            android:id="@+id/tvTeacher"
+            android:id="@+id/tvTeacherr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tvClass"
+            android:layout_alignLeft="@id/tvClassc"
             android:textSize="16sp"
-            android:layout_below="@id/tvClass"
+            android:layout_below="@id/tvClassc"
             android:text="Phone No"
             android:textColor="#555555" />
 

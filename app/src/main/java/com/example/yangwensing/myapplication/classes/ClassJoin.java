@@ -59,7 +59,6 @@ public class ClassJoin extends Fragment {
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
         etSearch = view.findViewById(R.id.etSearch);
         btSearch = view.findViewById(R.id.btSearch);
-
         Bundle bundle = getArguments();
         user = bundle.getString("name");
         btSearch.setOnClickListener(new View.OnClickListener() {

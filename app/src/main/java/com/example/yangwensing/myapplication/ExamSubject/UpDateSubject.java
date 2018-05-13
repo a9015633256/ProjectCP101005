@@ -36,6 +36,7 @@ public class UpDateSubject extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_create, container, false);
+        getActivity().setTitle(R.string.updatesubject);
         etDate = view.findViewById(R.id.etDate);
         etTitle = view.findViewById(R.id.etTitle);
         etContent = view.findViewById(R.id.etContent);

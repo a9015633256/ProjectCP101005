@@ -2,7 +2,7 @@ package com.example.yangwensing.myapplication.ExamSubject;
 
 
 class Exam {
-    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,StudentID,examstudent,AchievementID,examsubject;
+    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,examstudent,AchievementID,examsubject,achievementid,score;
     private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
@@ -23,13 +23,12 @@ class Exam {
 
     }
 
-    public Exam(int examsubjectid,int AchievementID,int examstudent,int examsubject,int StudentID,String studentid,String name,
-                int classid,String classname,int teacherid,String teacheraccount,String teachername){
+    public Exam(int AchievementID,int examsubjectid,int examstudent,int subjectid,String studentid,String name,
+                int classid,String classname,int teacherid,String teacheraccount,String teachername,int score,String title){
         this.examsubjectid = examsubjectid;
         this.AchievementID = AchievementID;
         this.examstudent = examstudent;
-        this.examsubject = examsubject;
-        this.StudentID = StudentID;
+        this.subjectid = subjectid;
         this.studentid = studentid;
         this.name = name;
         this.classid = classid;
@@ -37,11 +36,9 @@ class Exam {
         this.teacherid = teacherid;
         this.teacheraccount = teacheraccount;
         this.teachername = teachername;
-
+        this.score = score;
+        this.title = title;
     }
-
-
-
 
 
     public int getId() {
@@ -76,6 +73,69 @@ class Exam {
         this.classid = classid;
     }
 
+    public int getTeacherid() {
+        return teacherid;
+    }
+
+    public void setTeacherid(int teacherid) {
+        this.teacherid = teacherid;
+    }
+
+    public int getSubjectid() {
+        return subjectid;
+    }
+
+    public void setSubjectid(int subjectid) {
+        this.subjectid = subjectid;
+    }
+
+    public int getExamsubjectid() {
+        return examsubjectid;
+    }
+
+    public void setExamsubjectid(int examsubjectid) {
+        this.examsubjectid = examsubjectid;
+    }
+
+    public int getExamstudent() {
+        return examstudent;
+    }
+
+    public void setExamstudent(int examstudent) {
+        this.examstudent = examstudent;
+    }
+
+    public int getAchievementID() {
+        return AchievementID;
+    }
+
+    public void setAchievementID(int achievementID) {
+        AchievementID = achievementID;
+    }
+
+    public int getExamsubject() {
+        return examsubject;
+    }
+
+    public void setExamsubject(int examsubject) {
+        this.examsubject = examsubject;
+    }
+
+    public int getAchievementid() {
+        return achievementid;
+    }
+
+    public void setAchievementid(int achievementid) {
+        this.achievementid = achievementid;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getStudentid() {
         return studentid;
@@ -133,22 +193,6 @@ class Exam {
         this.classname = classname;
     }
 
-    public String getTeachername() {
-        return teachername;
-    }
-
-    public void setTeachername(String teachername) {
-        this.teachername = teachername;
-    }
-
-    public int getTeacherid() {
-        return teacherid;
-    }
-
-    public void setTeacherid(int teacherid) {
-        this.teacherid = teacherid;
-    }
-
     public String getTeacheraccount() {
         return teacheraccount;
     }
@@ -157,51 +201,11 @@ class Exam {
         this.teacheraccount = teacheraccount;
     }
 
-    public int getSubjectid() {
-        return subjectid;
+    public String getTeachername() {
+        return teachername;
     }
 
-    public void setSubjectid(int subjectid) {
-        this.subjectid = subjectid;
-    }
-
-    public int getExamsubjectid() {
-        return examsubjectid;
-    }
-
-    public void setExamsubjectid(int examsubjectid) {
-        this.examsubjectid = examsubjectid;
-    }
-
-    public int getStudentID() {
-        return StudentID;
-    }
-
-    public void setStudentID(int studentID) {
-        StudentID = studentID;
-    }
-
-    public int getExamstudent() {
-        return examstudent;
-    }
-
-    public void setExamstudent(int examstudent) {
-        this.examstudent = examstudent;
-    }
-
-    public int getAchievementID() {
-        return AchievementID;
-    }
-
-    public void setAchievementID(int achievementID) {
-        AchievementID = achievementID;
-    }
-
-    public int getExamsubject() {
-        return examsubject;
-    }
-
-    public void setExamsubject(int examsubject) {
-        this.examsubject = examsubject;
+    public void setTeachername(String teachername) {
+        this.teachername = teachername;
     }
 }

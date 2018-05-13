@@ -31,6 +31,11 @@
     <string name="ClassCode">班級代碼 : </string>
     <string name="text_teacherId">TeacherID</string>
     <string name="text_examScore">examscore</string>
+    <string name="AchievementSignin">登入成績</string>
+    <string name="createsubject">建立考試科目</string>
+    <string name="updatesubject">修改考試科目</string>
+    <string name="ExamSubjectt">考試科目</string>
+    <string name="updateAchievement">修改考試成績</string>
 
 
 </resources>

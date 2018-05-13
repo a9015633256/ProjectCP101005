@@ -146,5 +146,10 @@
     <string name="ClassCode">ClassCode: </string>
     <string name="text_teacherId">TeacherID</string>
     <string name="text_examScore">examscore</string>
+    <string name="AchievementSignin">Achievement SignIn</string>
+    <string name="createsubject">CreateExamSubject</string>
+    <string name="updatesubject">UpDateExamSubject</string>
+    <string name="ExamSubjectt">ExamSubject</string>
+    <string name="updateAchievement">UpdateAchievement</string>
 
 </resources>

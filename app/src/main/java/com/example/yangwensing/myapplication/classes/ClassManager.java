@@ -350,12 +350,21 @@ public class ClassManager extends Fragment {
             holder.tvTeacher.setText(c.getTeacher());
             String e = String.valueOf(c.getId());
             holder.tvClassCode.setText(e);
+
+            Fragment f = new ClassJoin();
+            Bundle b = new Bundle();
+            String t = String.valueOf(c.getTeacherid());
+            b.putString("teacherid",t);
+            f.setArguments(b);
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle b = new Bundle();
                     String id = String.valueOf(c.getId());
+
                     b.putString("ClassID",id);
+
                     Fragment fragment = new ExamFragment();
                     fragment.setArguments(b);
                     getFragmentManager().beginTransaction()
@@ -373,8 +382,8 @@ public class ClassManager extends Fragment {
 
             MyViewHolder(View itemView) {
                 super(itemView);
-                tvClass = itemView.findViewById(R.id.tvClass);
-                 tvTeacher= itemView.findViewById(R.id.tvTeacher);
+                tvClass = itemView.findViewById(R.id.tvClassc);
+                 tvTeacher= itemView.findViewById(R.id.tvTeacherr);
                  tvClassCode = itemView.findViewById(R.id.tvClassCode);
 
 

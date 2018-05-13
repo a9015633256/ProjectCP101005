@@ -35,11 +35,11 @@ public class AchievementFragment extends Fragment {
     private final static String TAG = "MainFragment";
     private MyTask myTask;
     private TextView tvSubject, tvClass, tvTeacher;
-    private Button btSend;
+    private Button btSend,bttUpete;;
     private RecyclerView renumber;
     private ImageView ivAnalysis;
     private String Classid = "";
-    private String Subject = "";
+    private String ExamSubjectID = "";
     private String Studentid= "";
     private String Teacherid= "";
     private String AchievementID = "";
@@ -48,21 +48,25 @@ public class AchievementFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.subject_achievement_signin, container, false);
-        tvSubject = view.findViewById(R.id.tvSubject);
+        getActivity().setTitle(R.string.AchievementSignin);
         btSend = view.findViewById(R.id.btSend);
-        tvSubject = view.findViewById(R.id.tvSubject);
+        tvSubject = view.findViewById(R.id.tvSubjectt);
         renumber = view.findViewById(R.id.reNumber);
-        tvTeacher = view.findViewById(R.id.tvTeacher);
-        tvClass = view.findViewById(R.id.tvClass);
+        tvTeacher = view.findViewById(R.id.tvTeacherr);
+        tvClass = view.findViewById(R.id.tvClassc);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
+        bttUpete = view.findViewById(R.id.btUpdateAchievement);
+        bttUpete.setVisibility(View.GONE);
+
         Bundle b = getArguments();
         Classid = b.getString("ID");
-        Subject = b.getString("Subject");
+        ExamSubjectID = b.getString("Subject");
+        AchievementID = b.getString("Achievement");
         ivAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new PerformanceAnalysisChart();
-                FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager= getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.content, fragment);
                 fragmentTransaction.addToBackStack(null);
@@ -79,7 +83,7 @@ public class AchievementFragment extends Fragment {
             String url = Common.URL + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "id");
-            jsonObject.addProperty("ExamSubjectID", Subject);
+            jsonObject.addProperty("ExamSubjectID", ExamSubjectID);
             String jsonOut = jsonObject.toString();
 
 
@@ -117,7 +121,6 @@ public class AchievementFragment extends Fragment {
     private class ReNumber extends RecyclerView.Adapter<ReNumber.Holder> {
         LayoutInflater layoutInflater;
         List<Exam> exams;
-        int etFocusPos = -1;
 
         public ReNumber(FragmentActivity activity, List<Exam> exams) {
             this.exams = exams;
@@ -159,7 +162,7 @@ public class AchievementFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     boolean isValid = true;
-                    Studentid = String.valueOf(exam.getStudentID());
+                    Studentid = String.valueOf(exam.getExamstudent());
                     AchievementID = String.valueOf(exam.getAchievementID());
                     String score = holder.etAchievement.getText().toString();
                     if (score.trim().isEmpty()) {
@@ -181,6 +184,7 @@ public class AchievementFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 Bundle b = new Bundle();
+                                b.putString("score",score);
                                 b.putString("ClassID",Classid);
                                 Fragment fragment = new ExamFragment();
                                 fragment.setArguments(b);
