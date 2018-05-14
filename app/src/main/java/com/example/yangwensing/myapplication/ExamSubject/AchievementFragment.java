@@ -58,17 +58,17 @@ public class AchievementFragment extends Fragment {
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
         bttUpete.setVisibility(View.GONE);
-        btSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Exam> exams = new ArrayList<>();
-                ;
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("action","ii");
-                jsonObject.addProperty("t",new  Gson().toJson(exams));
-
-            }
-        });
+//        btSend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                List<Exam> exams = new ArrayList<>();
+//                ;
+//                JsonObject jsonObject = new JsonObject();
+//                jsonObject.addProperty("action","ii");
+//                jsonObject.addProperty("t",new  Gson().toJson(exams));
+//
+//            }
+//        });
 
         Bundle b = getArguments();
         Classid = b.getString("ID");
@@ -172,10 +172,10 @@ public class AchievementFragment extends Fragment {
                 }
             });
 
-//
-//            btSend.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
+
+            btSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     boolean isValid = true;
 
                     Studentid = String.valueOf(exam.getExamstudent());
@@ -222,8 +222,8 @@ public class AchievementFragment extends Fragment {
                     }
 
 
-//                }
-//            });
+                }
+            });
 
 
         }

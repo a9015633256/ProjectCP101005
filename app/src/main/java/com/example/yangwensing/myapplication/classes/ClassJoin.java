@@ -238,10 +238,12 @@ public class ClassJoin extends Fragment {
                         jsonObject.addProperty("ClassId", ClassID);
                         jsonObject.addProperty("TeacherId", Teacherid);
                         int count = 0;
+
                         myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
                         try {
                             String result = myTask.execute().get();
                             count = Integer.valueOf(result);
+
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }

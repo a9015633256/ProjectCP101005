@@ -37,6 +37,7 @@ public class EditAchievement extends Fragment {
     private TextView tvSubject,tvClassname,tvTeacherName;
     private ImageView ivAnalysis;
     private Button bttUpete,btSure;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class EditAchievement extends Fragment {
         tvTeacherName = view.findViewById(R.id.tvTeacherr);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
+
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();
         ExamSubjectID = b.getString("Subjectid");

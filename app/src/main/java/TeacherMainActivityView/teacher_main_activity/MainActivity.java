@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent2 = new Intent(MainActivity.this, Navigation3_Homework.class);
                         startActivity(intent2);
                         break;
-
                     case R.id.ic_ExamSubject:
                         Intent intent3 = new Intent(MainActivity.this, Navigation2_ExamSubject.class);
                         startActivity(intent3);

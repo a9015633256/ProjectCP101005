@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
 
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -44,10 +46,8 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
                         Intent intent3 = new Intent(Navigation2_ExamSubject.this, Navigation3_Homework.class);
                         startActivity(intent3);
                         break;
-
                     case R.id.ic_ExamSubject:
                         break;
-
                     case R.id.ic_Chat:
                         Intent intent4 = new Intent(Navigation2_ExamSubject.this, Navigation4_ParentConnection.class);
                         startActivity(intent4);
