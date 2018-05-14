@@ -253,22 +253,27 @@ public class RegisterFragment extends Fragment {
                     try {
                         registerTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
                         int count = Integer.valueOf(registerTask.execute().get());
-                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
 
-                        Fragment loginFragment = new LoginFragment();
 
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.addToBackStack(null);
-
-                        fragmentTransaction.replace(R.id.content, loginFragment);
-                        fragmentTransaction.commit();
 
 
 
                         if (count == 0 ) {
                             Toast.makeText(getActivity(), "Regitration failed ", Toast.LENGTH_SHORT).show();
+                            return;
+                        }else
+                        {
+                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            Fragment loginFragment = new LoginFragment();
+
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.addToBackStack(null);
+
+                            fragmentTransaction.replace(R.id.content, loginFragment);
+                            fragmentTransaction.commit();
                         }
                     } catch (Exception e) {
                         Log.d(TAG, "error message" + e.toString());
