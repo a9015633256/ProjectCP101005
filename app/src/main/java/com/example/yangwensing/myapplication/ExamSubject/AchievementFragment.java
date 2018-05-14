@@ -80,7 +80,7 @@ public class AchievementFragment extends Fragment {
                 Fragment fragment = new PerformanceAnalysisChart();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment);
+                fragmentTransaction.replace(R.id.main_content, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -92,7 +92,7 @@ public class AchievementFragment extends Fragment {
         List<Exam> exams = new ArrayList<>();
 
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "id");
             jsonObject.addProperty("ExamSubjectID", ExamSubjectID);
@@ -191,7 +191,7 @@ public class AchievementFragment extends Fragment {
                         jsonObject.addProperty("score", score);
                         jsonObject.addProperty("AchievementID", AchievementID);
 
-                        myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                        myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
 
                         try {
                             int count = Integer.valueOf(myTask.execute().get());
@@ -206,7 +206,7 @@ public class AchievementFragment extends Fragment {
                                 fragment.setArguments(b);
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.content, fragment);
+                                fragmentTransaction.replace(R.id.main_content, fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
 

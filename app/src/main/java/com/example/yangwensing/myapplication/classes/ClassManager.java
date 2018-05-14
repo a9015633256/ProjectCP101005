@@ -262,7 +262,7 @@ public class ClassManager extends Fragment {
 
     private void showAllClasses() {
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
 
 //            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
@@ -291,7 +291,7 @@ public class ClassManager extends Fragment {
     }
     private void showJoinClasses() {
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
 
 //            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
@@ -348,16 +348,16 @@ public class ClassManager extends Fragment {
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
             final Classes c = classes.get(position);
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             final int classId = c.getId();
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
             final String e = String.valueOf(c.getId());
             holder.tvClassCode.setText(e);
 
-            String t= String.valueOf(c.getTeacherid());
+            int t= c.getTeacherid();
             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-            preferences.edit().putString("tt", t).apply();
+            preferences.edit().putInt("teacherid", t).apply();
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

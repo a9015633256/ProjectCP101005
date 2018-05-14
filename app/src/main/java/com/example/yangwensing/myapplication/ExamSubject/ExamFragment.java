@@ -54,21 +54,23 @@ public class ExamFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerr);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         List<Exam> exams = new ArrayList<>();
-        Bundle b = getArguments();
-        Classid = b.getString("ClassID");
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        Classid = String.valueOf(preferences.getInt("classId",0));
+
 
         Button btAdd = view.findViewById(R.id.btAdd);
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bb = getArguments();
-                String Class = bb.getString("ClassID");
-                bb.putString("ClassID", Class);
+                Bundle bb = new Bundle();
+                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                Classid = String.valueOf(preferences.getInt("classId",0));
+                bb.putString("ClassID", Classid);
                 Fragment fragment = new CreateSubject();
                 fragment.setArguments(bb);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment);
+                fragmentTransaction.replace(R.id.main_content, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -79,7 +81,7 @@ public class ExamFragment extends Fragment {
 
 
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "Exam");
             jsonObject.addProperty("id", Classid);
@@ -146,7 +148,7 @@ public class ExamFragment extends Fragment {
             holder.ivEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle b = getArguments();
+                    Bundle b = new Bundle();
 
                     String Studentid= String.valueOf(exams1.getSubjectid());
                     String Achievementid = String.valueOf(exams1.getAchievementid());
@@ -162,7 +164,7 @@ public class ExamFragment extends Fragment {
                     fragment.setArguments(b);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content, fragment);
+                    fragmentTransaction.replace(R.id.main_content, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
@@ -183,7 +185,7 @@ public class ExamFragment extends Fragment {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content, fragment);
+                    fragmentTransaction.replace(R.id.main_content, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
@@ -200,7 +202,7 @@ public class ExamFragment extends Fragment {
                         jsonObject.addProperty("action", "findByitem");
                         jsonObject.addProperty("item", id);
                         try {
-                            myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                            myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                             String jsonIn = myTask.execute().get();
                             Log.d(TAG, jsonIn);
 //                            Type listType = new TypeToken<List<Exam>>() {
@@ -225,7 +227,7 @@ public class ExamFragment extends Fragment {
                             fragment.setArguments(b);
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.content, fragment);
+                            fragmentTransaction.replace(R.id.main_content, fragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                             recyclerView.getAdapter().notifyDataSetChanged();
@@ -259,7 +261,7 @@ public class ExamFragment extends Fragment {
                                         int count = 0;
 
                                         try {
-                                            myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                                            myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                                             String result = myTask.execute().get();
                                             count = Integer.valueOf(result);
                                         } catch (Exception e) {

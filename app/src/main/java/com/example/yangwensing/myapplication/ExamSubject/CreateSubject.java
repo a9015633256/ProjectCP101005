@@ -133,7 +133,7 @@ public class CreateSubject extends Fragment {
                     jsonObject.addProperty("Subject",new Gson().toJson(exam));
 
 
-                    myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                    myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                     try {
                         int count = Integer.valueOf(myTask.execute().get());
                         if (count == 0) {
@@ -146,7 +146,7 @@ public class CreateSubject extends Fragment {
                             fragment.setArguments(bb);
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.content, fragment);
+                            fragmentTransaction.replace(R.id.main_content, fragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }
