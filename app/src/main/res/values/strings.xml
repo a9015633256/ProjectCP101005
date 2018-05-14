@@ -12,7 +12,7 @@
     <string name="title_info">Student Info</string>
     <string name="title_homework">Homework</string>
     <string name="title_exam">Exam</string>
-    <string name="title_contact">Teacher List</string>
+    <string name="title_contact">Contact</string>
     <string name="text_studentId">Student ID:</string>
     <string name="text_class">Class:</string>
     <string name="text_gender">Gender:</string>
