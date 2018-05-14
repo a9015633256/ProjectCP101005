@@ -239,7 +239,7 @@ public class StudentInfoEditFragment extends Fragment {
             String studentStr = gson.toJson(student);
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "updateStudentInfoTask");
+            jsonObject.addProperty("action", "updateStudentInfo");
             jsonObject.addProperty("student", studentStr);
             if (isPhotoChanged) {
                 String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
