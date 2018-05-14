@@ -35,13 +35,14 @@ public class AchievementFragment extends Fragment {
     private final static String TAG = "MainFragment";
     private MyTask myTask;
     private TextView tvSubject, tvClass, tvTeacher;
-    private Button btSend,bttUpete;;
+    private Button btSend, bttUpete;
+    ;
     private RecyclerView renumber;
     private ImageView ivAnalysis;
     private String Classid = "";
     private String ExamSubjectID = "";
-    private String Studentid= "";
-    private String Teacherid= "";
+    private String Studentid = "";
+    private String Teacherid = "";
     private String AchievementID = "";
 
     @Nullable
@@ -57,6 +58,17 @@ public class AchievementFragment extends Fragment {
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
         bttUpete.setVisibility(View.GONE);
+        btSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Exam> exams = new ArrayList<>();
+                ;
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("action","ii");
+                jsonObject.addProperty("t",new  Gson().toJson(exams));
+
+            }
+        });
 
         Bundle b = getArguments();
         Classid = b.getString("ID");
@@ -66,7 +78,7 @@ public class AchievementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new PerformanceAnalysisChart();
-                FragmentManager fragmentManager= getFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.content, fragment);
                 fragmentTransaction.addToBackStack(null);
@@ -148,20 +160,24 @@ public class AchievementFragment extends Fragment {
             holder.tvName.setText(Name);
             tvClass.setText(ClassName);
             tvTeacher.setText(TeacherName);
-
-//            Teacherid = String.valueOf(exam.getTeacherid());
-//            Classid = String.valueOf(exam.getClassid());
-//            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-//            preferences.edit().putString("Teaid", Teacherid).putString("Clid",Classid).apply();
-
-
-
-
-
-            btSend.setOnClickListener(new View.OnClickListener() {
+            holder.etAchievement.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
-                public void onClick(View v) {
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+
+                        holder.etAchievement.setHint(null);
+                    } else {
+                        holder.etAchievement.setHint("NO");
+                    }
+                }
+            });
+
+//
+//            btSend.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
                     boolean isValid = true;
+
                     Studentid = String.valueOf(exam.getExamstudent());
                     AchievementID = String.valueOf(exam.getAchievementID());
                     String score = holder.etAchievement.getText().toString();
@@ -173,7 +189,7 @@ public class AchievementFragment extends Fragment {
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action", "insertAchievement");
                         jsonObject.addProperty("score", score);
-                        jsonObject.addProperty("AchievementID",AchievementID);
+                        jsonObject.addProperty("AchievementID", AchievementID);
 
                         myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
 
@@ -184,8 +200,8 @@ public class AchievementFragment extends Fragment {
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 Bundle b = new Bundle();
-                                b.putString("score",score);
-                                b.putString("ClassID",Classid);
+                                b.putString("score", score);
+                                b.putString("ClassID", Classid);
                                 Fragment fragment = new ExamFragment();
                                 fragment.setArguments(b);
                                 FragmentManager fragmentManager = getFragmentManager();
@@ -206,8 +222,8 @@ public class AchievementFragment extends Fragment {
                     }
 
 
-                }
-            });
+//                }
+//            });
 
 
         }
@@ -223,7 +239,6 @@ public class AchievementFragment extends Fragment {
             EditText etAchievement;
 
 
-
             public Holder(View itemview) {
                 super(itemview);
                 tvNumber = itemview.findViewById(R.id.tvNumber);
@@ -233,6 +248,8 @@ public class AchievementFragment extends Fragment {
 
             }
         }
+
+
     }
 
 
