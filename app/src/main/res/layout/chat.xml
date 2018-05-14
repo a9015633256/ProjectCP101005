@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="32dp"
-            android:text="123"
+            android:text="學生："
            />
 
 
