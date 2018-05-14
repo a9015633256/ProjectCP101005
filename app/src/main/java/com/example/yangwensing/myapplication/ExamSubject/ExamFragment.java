@@ -138,7 +138,7 @@ public class ExamFragment extends Fragment {
             Achievement = String.valueOf(exams1.getAchievementid());
             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
             preferences.edit().putString("Subject", Subject)
-                    .putString("Teacher", Teacher)
+//                    .putString("Teacher", Teacher)
                     .putString("ClassID", Classid)
                     .apply();
 
