@@ -144,4 +144,16 @@
     <string name="Analysis">Analysis</string>
     <string name="text_examScore">Student Score:</string>
     <string name="text_teacherId">TeacherID</string>
+    <string name="msg_NoProfileFound">NoProfileFound</string>
+    <string name="Boy">Boy</string>
+    <string name="Girl">Girl</string>
+    <string name="text_UserId">User_ID</string>
+    <string name="msg_InputEmpty">CanNotImpty</string>
+    <string name="text_UserName">UserName</string>
+    <string name="text_UseGender">UseGender</string>
+    <string name="text_UserPhone">UserPhone</string>
+    <string name="text_UserBirth">UserBirth</string>
+    <string name="msg_UpdateFail">UpdateFail</string>
+    <string name="msg_UpdateSuccess">UpdateSuccess</string>
+    <string name="ChooseGender">Choose Gender</string>
 </resources>

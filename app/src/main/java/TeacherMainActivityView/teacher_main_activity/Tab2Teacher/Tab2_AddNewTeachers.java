@@ -66,7 +66,7 @@ public class Tab2_AddNewTeachers extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        ((MainActivity) getActivity()).hideFloatingActionButton();//
+        ((MainActivity) getActivity()).hideFloatingActionButton();//沒辦法消失，暫時找不到辦法
     }
 
     private void SearchTeacherID() {
