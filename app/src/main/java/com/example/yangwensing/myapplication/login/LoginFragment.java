@@ -40,7 +40,8 @@ public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
     private int studentId;
-    int teacherid;
+    private int teacherid;
+    private int subjectid;
 
     //帳號比對格式
     String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
@@ -105,6 +106,7 @@ public class LoginFragment extends Fragment {
                         preferences.edit()
                                 .putString("name", user)
                                 .putInt("teacherid", teacherid)
+                                .putInt("subjectId",subjectid)
                                 .apply();
 
                         FragmentManager fragmentManager = getFragmentManager();
@@ -220,6 +222,7 @@ public class LoginFragment extends Fragment {
                 jsonObject = new Gson().fromJson(jsonIN, JsonObject.class);
                 isUserValid = jsonObject.get("isUserValid").getAsBoolean();
                 teacherid = jsonObject.get("id").getAsInt();
+                subjectid = jsonObject.get("subject").getAsInt();
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
