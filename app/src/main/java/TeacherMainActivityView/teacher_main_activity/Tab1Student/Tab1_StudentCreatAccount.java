@@ -1,5 +1,7 @@
 package TeacherMainActivityView.teacher_main_activity.Tab1Student;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +26,7 @@ import TeacherMainActivityView.teacher_main_activity.MainActivity;
 public class Tab1_StudentCreatAccount extends Fragment {
     private final static String TAG = "Tab1StudentCreatAccount";
     private MyTask myTask;
+    private int classId;
 
     @Nullable
     @Override
@@ -32,6 +35,7 @@ public class Tab1_StudentCreatAccount extends Fragment {
         final EditText etStudentAccountID = view.findViewById(R.id.etStudentAccountID);
         final EditText etStudentAP = view.findViewById(R.id.etStudentAP);
         final EditText etStudentName = view.findViewById(R.id.etStudentName);
+        classId = getClassId();
         ((MainActivity) getActivity()).hideFloatingActionButton();
         Button btAddStudentAccount = view.findViewById(R.id.btAddStudentAccount);
         btAddStudentAccount.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +60,8 @@ public class Tab1_StudentCreatAccount extends Fragment {
                         jsonObject.addProperty("Student_ID", StudentAccountID);
                         jsonObject.addProperty("Student_Password", StudentAP);
                         jsonObject.addProperty("Student_Name",StudentName);
+                        jsonObject.addProperty("Class_Name",classId);
+
                         try {
                             myTask = new MyTask(Common.URL + "/StudentAccountServlet", jsonObject.toString());
                             int count = Integer.valueOf(myTask.execute().get());
@@ -83,4 +89,12 @@ public class Tab1_StudentCreatAccount extends Fragment {
         super.onStop();
         ((MainActivity) getActivity()).showFloatingActionButton();
     }
+
+
+    private int getClassId() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+        int id = preferences.getInt("classId", 0);
+        return id;
+    }
+
 }

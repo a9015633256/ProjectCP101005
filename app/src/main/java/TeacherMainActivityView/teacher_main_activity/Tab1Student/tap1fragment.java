@@ -34,7 +34,6 @@ import java.util.List;
 
 import TeacherMainActivityView.CommonPart.Common;
 import TeacherMainActivityView.CommonPart.MyTask;
-import TeacherMainActivityView.teacher_main_activity.Tab2Teacher.ClassSubjectTeacher;
 
 //Tab學生資料
 public class tap1fragment extends Fragment {
@@ -159,12 +158,11 @@ public class tap1fragment extends Fragment {
         public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
             final ClassStudentMember classStudentMember = classStudentMembers.get(position);
             String url = Common.URL + "/StudentServlet";
-            int id = classStudentMember.getId();
-            studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
+            final int idb = classStudentMember.getId();
+            studentGetImageTask = new StudentGetImageTask(url, idb, imageSize, myViewHolder.studentImageview);
             studentGetImageTask.execute();
             myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
             myViewHolder.studentPhone.setText(classStudentMember.getStudent_Phone());
-
 
             myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {//長按刪除，更新的部分
                 @TargetApi(Build.VERSION_CODES.KITKAT)
