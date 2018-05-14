@@ -3,22 +3,17 @@ package com.example.yangwensing.myapplication.classes;
 import java.io.Serializable;
 
 public class Classes implements Serializable {
-	private int id;
 	private String classes;
 	private String teacher;
-	public Classes(int id, String classes, String teacher) {
+	private int id,teacherid;
+	public Classes(String classes, String teacher,int id,int teacherid) {
 		super();
-		this.id = id;
 		this.classes = classes;
 		this.teacher = teacher;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
 		this.id = id;
+		this.teacherid = teacherid;
 	}
-	public String getClasses() {
+	public  String getClasses() {
 		return classes;
 	}
 	public void setClasses(String classes) {
@@ -31,5 +26,19 @@ public class Classes implements Serializable {
 		this.teacher = teacher;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getTeacherid() {
+		return teacherid;
+	}
+
+	public void setTeacherid(int teacherid) {
+		this.teacherid = teacherid;
+	}
 }

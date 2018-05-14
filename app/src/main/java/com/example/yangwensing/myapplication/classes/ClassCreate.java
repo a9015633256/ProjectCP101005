@@ -45,8 +45,7 @@ public class ClassCreate extends Fragment{
 
         etClass = view.findViewById(R.id.etClass);
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
-//        Bundle bundle = getArguments();
-//        user = bundle.getString("name");
+
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         user = preferences.getString("name","0");
 

@@ -2,10 +2,17 @@ package com.example.yangwensing.myapplication.ExamSubject;
 
 
 class Exam {
-    private int id, teacher, subject, classid;
-    private String studentid, examtitle, date, title, context, name, classname,teachername;
+    private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,examstudent,AchievementID,examsubject,achievementid,score;
+    private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
+    public Exam (int classid,String examtitle,int subjectid,int teacherid,int examsubjectid){
+        this.classid = classid;
+        this.examtitle = examtitle;
+        this.subjectid = subjectid;
+        this.teacherid = teacherid;
+        this.examsubjectid = examsubjectid;
+    }
 
     public Exam(int id, String title, String date , String context){
 
@@ -16,24 +23,21 @@ class Exam {
 
     }
 
-    public Exam(int classid,String studentid,String name,String classname,String teachername){
-        this.classid =classid;
+    public Exam(int AchievementID,int examsubjectid,int examstudent,int subjectid,String studentid,String name,
+                int classid,String classname,int teacherid,String teacheraccount,String teachername,int score,String title){
+        this.examsubjectid = examsubjectid;
+        this.AchievementID = AchievementID;
+        this.examstudent = examstudent;
+        this.subjectid = subjectid;
         this.studentid = studentid;
         this.name = name;
-        this.classname = classname;
-        this.teachername = teachername;
-
-    }
-
-
-    public Exam(int id , int subject, int teacher,int classid, String title, String context ,String date) {
-        this.id = id;
-        this.teacher = teacher;
-        this.subject = subject;
         this.classid = classid;
-        this.date = date;
+        this.classname = classname;
+        this.teacherid = teacherid;
+        this.teacheraccount = teacheraccount;
+        this.teachername = teachername;
+        this.score = score;
         this.title = title;
-        this.context = context;
     }
 
 
@@ -69,6 +73,69 @@ class Exam {
         this.classid = classid;
     }
 
+    public int getTeacherid() {
+        return teacherid;
+    }
+
+    public void setTeacherid(int teacherid) {
+        this.teacherid = teacherid;
+    }
+
+    public int getSubjectid() {
+        return subjectid;
+    }
+
+    public void setSubjectid(int subjectid) {
+        this.subjectid = subjectid;
+    }
+
+    public int getExamsubjectid() {
+        return examsubjectid;
+    }
+
+    public void setExamsubjectid(int examsubjectid) {
+        this.examsubjectid = examsubjectid;
+    }
+
+    public int getExamstudent() {
+        return examstudent;
+    }
+
+    public void setExamstudent(int examstudent) {
+        this.examstudent = examstudent;
+    }
+
+    public int getAchievementID() {
+        return AchievementID;
+    }
+
+    public void setAchievementID(int achievementID) {
+        AchievementID = achievementID;
+    }
+
+    public int getExamsubject() {
+        return examsubject;
+    }
+
+    public void setExamsubject(int examsubject) {
+        this.examsubject = examsubject;
+    }
+
+    public int getAchievementid() {
+        return achievementid;
+    }
+
+    public void setAchievementid(int achievementid) {
+        this.achievementid = achievementid;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getStudentid() {
         return studentid;
@@ -126,6 +193,14 @@ class Exam {
         this.classname = classname;
     }
 
+    public String getTeacheraccount() {
+        return teacheraccount;
+    }
+
+    public void setTeacheraccount(String teacheraccount) {
+        this.teacheraccount = teacheraccount;
+    }
+
     public String getTeachername() {
         return teachername;
     }
@@ -133,6 +208,4 @@ class Exam {
     public void setTeachername(String teachername) {
         this.teachername = teachername;
     }
-
-
 }

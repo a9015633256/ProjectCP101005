@@ -17,7 +17,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -43,7 +44,10 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="300dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                />
 
 
             <LinearLayout
@@ -62,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
@@ -82,19 +86,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="90 - 100:" />
+                    android:text="     100:" />
 
                 <EditText
-                    android:id="@+id/tvScoreA"
+                    android:id="@+id/tvScoreAPlus"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
                     android:text=""
+
                     android:textColor="@color/colorTextBlack"
 
                     />
@@ -112,15 +117,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="80 - 89:" />
+                    android:text="90 - 99:" />
 
                 <EditText
-                    android:id="@+id/tvScoreB"
+                    android:id="@+id/tvScoreA"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
@@ -129,7 +134,34 @@
 
                     />
 
-            </LinearLayout>
+            </LinearLayout><LinearLayout
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="80 - 89:" />
+
+            <EditText
+                android:id="@+id/tvScoreB"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:enabled="false"
+                android:inputType="text"
+                android:text=""
+                android:textColor="@color/colorTextBlack"
+
+                />
+
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -149,7 +181,7 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
@@ -209,7 +241,7 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
@@ -239,7 +271,8 @@
 
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"

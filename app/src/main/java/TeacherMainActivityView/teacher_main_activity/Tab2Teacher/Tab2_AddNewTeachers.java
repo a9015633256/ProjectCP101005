@@ -49,7 +49,6 @@ public class Tab2_AddNewTeachers extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_tab2_add_new_teacher, container, false);
-        ((MainActivity) getActivity()).hideFloatingActionButton();//不知道為什麼不起作用，之後再研究
         btSearchTeacher = view.findViewById(R.id.btSearchTeacher);
         edSearchTeacher = view.findViewById(R.id.edSearchTeacher);
         rlTeachers = view.findViewById(R.id.rlTeachers);
@@ -62,6 +61,12 @@ public class Tab2_AddNewTeachers extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivity) getActivity()).hideFloatingActionButton();//
     }
 
     private void SearchTeacherID() {

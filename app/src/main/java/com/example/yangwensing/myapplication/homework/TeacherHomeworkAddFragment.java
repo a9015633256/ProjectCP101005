@@ -16,10 +16,7 @@ import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class TeacherHomeworkAddFragment extends Fragment {
     //    private BottomNavigationView bottomNavigationView;
@@ -57,7 +54,7 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
                     //檢查是否上一頁資料正確傳入
                     if (classId * teacherId * subjectId == 0) {
-                        Common.showToast(getActivity(), R.string.text_data_error);
+                        Common.showToast(getActivity(), R.string.msg_data_error);
                         return;
                     }
 

@@ -1,27 +1,16 @@
 package com.example.yangwensing.myapplication.homework;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
-import com.example.yangwensing.myapplication.main.MyTask;
-import com.google.gson.JsonObject;
 
 public class StudentHomeworkDetailFragment extends Fragment {
     private BottomNavigationView bottomNavigationView;
@@ -53,7 +42,7 @@ public class StudentHomeworkDetailFragment extends Fragment {
             etTitle.setText(homeworkIsDone.getTitle());
             etContent.setText(homeworkIsDone.getContent());
         } else {
-            Common.showToast(getActivity(), R.string.text_data_error);
+            Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
 

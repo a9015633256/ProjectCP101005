@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
@@ -69,7 +68,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
         }
 
         if (homework == null) {
-            Common.showToast(getActivity(), R.string.text_data_error);
+            Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
 

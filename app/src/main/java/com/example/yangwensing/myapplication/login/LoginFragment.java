@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.exam.StudentExamChartFragment;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
@@ -178,8 +179,7 @@ public class LoginFragment extends Fragment {
                         .apply();
 
                 //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new TeacherHomeworkFragment(), "TeacherHomeworkFragment").commit();
-//                bottomNavigationView.setVisibility(View.VISIBLE);
+                getFragmentManager().beginTransaction().replace(R.id.content, new StudentExamChartFragment(), "TeacherHomeworkFragment").commit();
 
             }
         });
