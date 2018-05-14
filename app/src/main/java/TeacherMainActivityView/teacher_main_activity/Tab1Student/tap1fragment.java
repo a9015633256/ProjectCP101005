@@ -222,7 +222,7 @@ public class tap1fragment extends Fragment {
                     studentInfoFragment.setArguments(bundle);
 
                     if (getFragmentManager() != null) {
-                        getFragmentManager().beginTransaction().replace(R.id.main_content, studentInfoFragment).addToBackStack(null).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.body, studentInfoFragment).addToBackStack(null).commit();
                     }
 
 

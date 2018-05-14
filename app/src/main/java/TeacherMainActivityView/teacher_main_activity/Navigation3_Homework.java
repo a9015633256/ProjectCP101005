@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import TeacherMainActivityView.CommonPart.BottomNavigationBarHelper;
 
 //學生作業頁面
 public class Navigation3_Homework extends AppCompatActivity {
+    private TabLayout tlForTeacherHomeworkCheck;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +28,13 @@ public class Navigation3_Homework extends AppCompatActivity {
 //        title.setText("this is view2");
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
+
+                //tabLayout給老師作業勾選
+        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
+        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
+        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, new TeacherHomeworkFragment(), "TeacherHomeworkFragment").commit();
 
@@ -38,10 +47,6 @@ public class Navigation3_Homework extends AppCompatActivity {
                         startActivity(intent0);
                         break;
 
-                    case R.id.ic_Management:
-                        Intent intent1 = new Intent(Navigation3_Homework.this, Navigation1_ClassManagement.class);
-                        startActivity(intent1);
-                        break;
 
                     case R.id.ic_Homework:
                         break;

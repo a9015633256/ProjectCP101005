@@ -35,6 +35,7 @@ public class StudentInfoFragment extends Fragment {
     private ImageView ivStudentPic;
     private MyTask findStudentByIdTask;
     private GetImageTask getStudentPicTask;
+    private final static String TAG = "StudentInfoFragment";
 
 
     @Nullable
@@ -48,18 +49,19 @@ public class StudentInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getInt("studentIdForTeacher") != 0) {
             studentId = bundle.getInt("studentIdForTeacher");
-//            Log.d(TAG, "onCreateView: "+studentId);
+
+
 
 
         } else {
             setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
-
+            studentId = Common.getDataFromPref(
+                    getActivity(), "studentId", 0);
 
         }
 
 
-        studentId = Common.getDataFromPref(
-                getActivity(), "studentId", 0);
+
 
         //取得db資訊並顯示在畫面上
         getStudentInfo();

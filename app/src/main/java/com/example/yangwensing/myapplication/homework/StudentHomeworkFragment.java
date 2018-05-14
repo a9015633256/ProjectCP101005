@@ -78,11 +78,10 @@ public class StudentHomeworkFragment extends Fragment {
     }
 
 
-
     @Override
     public void onStop() {
         super.onStop();
-        if (getHomeworkTask != null){
+        if (getHomeworkTask != null) {
             getHomeworkTask.cancel(true);
         }
     }
@@ -212,7 +211,7 @@ public class StudentHomeworkFragment extends Fragment {
                 tvTitle.setText(homeworkIsDone.getTitle());
 
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
-                if (homeworkIsDone.isHomeworkDone()) {
+                if (!homeworkIsDone.isHomeworkDone()) {
                     tvIsCompleted.setText("未完成");
                 }
 

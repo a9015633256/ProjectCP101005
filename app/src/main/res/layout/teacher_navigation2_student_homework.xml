@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:id="@+id/container"
+
+    android:orientation="vertical"
     tools:context="TeacherMainActivityView.teacher_main_activity.MainActivity">
 
     <!--<TextView-->
-        <!--android:id="@+id/tvTitle2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="80dp"-->
-        <!--android:text="GoodMorning2"-->
-        <!--android:textSize="30sp"-->
-        <!--android:textAlignment="center"/>-->
+    <!--android:id="@+id/tvTitle2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="80dp"-->
+    <!--android:text="GoodMorning2"-->
+    <!--android:textSize="30sp"-->
+    <!--android:textAlignment="center"/>-->
 
-    <RelativeLayout
-        android:id="@+id/bottomBar"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tlForTeacherHomework"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/btNavigation_Bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            app:menu="@menu/teacher_navigation_bar_menu">
+    </android.support.design.widget.TabLayout>
 
-        </android.support.design.widget.BottomNavigationView>
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-
-    </RelativeLayout>
+    </FrameLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btNavigation_Bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
+        app:menu="@menu/teacher_navigation_bar_menu">
+
+    </android.support.design.widget.BottomNavigationView>
+
+
+</LinearLayout>

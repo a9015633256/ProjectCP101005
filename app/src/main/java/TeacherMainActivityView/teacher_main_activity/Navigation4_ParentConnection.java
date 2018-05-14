@@ -26,14 +26,14 @@ public class Navigation4_ParentConnection extends AppCompatActivity {
         setContentView(R.layout.teacher_navigation4_parent_connection);
         setTitle(R.string.ParentConnection);
         TextView title = findViewById(R.id.tvTitle4);
-        title.setText("this is view4");
+//        title.setText("this is view4");
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
 
         Fragment chatList = new ChatList();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.main_content,chatList);
         fragmentTransaction.commit();
 
@@ -46,10 +46,6 @@ public class Navigation4_ParentConnection extends AppCompatActivity {
                         startActivity(intent0);
                         break;
 
-                    case R.id.ic_Management:
-                        Intent intent1 = new Intent(Navigation4_ParentConnection.this, Navigation1_ClassManagement.class);
-                        startActivity(intent1);
-                        break;
 
                     case R.id.ic_Homework:
                         Intent intent3 = new Intent(Navigation4_ParentConnection.this, Navigation3_Homework.class);
