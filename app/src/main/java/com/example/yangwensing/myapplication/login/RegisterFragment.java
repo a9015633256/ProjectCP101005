@@ -147,18 +147,12 @@ public class RegisterFragment extends Fragment {
 
 
         //科目選單設定
-        Spinner spinner1 = view.findViewById(R.id.spSubject1);
+        final Spinner spinner1 = view.findViewById(R.id.spSubject1);
         ArrayAdapter<CharSequence> subjectList = ArrayAdapter.createFromResource(getActivity(),
                 R.array.subject,
                 android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(subjectList);
-        Spinner spinner2 = view.findViewById(R.id.spSubject2);
-        ArrayAdapter<CharSequence> anothersubjectList = ArrayAdapter.createFromResource(getActivity(),
-                R.array.anothersubject,
-                android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(anothersubjectList);
-        Spinner spinner3 = view.findViewById(R.id.spSubject3);
-        spinner3.setAdapter(anothersubjectList);
+
         //科目選單設定
 
 
@@ -224,7 +218,8 @@ public class RegisterFragment extends Fragment {
                 String passwordconfirm = rgPasswordconfirm.getText().toString().trim();
                 String name = rgName.getText().toString();
                 String birthday = rgbirthday.getText().toString();
-                int phone = Integer.valueOf(rgphone.getText().toString());
+                String phone = rgphone.getText().toString();
+                String subject = spinner1.getSelectedItem().toString();
                 int gender = ggender;
 
 
@@ -249,6 +244,8 @@ public class RegisterFragment extends Fragment {
                     jsonObject.addProperty("phone", phone);
                     jsonObject.addProperty("gender", gender);
                     jsonObject.addProperty("birthday", birthday);
+                    jsonObject.addProperty("subject", subject);
+
 
                     accounts.clear();
 

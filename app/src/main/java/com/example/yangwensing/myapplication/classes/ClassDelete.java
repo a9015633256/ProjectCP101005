@@ -291,8 +291,8 @@ public class ClassDelete extends Fragment {
 
             public MyViewHolder(View itemView) {
                 super(itemView);
-                tvClass = itemView.findViewById(R.id.tvClass);
-                tvTeacher = itemView.findViewById(R.id.tvTeacher);
+                tvClass = itemView.findViewById(R.id.tvClassc);
+                tvTeacher = itemView.findViewById(R.id.tvTeacherr);
                 btcheckdlete = itemView.findViewById(R.id.btcheckdelete);
             }
         }

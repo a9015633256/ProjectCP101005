@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
@@ -51,6 +50,8 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private TabLayout tabLayout;
     private TabLayout.OnTabSelectedListener onTabSelectedListener;
     private BottomNavigationView bottomNavigationView;
+    private MyTask getHomeworkTask;
+    private MyTask updateHomeworkTask;
 
 
     @Nullable
@@ -69,7 +70,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
         }
 
         if (homework == null) {
-            Common.showToast(getActivity(), R.string.text_data_error);
+            Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
 
@@ -140,7 +141,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
             String jsonStrForUpdateCheck = gson.toJson(newHomeworkCheckList);
             jsonObject.addProperty("homeworkCheckList", jsonStrForUpdateCheck);
-            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+            updateHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
 
@@ -188,7 +189,14 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     public void onStop() {
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        if (getHomeworkTask != null) {
+            getHomeworkTask.cancel(true);
 
+        }
+        if (updateHomeworkTask != null) {
+            updateHomeworkTask.cancel(true);
+
+        }
         super.onStop();
     }
 
@@ -214,7 +222,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvCheckList);
         btCheck = view.findViewById(R.id.btCheckHomework);
-        bottomNavigationView= getActivity().findViewById(R.id.btNavigation_Bar);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
     }
@@ -227,7 +235,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findHomeworkCheckByHomeworkId");
             jsonObject.addProperty("homeworkId", homework.getId());
-            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+            getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
 
@@ -334,7 +342,9 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_deleteHomework:
-                new TeacherHomeworkUpdateDeleteFragment.AlertDialogFragment().show(getFragmentManager(), "delete");
+                if (getFragmentManager() != null) {
+                    new TeacherHomeworkUpdateDeleteFragment.AlertDialogFragment().show(getFragmentManager(), "delete");
+                }
 
                 break;
             default:
@@ -346,5 +356,6 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

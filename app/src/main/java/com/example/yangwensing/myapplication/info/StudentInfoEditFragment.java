@@ -68,6 +68,7 @@ public class StudentInfoEditFragment extends Fragment {
     private byte[] image;
     private boolean isPhotoChanged = false;
     private int imageSize;
+    private MyTask updateStudentInfo;
 
 
     //生日輸入、輸出用
@@ -77,7 +78,7 @@ public class StudentInfoEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_student_info_edit, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
-        getActivity().setTitle(R.string.title_infoEdit);
+        getActivity().setTitle(R.string.text_editInfo);
 
 
         findViews(view);
@@ -245,7 +246,8 @@ public class StudentInfoEditFragment extends Fragment {
 
 
             try {
-                String jsonIn = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString()).execute().get();
+                updateStudentInfo = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString());
+                String jsonIn = updateStudentInfo.execute().get();
                 int count = Integer.valueOf(jsonIn);
 
                 if (count == 1) {
@@ -487,6 +489,8 @@ public class StudentInfoEditFragment extends Fragment {
 
 
     }
+
+
 
 
 }

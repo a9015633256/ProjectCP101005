@@ -14,11 +14,25 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvSubject"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSubjectt"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="17sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btUpdateAchievement"
+                android:layout_width="85dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button"
+                android:text="@string/Update"
+                android:textColor="#ffffff"
+                />
+
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -27,7 +41,7 @@
 
             <Button
                 android:id="@+id/btSend"
-                android:layout_width="wrap_content"
+                android:layout_width="85dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/button"
@@ -51,7 +65,7 @@
                 android:text="@string/Class"/>
 
             <TextView
-                android:id="@+id/tvClass"
+                android:id="@+id/tvClassc"
                 android:textSize="18sp"
                 android:layout_marginStart="60dp"
                 android:layout_width="100dp"
@@ -68,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:layout_marginStart="240dp"
-                android:id="@+id/tvTeacher"
+                android:id="@+id/tvTeacherr"
                 />
 
         </RelativeLayout>

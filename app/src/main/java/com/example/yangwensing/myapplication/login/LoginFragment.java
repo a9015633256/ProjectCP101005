@@ -24,9 +24,6 @@ import android.widget.Toast;
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.exam.StudentExamChartFragment;
-import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
-import com.example.yangwensing.myapplication.homework.TeacherHomeworkFragment;
-import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -203,6 +200,7 @@ public class LoginFragment extends Fragment {
 
         if (networkConnected()) {
             String url = Common.URL + "/LoginHelp";
+
             JsonObject jsonObject = new JsonObject();
             if (name.matches(accoutwho)) {
                 jsonObject.addProperty("action", "findByName");

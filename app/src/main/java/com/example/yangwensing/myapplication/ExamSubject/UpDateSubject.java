@@ -29,13 +29,14 @@ public class UpDateSubject extends Fragment {
     private MyTask myTask;
     private EditText etTeacher, etSubject, etDate, etTitle, etContent;
     private Button btSure,btUpdate;
-    private int classid,id;
+    private String ClassID = "";
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_create, container, false);
+        getActivity().setTitle(R.string.updatesubject);
         etDate = view.findViewById(R.id.etDate);
         etTitle = view.findViewById(R.id.etTitle);
         etContent = view.findViewById(R.id.etContent);
@@ -46,10 +47,11 @@ public class UpDateSubject extends Fragment {
         String title = q.getString("title");
         String date = q.getString("date");
         String content = q.getString("content");
+        ClassID = q.getString("ClassID");
         etTitle.setText(title);
         etDate.setText(date);
         etContent.setText(content);
-       btUpdate.setOnClickListener(new View.OnClickListener() {
+        btUpdate.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Bundle b = getArguments();
@@ -65,7 +67,7 @@ public class UpDateSubject extends Fragment {
                    jsonObject.addProperty("Date",date);
                    jsonObject.addProperty("Content",content);
                    int count = 0;
-                   myTask = new MyTask(Common.URL+"/Subject",jsonObject.toString());
+                   myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
                    try {
                        String result = myTask.execute().get();
                        count = Integer.valueOf(result);
@@ -75,12 +77,6 @@ public class UpDateSubject extends Fragment {
                        Common.showToast(getActivity(),"update fail");
                    }else {
                        Common.showToast(getActivity(),"update success");
-//                       Fragment fragment = new ExamFragment();
-//                       FragmentManager fragmentManager = getFragmentManager();
-//                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                       fragmentTransaction.replace(R.id.content, fragment);
-//                       fragmentTransaction.addToBackStack(null);
-//                       fragmentTransaction.commit();
 
                    }
                }
@@ -164,10 +160,13 @@ public class UpDateSubject extends Fragment {
                     isValid = false;
                 }
                 if (isValid) {
+                    Bundle b = new Bundle();
+                    b.putString("ClassID",ClassID);
                     Fragment fragment = new ExamFragment();
+                    fragment.setArguments(b);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_content, fragment);
+                    fragmentTransaction.replace(R.id.content, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
 

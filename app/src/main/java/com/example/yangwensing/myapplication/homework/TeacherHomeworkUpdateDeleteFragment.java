@@ -22,7 +22,6 @@ import android.widget.EditText;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
@@ -31,6 +30,9 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     private Button btUpdate;
     private TabLayout tabLayout;
     private TabLayout.OnTabSelectedListener onTabSelectedListener;
+    private MyTask updateHomeworkTask;
+    private static MyTask deleteHomeworkTask;
+    ;
 
 
     //接上一頁資料用
@@ -59,7 +61,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
             etTitle.setText(homework.getTitle());
             etContent.setText(homework.getContent());
         } else {
-            Common.showToast(getActivity(), R.string.text_data_error);
+            Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
         //tabLayout給老師作業勾選
@@ -120,7 +122,8 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
 
                     try {
-                        String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
+                        updateHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+                        String jsonIn = updateHomeworkTask.execute().get();
                         int count = Integer.valueOf(jsonIn);
 
                         if (count == 0) {
@@ -168,6 +171,14 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     public void onStop() {
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        if (updateHomeworkTask != null) {
+            updateHomeworkTask.cancel(true);
+
+        }
+        if (deleteHomeworkTask != null) {
+            deleteHomeworkTask.cancel(true);
+
+        }
 
         super.onStop();
     }
@@ -240,9 +251,10 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                         jsonObject.addProperty("action", "deleteHomework");
                         jsonObject.addProperty("homeworkId", homework.getId());
 
-                        int count = 0;
+                        int count;
                         try {
-                            String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
+                            deleteHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+                            String jsonIn = deleteHomeworkTask.execute().get();
                             count = Integer.valueOf(jsonIn);
 
                             if (count == 0) {
@@ -275,5 +287,6 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
             }
         }
     }
+
 }
 

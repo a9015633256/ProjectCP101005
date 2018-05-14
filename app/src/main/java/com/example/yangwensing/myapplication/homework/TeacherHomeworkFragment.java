@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,8 @@ public class TeacherHomeworkFragment extends Fragment {
     private String className;
     private int teacherId;
     private int subjectId;
+
+    private MyTask getHomeworkTask;
 
 
     @Nullable
@@ -101,7 +102,7 @@ public class TeacherHomeworkFragment extends Fragment {
             jsonObject.addProperty("action", "findHomeworkByClassIdAndTeacherId");
             jsonObject.addProperty("classId", classId);
             jsonObject.addProperty("teacherId", teacherId);
-            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+            getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
 
@@ -227,7 +228,7 @@ public class TeacherHomeworkFragment extends Fragment {
                         teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
 
                         if (getFragmentManager() != null) {
-                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment,"TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
+                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment, "TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
                         }
 
 
@@ -309,5 +310,12 @@ public class TeacherHomeworkFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getHomeworkTask != null) {
 
+            getHomeworkTask.cancel(true);
+        }
+    }
 }

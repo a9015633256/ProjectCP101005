@@ -27,7 +27,7 @@ public class StudentExamFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_exam, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
-        getActivity().setTitle(R.string.title_exam);
+        getActivity().setTitle(R.string.title_examOverview);
 
         findViews(view);
 

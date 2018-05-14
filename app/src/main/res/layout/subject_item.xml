@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    app:cardBackgroundColor="#4993d9"
+    app:cardBackgroundColor="@color/colorPrimary"
     app:cardElevation="10dp"
+    app:cardCornerRadius="10dp"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:textColor="#ffffff"
-            android:textSize="16dp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/tvSignIn"
@@ -27,11 +28,18 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:background="#1b16b4"
+            android:background="#5a58af"
             android:text="@string/tvSignin"
             android:textAlignment="center"
             android:textColor="#ffffff"
-            android:textSize="15dp" />
+            android:textSize="17dp" />
+        <ImageView
+            android:id="@+id/ivEditAchievement"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_mode_edit_white_24dp"/>
+
 
     </RelativeLayout>
 
