@@ -149,6 +149,7 @@ public class AchievementFragment extends Fragment {
             tvClass.setText(ClassName);
             tvTeacher.setText(TeacherName);
 
+
 //            Teacherid = String.valueOf(exam.getTeacherid());
 //            Classid = String.valueOf(exam.getClassid());
 //            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);

@@ -22,7 +22,6 @@ import android.widget.EditText;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
@@ -59,7 +58,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
             etTitle.setText(homework.getTitle());
             etContent.setText(homework.getContent());
         } else {
-            Common.showToast(getActivity(), R.string.text_data_error);
+            Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
         //tabLayout給老師作業勾選

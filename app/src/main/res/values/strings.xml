@@ -43,7 +43,7 @@
     <string name="text_AddHomework">Establish</string>
     <string name="text_no_network">No network available!</string>
     <string name="text_no_server">Can\'t connect to the server now! Please try again later!</string>
-    <string name="text_data_error">Data error! Please restart the app!</string>
+    <string name="msg_data_error">Data error! Please restart the app!</string>
     <string name="text_updateHomework">Update</string>
     <string name="title_homeworkUpdateDelete">Update Homework</string>
     <string name="text_deleteHomework">Delete Homework</string>
