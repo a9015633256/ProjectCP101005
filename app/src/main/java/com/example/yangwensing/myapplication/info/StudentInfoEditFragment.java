@@ -68,6 +68,7 @@ public class StudentInfoEditFragment extends Fragment {
     private byte[] image;
     private boolean isPhotoChanged = false;
     private int imageSize;
+    private MyTask updateStudentInfo;
 
 
     //生日輸入、輸出用
@@ -247,7 +248,8 @@ public class StudentInfoEditFragment extends Fragment {
 
 
             try {
-                String jsonIn = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString()).execute().get();
+                updateStudentInfo = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString());
+                String jsonIn = updateStudentInfo.execute().get();
                 int count = Integer.valueOf(jsonIn);
 
                 if (count == 1) {
@@ -489,6 +491,8 @@ public class StudentInfoEditFragment extends Fragment {
 
 
     }
+
+
 
 
 }

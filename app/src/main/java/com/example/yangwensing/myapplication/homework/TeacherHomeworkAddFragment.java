@@ -30,6 +30,8 @@ public class TeacherHomeworkAddFragment extends Fragment {
     private int subjectId;
     private BottomNavigationView bottomNavigationView;
 
+    private MyTask insertHomeworkTask;
+
 
     @Nullable
     @Override
@@ -68,7 +70,8 @@ public class TeacherHomeworkAddFragment extends Fragment {
                     jsonObject.addProperty("homework", new Gson().toJson(homework));
 
                     try {
-                        String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
+                        insertHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+                        String jsonIn = insertHomeworkTask.execute().get();
                         int newHomeworkId = Integer.valueOf(jsonIn);
 
                         if (newHomeworkId == 0) {
@@ -136,7 +139,10 @@ public class TeacherHomeworkAddFragment extends Fragment {
     public void onStop() {
 //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        if (insertHomeworkTask != null) {
 
+            insertHomeworkTask.cancel(true);
+        }
         super.onStop();
     }
 
