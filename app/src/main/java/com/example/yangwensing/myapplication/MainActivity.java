@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
                                 .putString("className", "")
                                 .apply();
 
-                        //清除所有backStack(但會呼叫create跟destroy->會有跳出訊息的缺點)
+                        //清除所有backStack(但會呼叫
 //                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 
