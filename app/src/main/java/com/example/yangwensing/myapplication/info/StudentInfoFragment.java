@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +48,7 @@ public class StudentInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getInt("studentIdForTeacher") != 0) {
             studentId = bundle.getInt("studentIdForTeacher");
+//            Log.d(TAG, "onCreateView: "+studentId);
 
 
         } else {
