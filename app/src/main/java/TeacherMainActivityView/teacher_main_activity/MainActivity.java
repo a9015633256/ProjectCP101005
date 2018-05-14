@@ -99,10 +99,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Teacher_ChangeFile:
-                Intent intent5 = new Intent(MainActivity.this, TeacherChangeFilePage.class);
-                startActivity(intent5);
-                break;
+
             case R.id.Teacher_Setting:
                 Intent intent2 = new Intent(MainActivity.this, TeacherSettingPage.class);
                 startActivity(intent2);

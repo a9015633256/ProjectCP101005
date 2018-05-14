@@ -67,7 +67,7 @@
 
     <string name="tab_text_1">StudentList</string>
     <string name="tab_text_2">TeacherList</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Profile</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="Exit">Exit</string>
     <string name="modify_file">modify_file</string>
@@ -158,4 +158,5 @@
     <string name="msg_UpdateFail">UpdateFail</string>
     <string name="msg_UpdateSuccess">UpdateSuccess</string>
     <string name="ChooseGender">Choose Gender</string>
+    <string name="title_profile">Profile</string>
 </resources>

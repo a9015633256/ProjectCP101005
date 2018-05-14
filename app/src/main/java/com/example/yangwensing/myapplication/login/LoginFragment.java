@@ -61,8 +61,6 @@ public class LoginFragment extends Fragment {
         bnForStudent = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
-        FloatingActionButton fabShortcutToStudent = view.findViewById(R.id.fabShortCutToStudent);
-        FloatingActionButton fabShortcutToTeacher = view.findViewById(R.id.fabShortCutToTeacher);
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
@@ -143,50 +141,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        fabShortcutToStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //假資料
-                int studentId = 2;
-
-                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putInt("studentId", studentId)
-                        .apply();
-
-                //切換fragment
-                //底部導覽列選第一項
-                bnForStudent.setSelectedItemId(R.id.navigation_homework);
-                bnForStudent.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-        fabShortcutToTeacher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //假資料
-                int classId = 1;
-                String className = "CP101";
-                int teacherId = 4;
-                int subjectId = 6;
-
-                //老師id、所教科目存入偏好設定檔 (以及班級id，暫時在這邊放入，實際要等選班級好了才放入)
-                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putInt("teacherId", teacherId)
-                        .putInt("subjectId", subjectId)
-                        .putInt("classId", classId)
-                        .putString("className", className)
-                        .apply();
-
-                //切換fragment
-                getFragmentManager().beginTransaction().replace(R.id.content, new StudentExamChartFragment(), "TeacherHomeworkFragment").commit();
-
-            }
-        });
 
 
         return view;

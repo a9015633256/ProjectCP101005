@@ -75,10 +75,6 @@ public class Navigation1_ClassManagement extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Teacher_ChangeFile:
-                Intent intent5 = new Intent(Navigation1_ClassManagement.this, TeacherChangeFilePage.class);
-                startActivity(intent5);
-                break;
             case R.id.Teacher_Setting:
                 Intent intent2 = new Intent(Navigation1_ClassManagement.this, TeacherSettingPage.class);
                 startActivity(intent2);

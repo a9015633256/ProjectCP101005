@@ -80,7 +80,7 @@ public class TeacherSettingPage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_change_file);
-        setTitle(R.id.Teacher_Setting);
+        setTitle(R.string.title_profile);
         findViews();
     }
 
@@ -194,7 +194,7 @@ public class TeacherSettingPage extends AppCompatActivity {
             finish();
         }
         if (Common.networkConnected(this)) {
-            String url = Common.URL + "/TeachersListServerlet";
+            String url = TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findById");
             jsonObject.addProperty("Teacher_Account", userId);
@@ -293,7 +293,7 @@ public class TeacherSettingPage extends AppCompatActivity {
         Teachers teachers = new Teachers(ida,at,"",ml,grn,pe,de);
         if (isInputValid) {
             if (Common.networkConnected(TeacherSettingPage.this)) {
-                String url = Common.URL + "/TeachersListServerlet";
+                String url = TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet";
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "update");
                 jsonObject.addProperty("teacherList", new Gson().toJson(teachers));
