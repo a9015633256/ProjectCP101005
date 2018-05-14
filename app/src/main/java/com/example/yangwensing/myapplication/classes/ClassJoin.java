@@ -46,7 +46,7 @@ public class ClassJoin extends Fragment {
     private RecyclerView recycler;
     private EditText etSearch;
     private String ClassID = "";
-    private String Teacherid = "";
+    private int Teacherid = 0;
     private Button btSearch;
 
     @Nullable
@@ -230,7 +230,7 @@ public class ClassJoin extends Fragment {
 
                     ClassID = String.valueOf(classs.getId());
                     SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                    Teacherid = preferences.getString("tt", "");
+                    Teacherid = preferences.getInt("teacherid", 0);
 
                     if (Common.networkConnected(getActivity())) {
                         JsonObject jsonObject = new JsonObject();
