@@ -77,7 +77,7 @@ public class StudentInfoEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_student_info_edit, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
-        getActivity().setTitle(R.string.title_infoEdit);
+        getActivity().setTitle(R.string.text_editInfo);
 
 
         findViews(view);

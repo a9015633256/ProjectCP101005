@@ -29,7 +29,6 @@
     <string name="text_subject2">Subject 2 :</string>
     <string name="title_contactDetail">Contact Teacher</string>
     <string name="text_editInfo">Edit Info</string>
-    <string name="title_infoEdit">Editing Info</string>
     <string name="title_navigation_info">Info</string>
     <string name="text_confirmEditInfo">Apply Changes</string>
     <string name="text_exit">Exit</string>
@@ -151,5 +150,7 @@
     <string name="updatesubject">UpDateExamSubject</string>
     <string name="ExamSubjectt">ExamSubject</string>
     <string name="updateAchievement">UpdateAchievement</string>
+    <string name="title_homeworkOverview">Homework Overview</string>
+    <string name="title_examOverview">Exam Overview</string>
 
 </resources>

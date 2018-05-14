@@ -46,14 +46,18 @@ public class MotherList extends Fragment {
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
+        //設定標題
+        if (getActivity() != null) {
+            getActivity().setTitle(R.string.text_contactTeacher);
+        }
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        sender = preferences.getString("studentnumber","user");
-
+        sender = preferences.getString("studentnumber", "user");
 
 
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -89,7 +93,7 @@ public class MotherList extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("receiver", cl.getReceiver());
-                    bundle.putString("sender",sender);
+                    bundle.putString("sender", sender);
                     chatFragment.setArguments(bundle);
 
                     FragmentManager fragmentManager = getFragmentManager();
@@ -97,7 +101,7 @@ public class MotherList extends Fragment {
 
                     fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.content,chatFragment);
+                    fragmentTransaction.replace(R.id.content, chatFragment, "FromMotherList");
                     fragmentTransaction.commit();
                 }
             });
@@ -122,6 +126,7 @@ public class MotherList extends Fragment {
             }
         }
     }
+
     private void showmothercanchat() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
@@ -129,7 +134,7 @@ public class MotherList extends Fragment {
             List<ChatLists> chatLists = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getmotherlist");
-            jsonObject.addProperty("senderte",sender);
+            jsonObject.addProperty("senderte", sender);
             String jsonOut = jsonObject.toString();
             chatlistTask = new MyTask(url, jsonOut);
             try {
@@ -151,6 +156,7 @@ public class MotherList extends Fragment {
             Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
         }
     }
+
     public void onStop() {
         super.onStop();
         if (chatlistTask != null) {

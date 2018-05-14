@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -182,11 +183,20 @@ public class MainActivity extends AppCompatActivity {
                                 .putString("className", "")
                                 .apply();
 
-                        //清除所有backStack
-                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //清除所有backStack(但會呼叫create跟destroy->會有跳出訊息的缺點)
+//                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
 
                         //回到登入頁面
-                        getFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+//                        getFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+
+                        //回到登入頁面用開啟新activity的方式，就不需叫清理backStack了
+                        Intent i = new Intent(getActivity(), MainActivity.class);
+                        // set the new task and clear flags
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+
+
                         alarmType = 0;
                         break;
                     default:
