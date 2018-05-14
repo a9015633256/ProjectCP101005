@@ -12,7 +12,7 @@
     <string name="title_info">Student Info</string>
     <string name="title_homework">Homework</string>
     <string name="title_exam">Exam</string>
-    <string name="title_contact">Teacher List</string>
+    <string name="title_contact">Contact</string>
     <string name="text_studentId">Student ID:</string>
     <string name="text_class">Class:</string>
     <string name="text_gender">Gender:</string>
@@ -43,7 +43,7 @@
     <string name="text_AddHomework">Establish</string>
     <string name="text_no_network">No network available!</string>
     <string name="text_no_server">Can\'t connect to the server now! Please try again later!</string>
-    <string name="text_data_error">Data error! Please restart the app!</string>
+    <string name="msg_data_error">Data error! Please restart the app!</string>
     <string name="text_updateHomework">Update</string>
     <string name="title_homeworkUpdateDelete">Update Homework</string>
     <string name="text_deleteHomework">Delete Homework</string>
@@ -58,20 +58,13 @@
     <string name="text_pickPhoto">Pick Photo</string>
     <string name="msg_NoCameraAppsFound">No Camera Apps Found!!</string>
     <string-array name="subject">
-        <item>國文</item>
-        <item>英文</item>
-        <item>數學</item>
-        <item>社會</item>
-        <item>自然</item>
+        <item>JAVA</item>
+        <item>Android_Studio</item>
+        <item>Math</item>
+        <item>English</item>
+        <item>Chinese</item>
     </string-array>
-    <string-array name="anothersubject">
-        <item>無</item>
-        <item>國文</item>
-        <item>英文</item>
-        <item>數學</item>
-        <item>社會</item>
-        <item>自然</item>
-    </string-array>
+
     <string name="tab_text_1">StudentList</string>
     <string name="tab_text_2">TeacherList</string>
     <string name="action_settings">Settings</string>
@@ -151,5 +144,18 @@
     <string name="updatesubject">UpDateExamSubject</string>
     <string name="ExamSubjectt">ExamSubject</string>
     <string name="updateAchievement">UpdateAchievement</string>
-
+    <string name="title_homeworkOverview">Homework Overview</string>
+    <string name="title_examOverview">Exam Overview</string>
+    <string name="msg_NoProfileFound">NoProfileFound</string>
+    <string name="Boy">Boy</string>
+    <string name="Girl">Girl</string>
+    <string name="text_UserId">User_ID</string>
+    <string name="msg_InputEmpty">CanNotImpty</string>
+    <string name="text_UserName">UserName</string>
+    <string name="text_UseGender">UseGender</string>
+    <string name="text_UserPhone">UserPhone</string>
+    <string name="text_UserBirth">UserBirth</string>
+    <string name="msg_UpdateFail">UpdateFail</string>
+    <string name="msg_UpdateSuccess">UpdateSuccess</string>
+    <string name="ChooseGender">Choose Gender</string>
 </resources>

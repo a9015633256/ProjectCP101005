@@ -44,6 +44,8 @@ public class TeacherHomeworkFragment extends Fragment {
     private int teacherId;
     private int subjectId;
 
+    private MyTask getHomeworkTask;
+
 
     @Nullable
     @Override
@@ -100,7 +102,7 @@ public class TeacherHomeworkFragment extends Fragment {
             jsonObject.addProperty("action", "findHomeworkByClassIdAndTeacherId");
             jsonObject.addProperty("classId", classId);
             jsonObject.addProperty("teacherId", teacherId);
-            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+            getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
 
@@ -226,7 +228,7 @@ public class TeacherHomeworkFragment extends Fragment {
                         teacherHomeworkUpdateDeleteFragment.setArguments(bundle);
 
                         if (getFragmentManager() != null) {
-                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment,"TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
+                            getFragmentManager().beginTransaction().replace(R.id.main_content, teacherHomeworkUpdateDeleteFragment, "TeacherHomeworkUpdateDeleteFragment").addToBackStack(null).commit();
                         }
 
 
@@ -308,5 +310,12 @@ public class TeacherHomeworkFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getHomeworkTask != null) {
 
+            getHomeworkTask.cancel(true);
+        }
+    }
 }

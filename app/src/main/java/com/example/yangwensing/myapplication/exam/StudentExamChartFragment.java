@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.main.Common;
+import com.example.yangwensing.myapplication.main.MyTask;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -17,24 +19,34 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.renderer.LineChartRenderer;
 import com.github.mikephil.charting.utils.EntryXComparator;
-import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class StudentExamChartFragment extends Fragment {
+    private static final String TAG = "StudentExamChartFragment";
     private EditText etExamName, etStudentScore, etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage;
     private LineChart lineChart;
-    private String TAG = "StudentExamChartFragment";
     private int maxY = 0;
+    private int studentScore;
+    private String averageScore;
+    private int examId;
+    private String examName;
+    private MyTask getAchievementTask;
+
+    //整理資料用
+    private List<Integer> scoreList = new ArrayList<>();
     private List<Integer> scoreAPlusList = new ArrayList<>();
     private List<Integer> scoreAList = new ArrayList<>();
     private List<Integer> scoreBList = new ArrayList<>();
@@ -46,8 +58,6 @@ public class StudentExamChartFragment extends Fragment {
     private List<Integer> scoreHList = new ArrayList<>();
     private List<Integer> scoreIList = new ArrayList<>();
     private List<Integer> scoreJList = new ArrayList<>();
-    private int studentScore = 80;
-    private String averageScore;
 
 
     @Nullable
@@ -57,26 +67,38 @@ public class StudentExamChartFragment extends Fragment {
 
         findViews(view);
 
+        Bundle bundle = getArguments();
 
-        //假資料
-        List<Integer> scoreList = new ArrayList<>();
-        scoreList.add(100);
-        scoreList.add(100);
-        scoreList.add(80);
-        scoreList.add(88);
-        scoreList.add(76);
-        scoreList.add(99);
-        scoreList.add(50);
-        scoreList.add(83);
-        scoreList.add(40);
-        scoreList.add(55);
-        scoreList.add(50);
-        scoreList.add(83);
-        scoreList.add(73);
-        scoreList.add(94);
-        scoreList.add(60);
-        scoreList.add(2);
+        if (bundle != null) {
+            examId = bundle.getInt("examId");
+            studentScore = bundle.getInt("studentScore");
+            examName = bundle.getString("examName");
+        } else {
+            Common.showToast(getActivity(), R.string.msg_data_error);
+            //假資料
+            examId = 1;
+            examName = "text";
+            studentScore = 100;
+        }
 
+        if (examName != null) {
+            etExamName.setText(examName);
+        }
+
+        //根據examId取得db資料
+        if (examId != 0) {
+            getDataFromDB();
+
+            //處理數據顯示
+            setupView();
+            setupChart();
+        }
+
+        return view; //要改成回傳view
+    }
+
+
+    private void setupView() {
         double totalScore = 0;
 
         for (int i : scoreList) {
@@ -150,31 +172,40 @@ public class StudentExamChartFragment extends Fragment {
         averageScore = decimalFormat.format(totalScore / scoreList.size());
         etScoreAverage.setText(averageScore);
 
-        setupChart();
+
+    }
+
+    private void getDataFromDB() {
+        if (Common.networkConnected(getActivity())) {
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findAchievementByExamId");
+            jsonObject.addProperty("examId", examId);
+            getAchievementTask = new MyTask(Common.URLForMingTa + "/ExamServlet", jsonObject.toString());
+
+            try {
+
+                String jsonIn = getAchievementTask.execute().get();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                Type listType = new TypeToken<List<Integer>>() {
+                }.getType();
+
+                scoreList = gson.fromJson(jsonIn, listType);
 
 
-//        int[] scores = scoreList.toArray()[scoreList.size()];
+            } catch (Exception e) {
+                e.printStackTrace();
+                Common.showToast(getActivity(), R.string.text_no_server);
+
+            }
 
 
-//        //取得上一頁資料
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            homeworkIsDone = (HomeworkIsDone) bundle.getSerializable("homework");
-//        }
-//
-//        if (homeworkIsDone != null) {
-//            etTitle.setText(homeworkIsDone.getTitle());
-//            etContent.setText(homeworkIsDone.getContent());
-//        } else {
-//            Common.showToast(getActivity(), R.string.text_data_error);
-//        }
+        } else {
+            Common.showToast(getActivity(), R.string.text_no_network);
+
+        }
 
 
-        //設標題
-//        getActivity().setTitle(homeworkIsDone.getSubject()+"   授課老師:"+homeworkIsDone.getTeacher());
-
-
-        return view; //要改成回傳view
     }
 
     private void setupChart() {
@@ -187,14 +218,11 @@ public class StudentExamChartFragment extends Fragment {
         /* 設定最小值到0(分) */
         xAxis.setAxisMinimum(0);
         xAxis.setAvoidFirstLastClipping(true);
-//        xAxis.
-
-
 
         /* 取得左側Y軸物件 */
         YAxis yAxisLeft = lineChart.getAxisLeft();
         /* 設定左側Y軸最大值 */
-        yAxisLeft.setAxisMaximum((float) (maxY * 1.3));
+//        yAxisLeft.setAxisMaximum((float) (maxY * 1.3));
         yAxisLeft.setAxisMinimum((0));
 
         /* 取得右側Y軸物件 */
@@ -276,7 +304,6 @@ public class StudentExamChartFragment extends Fragment {
         lineDataSetAverageScore.setDrawValues(false);
         lineDataSetAverageScore.setDrawVerticalHighlightIndicator(true);
 
-
         LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
         lineDataSetStudentScore.setCircleRadius(4);
         lineDataSetStudentScore.setDrawCircleHole(false);
@@ -291,36 +318,9 @@ public class StudentExamChartFragment extends Fragment {
 
         lineChart.setClickable(false);
 
-//        barChart.getAxisLeft().setLabelCount(maxYvalue + 2, true);
-//        barChart.getAxisLeft().setAxisMinValue(0f);
-//        barChart.getAxisLeft().setAxisMaxValue(maxYvalue + 1);
-//        YAxisValueFormatter customYaxisFormatter = new YAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, YAxis yAxis) {
-//                return String.valueOf((int)value);
-//            }
-//        };
-//        lineChart.getAxisLeft().setValueFormatter(customYaxisFormatter);
-
-//        mChart.getAxisLeft().setValueFormatter(new IValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-//                return null;
-//            }
-//
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return String.valueOf((int) Math.floor(value));
-//            }
-//
-//        });
-//
-
-
         //使y軸沒有小數點
         yAxisLeft.setGranularity(1.0f);
         yAxisLeft.setGranularityEnabled(true); // Required to enable granularity
-
 
         /* 有幾個LineDataSet，就繪製幾條線 */
         List<ILineDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
@@ -366,6 +366,7 @@ public class StudentExamChartFragment extends Fragment {
 
     private List<Entry> getAllScores() {
         List<Entry> scoreEntries = new ArrayList<>();
+        //假如要忽略沒有人數的數據
 //        if (scoreAPlusList.size() != 0) {
 //            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
 //        }
@@ -437,6 +438,7 @@ public class StudentExamChartFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        scoreList.clear();
         scoreAPlusList.clear();
         scoreAList.clear();
         scoreBList.clear();
@@ -448,6 +450,14 @@ public class StudentExamChartFragment extends Fragment {
         scoreHList.clear();
         scoreIList.clear();
         scoreJList.clear();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getAchievementTask != null) {
+            getAchievementTask.cancel(true);
+        }
     }
 }
 

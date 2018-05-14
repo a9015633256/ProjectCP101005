@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -68,6 +67,8 @@ public class StudentInfoEditFragment extends Fragment {
     private byte[] image;
     private boolean isPhotoChanged = false;
     private int imageSize;
+    private MyTask updateStudentInfoTask;
+    private GetImageTask getStudentPicTask;
 
 
     //生日輸入、輸出用
@@ -77,7 +78,7 @@ public class StudentInfoEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_student_info_edit, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
-        getActivity().setTitle(R.string.title_infoEdit);
+        getActivity().setTitle(R.string.text_editInfo);
 
 
         findViews(view);
@@ -132,8 +133,6 @@ public class StudentInfoEditFragment extends Fragment {
         etGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (etGender.getText().toString().equals("男")) {
                     etGender.setText("女");
                 } else {
@@ -152,7 +151,9 @@ public class StudentInfoEditFragment extends Fragment {
 
                 //顯示datePicker
                 DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
-                datePickerDialogFragment.show(getFragmentManager(), "DatePickerFragment");
+                if (getFragmentManager() != null) {
+                    datePickerDialogFragment.show(getFragmentManager(), "DatePickerFragment");
+                }
 
             }
         });
@@ -238,7 +239,7 @@ public class StudentInfoEditFragment extends Fragment {
             String studentStr = gson.toJson(student);
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "updateStudentInfo");
+            jsonObject.addProperty("action", "updateStudentInfoTask");
             jsonObject.addProperty("student", studentStr);
             if (isPhotoChanged) {
                 String imageBase64 = Base64.encodeToString(image, Base64.DEFAULT);
@@ -247,7 +248,8 @@ public class StudentInfoEditFragment extends Fragment {
 
 
             try {
-                String jsonIn = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString()).execute().get();
+                updateStudentInfoTask = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString());
+                String jsonIn = updateStudentInfoTask.execute().get();
                 int count = Integer.valueOf(jsonIn);
 
                 if (count == 1) {
@@ -336,7 +338,8 @@ public class StudentInfoEditFragment extends Fragment {
         //取得照片部分
         if (Common.networkConnected(getActivity())) {
             imageSize = getResources().getDisplayMetrics().widthPixels / 3;
-            GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", student.getId(), imageSize);
+            GetImageTask getStudentPicTask;
+            getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", student.getId(), imageSize);
             try {
                 Bitmap bitmap = getStudentPicTask.execute().get();
                 ivStudentPic.setImageBitmap(bitmap);
@@ -360,6 +363,12 @@ public class StudentInfoEditFragment extends Fragment {
     public void onStop() {
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        if (updateStudentInfoTask != null) {
+            updateStudentInfoTask.cancel(true);
+        }
+        if (getStudentPicTask != null) {
+            getStudentPicTask.cancel(true);
+        }
 
         super.onStop();
     }

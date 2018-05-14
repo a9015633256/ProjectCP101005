@@ -16,10 +16,7 @@ import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class TeacherHomeworkAddFragment extends Fragment {
     //    private BottomNavigationView bottomNavigationView;
@@ -32,6 +29,8 @@ public class TeacherHomeworkAddFragment extends Fragment {
     private int teacherId;
     private int subjectId;
     private BottomNavigationView bottomNavigationView;
+
+    private MyTask insertHomeworkTask;
 
 
     @Nullable
@@ -57,7 +56,7 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
                     //檢查是否上一頁資料正確傳入
                     if (classId * teacherId * subjectId == 0) {
-                        Common.showToast(getActivity(), R.string.text_data_error);
+                        Common.showToast(getActivity(), R.string.msg_data_error);
                         return;
                     }
 
@@ -71,7 +70,8 @@ public class TeacherHomeworkAddFragment extends Fragment {
                     jsonObject.addProperty("homework", new Gson().toJson(homework));
 
                     try {
-                        String jsonIn = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString()).execute().get();
+                        insertHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+                        String jsonIn = insertHomeworkTask.execute().get();
                         int newHomeworkId = Integer.valueOf(jsonIn);
 
                         if (newHomeworkId == 0) {
@@ -139,7 +139,10 @@ public class TeacherHomeworkAddFragment extends Fragment {
     public void onStop() {
 //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        if (insertHomeworkTask != null) {
 
+            insertHomeworkTask.cancel(true);
+        }
         super.onStop();
     }
 

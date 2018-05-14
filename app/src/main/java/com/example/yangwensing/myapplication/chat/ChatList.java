@@ -115,7 +115,7 @@ public class ChatList extends Fragment {
 
                     fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.main_content,chatFragment);
+                    fragmentTransaction.replace(R.id.main_content,chatFragment,"FromChatList");
                     fragmentTransaction.commit();
                 }
             });

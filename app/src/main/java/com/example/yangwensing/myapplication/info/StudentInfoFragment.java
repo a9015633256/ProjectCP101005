@@ -32,6 +32,8 @@ public class StudentInfoFragment extends Fragment {
     //EditText把輸入功能關閉、充當textView用
     private EditText tvId, tvName, tvDayOfBirth, tvPhoneNumber, tvGender, tvClassName, tvAddress;
     private ImageView ivStudentPic;
+    private MyTask findStudentByIdTask;
+    private GetImageTask getStudentPicTask;
 
 
     @Nullable
@@ -96,7 +98,8 @@ public class StudentInfoFragment extends Fragment {
 
 
             try {
-                String jsonIn = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString()).execute().get();
+                findStudentByIdTask = new MyTask(Common.URLForMingTa + "/StudentInfoServlet", jsonObject.toString());
+                String jsonIn = findStudentByIdTask.execute().get();
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                 student = gson.fromJson(jsonIn, Student.class);
 
@@ -128,7 +131,7 @@ public class StudentInfoFragment extends Fragment {
 
             //取得照片部分
             int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
-            GetImageTask getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize);
+            getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize);
             try {
                 Bitmap bitmap = getStudentPicTask.execute().get();
                 ivStudentPic.setImageBitmap(bitmap);
@@ -153,7 +156,6 @@ public class StudentInfoFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.menu_options_edit_info, menu);
-        menu.getItem(0).setVisible(false);
 
 
     }
@@ -176,7 +178,9 @@ public class StudentInfoFragment extends Fragment {
                 StudentInfoEditFragment studentInfoEditFragment = new StudentInfoEditFragment();
                 studentInfoEditFragment.setArguments(bundle);
 
-                getFragmentManager().beginTransaction().replace(R.id.content, studentInfoEditFragment, "StudentInfoEditFragment").addToBackStack("123").commit();
+                if (getFragmentManager() != null) {
+                    getFragmentManager().beginTransaction().replace(R.id.content, studentInfoEditFragment, "StudentInfoEditFragment").addToBackStack("123").commit();
+                }
                 break;
             default:
                 break;
@@ -190,6 +194,20 @@ public class StudentInfoFragment extends Fragment {
         getStudentInfo();
 
         super.onResume();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (findStudentByIdTask != null) {
+            findStudentByIdTask.cancel(true);
+
+        }
+        if (getStudentPicTask != null) {
+            getStudentPicTask.cancel(true);
+
+        }
 
     }
 }

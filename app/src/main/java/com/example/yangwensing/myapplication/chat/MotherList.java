@@ -38,22 +38,29 @@ public class MotherList extends Fragment {
     private MyTask chatlistTask;
     String sender = "";
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chatlist, container, false);
         rvChatlist = view.findViewById(R.id.rvchatlist);
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        tvtitle = view.findViewById(R.id.tvggyy);
 
 
+
+        //設定標題
+        if (getActivity() != null) {
+            getActivity().setTitle(R.string.text_contactTeacher);
+        }
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        sender = preferences.getString("studentnumber","user");
-
+        sender = preferences.getString("studentnumber", "user");
 
 
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -81,6 +88,7 @@ public class MotherList extends Fragment {
         public void onBindViewHolder(MyViewHolder holder, int position) {
             final ChatLists cl = chatLists.get(position);
             String url = Common.URL + "/LoginHelp";
+            holder.tvtitle.setText("老師：");
             holder.tvreceiver.setText(cl.getReceiver());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,7 +97,7 @@ public class MotherList extends Fragment {
 
                     Bundle bundle = new Bundle();
                     bundle.putString("receiver", cl.getReceiver());
-                    bundle.putString("sender",sender);
+                    bundle.putString("sender", sender);
                     chatFragment.setArguments(bundle);
 
                     FragmentManager fragmentManager = getFragmentManager();
@@ -97,7 +105,7 @@ public class MotherList extends Fragment {
 
                     fragmentTransaction.addToBackStack(null);
 
-                    fragmentTransaction.replace(R.id.content,chatFragment);
+                    fragmentTransaction.replace(R.id.content, chatFragment, "FromMotherList");
                     fragmentTransaction.commit();
                 }
             });
@@ -113,15 +121,19 @@ public class MotherList extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             TextView tvreceiver;
+            TextView tvtitle;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 tvreceiver = itemView.findViewById(R.id.tvreceiver);
+                tvtitle = itemView.findViewById(R.id.tvggyy);
+
 
 
             }
         }
     }
+
     private void showmothercanchat() {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URL + "/LoginHelp";
@@ -129,7 +141,7 @@ public class MotherList extends Fragment {
             List<ChatLists> chatLists = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getmotherlist");
-            jsonObject.addProperty("senderte",sender);
+            jsonObject.addProperty("senderte", sender);
             String jsonOut = jsonObject.toString();
             chatlistTask = new MyTask(url, jsonOut);
             try {
@@ -151,6 +163,7 @@ public class MotherList extends Fragment {
             Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
         }
     }
+
     public void onStop() {
         super.onStop();
         if (chatlistTask != null) {

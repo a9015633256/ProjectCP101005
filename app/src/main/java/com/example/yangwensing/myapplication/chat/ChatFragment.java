@@ -78,10 +78,14 @@ public class ChatFragment extends Fragment {
 
         btsend = view.findViewById(R.id.btSend);
         etmessage = view.findViewById(R.id.etMessage);
-        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
+        //判斷是從哪個頁面過來的
+        if (this.getTag() != null && this.getTag().equals("FromMotherList")) {
+            bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
+        }else {
+            bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
-
+        }
 
 
         final Bundle bundle = getArguments();
@@ -237,5 +241,6 @@ public class ChatFragment extends Fragment {
         super.onStop();
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        Common.disconnectServer();
     }
 }

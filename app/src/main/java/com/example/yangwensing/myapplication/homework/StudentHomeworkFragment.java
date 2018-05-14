@@ -1,11 +1,13 @@
 package com.example.yangwensing.myapplication.homework;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.yangwensing.myapplication.MainActivity;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -36,7 +39,7 @@ public class StudentHomeworkFragment extends Fragment {
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
     private List<AssignDate> hashSet = new ArrayList<>(); //回傳資料按日期整理用
-
+    private MyTask getHomeworkTask;
 
 
     private int studentId;
@@ -48,14 +51,11 @@ public class StudentHomeworkFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_student_homework, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
-        getActivity().setTitle(R.string.title_homework);
-
-
-
+        getActivity().setTitle(R.string.title_homeworkOverview);
 
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        ccc = preferences.getString("","user");
+        ccc = preferences.getString("", "user");
 
 
         findViews(view);
@@ -78,10 +78,13 @@ public class StudentHomeworkFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getHomeworkTask != null){
+            getHomeworkTask.cancel(true);
+        }
     }
 
     @Override
@@ -100,7 +103,7 @@ public class StudentHomeworkFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findHomeworkIsDoneByStudentId");
             jsonObject.addProperty("studentId", studentId);
-            MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
+            getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
 
@@ -222,7 +225,9 @@ public class StudentHomeworkFragment extends Fragment {
                         StudentHomeworkDetailFragment studentHomeworkDetailFragment = new StudentHomeworkDetailFragment();
                         studentHomeworkDetailFragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().replace(R.id.content, studentHomeworkDetailFragment).addToBackStack(null).commit();
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().beginTransaction().replace(R.id.content, studentHomeworkDetailFragment).addToBackStack(null).commit();
+                        }
 
 
                     }
