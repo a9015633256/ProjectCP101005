@@ -159,7 +159,7 @@ public class tap1fragment extends Fragment {
         public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
             final ClassStudentMember classStudentMember = classStudentMembers.get(position);
             String url = Common.URL + "/StudentServlet";
-            int id = classStudentMember.getId();
+            final int id = classStudentMember.getId();
             studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
             studentGetImageTask.execute();
             myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
@@ -212,16 +212,17 @@ public class tap1fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    int studentId = classStudentMember.getId();
+//                    int studentId = classStudentMember.getId();
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt("studentIdForTeacher", studentId);
+                    bundle.putInt("studentIdForTeacher", id);
+                    Log.d(TAG, "onClick: "+id);
 
                     StudentInfoFragment studentInfoFragment=  new StudentInfoFragment();
                     studentInfoFragment.setArguments(bundle);
 
                     if (getFragmentManager() != null) {
-                        getFragmentManager().beginTransaction().replace(R.id.content, studentInfoFragment).addToBackStack(null).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.body, studentInfoFragment).addToBackStack(null).commit();
                     }
 
 

@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,7 @@ public class StudentInfoFragment extends Fragment {
     private ImageView ivStudentPic;
     private MyTask findStudentByIdTask;
     private GetImageTask getStudentPicTask;
+    private final static String TAG = "StudentInfoFragment";
 
 
     @Nullable
@@ -49,15 +51,17 @@ public class StudentInfoFragment extends Fragment {
             studentId = bundle.getInt("studentIdForTeacher");
 
 
+
+
         } else {
             setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
-
+            studentId = Common.getDataFromPref(
+                    getActivity(), "studentId", 0);
 
         }
 
 
-        studentId = Common.getDataFromPref(
-                getActivity(), "studentId", 0);
+
 
         //取得db資訊並顯示在畫面上
         getStudentInfo();

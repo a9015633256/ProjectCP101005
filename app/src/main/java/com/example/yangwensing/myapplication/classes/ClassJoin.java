@@ -46,7 +46,7 @@ public class ClassJoin extends Fragment {
     private RecyclerView recycler;
     private EditText etSearch;
     private String ClassID = "";
-    private String Teacherid = "";
+    private int Teacherid = 0;
     private Button btSearch;
 
     @Nullable
@@ -79,7 +79,7 @@ public class ClassJoin extends Fragment {
         if (Common.networkConnected(getActivity())) {
             List<Classa> users = new ArrayList<>();
             String id = etSearch.getText().toString();
-            String url = Common.URL + "//LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findByClass");
             jsonObject.addProperty("id", id);
@@ -230,7 +230,7 @@ public class ClassJoin extends Fragment {
 
                     ClassID = String.valueOf(classs.getId());
                     SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                    Teacherid = preferences.getString("tt", "");
+                    Teacherid = preferences.getInt("teacherid", 0);
 
                     if (Common.networkConnected(getActivity())) {
                         JsonObject jsonObject = new JsonObject();
@@ -238,12 +238,10 @@ public class ClassJoin extends Fragment {
                         jsonObject.addProperty("ClassId", ClassID);
                         jsonObject.addProperty("TeacherId", Teacherid);
                         int count = 0;
-
-                        myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                        myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                         try {
                             String result = myTask.execute().get();
                             count = Integer.valueOf(result);
-
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());
                         }

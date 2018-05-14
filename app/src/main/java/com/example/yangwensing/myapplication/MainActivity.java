@@ -34,7 +34,7 @@ import com.example.yangwensing.myapplication.main.Common;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnForStudent;
-    private TabLayout tlForTeacherHomeworkCheck;
+//    private TabLayout tlForTeacherHomeworkCheck;
     private static int alarmType = 0;
 
 
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, loginFragment);
         fragmentTransaction.commit();
 
-        //tabLayout給老師作業勾選
-        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
+//        //tabLayout給老師作業勾選
+//        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
+//        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
+//        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
 
 
     }
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflate = getMenuInflater();
         inflate.inflate(R.menu.menu_options, menu);
 
-//        closeOptionsMenu();
 
 
         return true;

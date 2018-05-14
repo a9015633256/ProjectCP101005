@@ -68,13 +68,13 @@ public class ClassCreate extends Fragment{
 
 
                         try {
-                            myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                            myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                             int count = Integer.valueOf(myTask.execute().get());
-                            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
                             if (count == 0) {
                                 Toast.makeText(getActivity(), "Add failed!",
                                         Toast.LENGTH_SHORT).show();
                             } else {
+                                Toast.makeText(getActivity(), "Establish Succeeded", Toast.LENGTH_SHORT).show();
                                 Fragment fragment = new ClassManager();
                                 getFragmentManager().beginTransaction()
                                         .replace(R.id.content, fragment)

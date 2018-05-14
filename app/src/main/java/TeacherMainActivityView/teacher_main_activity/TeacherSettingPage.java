@@ -71,6 +71,7 @@ public class TeacherSettingPage extends AppCompatActivity {
     private Uri contentUri, croppedImageUri;
     private int imageSize;
     private byte[] image;
+    private int ida;
     public static final int REQUEST_TAKE_PHOTO = 0;
     public static final int REQUEST_PICK_PHOTO = 1;
     public static final int REQUEST_CROP_PHOTO = 2;
@@ -79,7 +80,7 @@ public class TeacherSettingPage extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_change_file);
-        setTitle(R.id.Teacher_Setting);
+        setTitle(R.string.title_profile);
         findViews();
     }
 
@@ -193,7 +194,7 @@ public class TeacherSettingPage extends AppCompatActivity {
             finish();
         }
         if (Common.networkConnected(this)) {
-            String url = Common.URL + "/TeachersListServerlet";
+            String url = TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "findById");
             jsonObject.addProperty("Teacher_Account", userId);
@@ -213,6 +214,10 @@ public class TeacherSettingPage extends AppCompatActivity {
                 Common.showToast(TeacherSettingPage.this, R.string.msg_NoProfileFound);
                 finish();
             } else {
+                int ida = teachers.get(0).getId();
+                preferences = getSharedPreferences
+                        (com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+                preferences.edit().putInt("ida", ida).apply();
                 String account = teachers.get(0).getTeacher_Account();
                 etTeacherInfoId.setText(account);
                 String mail = teachers.get(0).getTeacher_Email();
@@ -228,10 +233,10 @@ public class TeacherSettingPage extends AppCompatActivity {
                 String date = teachers.get(0).getTeacher_TakeOfficeDate();
                 etTeacherInfoDayOfBirth.setText(date);
 
-                int id = preferences.getInt("id", 0);
+                ida = preferences.getInt("ida", 0);
                 int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
-                teacherGetImageTask = new TeacherGetImageTask(TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet", id, imageSize);
-                teacherGetImageTask = new TeacherGetImageTask(url, id, imageSize, ivTeacherPic);
+                teacherGetImageTask = new TeacherGetImageTask(TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet", ida, imageSize);
+                teacherGetImageTask = new TeacherGetImageTask(url, ida, imageSize, ivTeacherPic);
                 teacherGetImageTask.execute();
 
 
@@ -244,7 +249,7 @@ public class TeacherSettingPage extends AppCompatActivity {
 
     //上傳部
     public void btTeacherProfileUpdate(final View view) {
-        int idd = 0;
+        ida = getTeacherId();
         String at = etTeacherInfoId.getText().toString().trim();
         String ml = etTeacherInfoName.getText().toString().trim();
         String pe = etTeacherInfoPhoneNumber.getText().toString().trim();
@@ -285,10 +290,10 @@ public class TeacherSettingPage extends AppCompatActivity {
             isInputValid = false;
         }
         Common.showToast(this, massage);
-        Teachers teachers = new Teachers(idd,at,"",ml,grn,pe,de);
+        Teachers teachers = new Teachers(ida,at,"",ml,grn,pe,de);
         if (isInputValid) {
             if (Common.networkConnected(TeacherSettingPage.this)) {
-                String url = Common.URL + "/TeachersListServerlet";
+                String url = TeacherMainActivityView.CommonPart.Common.URL + "/TeachersListServerlet";
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("action", "update");
                 jsonObject.addProperty("teacherList", new Gson().toJson(teachers));
@@ -450,10 +455,10 @@ public class TeacherSettingPage extends AppCompatActivity {
         }
 
     }
-//    private int getClassId() {
-//        SharedPreferences preferences = getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
-//        int id = preferences.getInt("id", 0);
-//        return id;
-//    }
+    private int getTeacherId() {
+        SharedPreferences preferences = getSharedPreferences(com.example.yangwensing.myapplication.main.Common.PREF_FILE, Context.MODE_PRIVATE);
+        int ida = preferences.getInt("ida", 0);
+        return ida;
+    }
 
 }
