@@ -133,8 +133,6 @@ public class StudentInfoEditFragment extends Fragment {
         etGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if (etGender.getText().toString().equals("男")) {
                     etGender.setText("女");
                 } else {

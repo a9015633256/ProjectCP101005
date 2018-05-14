@@ -2,6 +2,7 @@ package TeacherMainActivityView.teacher_main_activity.Tab2Teacher;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -16,10 +17,14 @@ import android.widget.ImageView;
 import com.example.yangwensing.myapplication.R;
 
 import java.security.PrivateKey;
+import java.util.concurrent.ExecutionException;
+
+import TeacherMainActivityView.CommonPart.Common;
 
 public class Tab2TeacherProfile extends Fragment {
     private EditText tvTeahcerProfileId, tvTeahcerProfileName, tvTeahcerProfileGender, tvTeahcerProfileDayOfBirth, tvTeahcerProfilePhoneNumber;
     private ImageView ivTeahcerPicProfile;
+    private TeacherGetImageTask teacherGetImageTask;
 
     @Nullable
     @Override
@@ -38,6 +43,7 @@ public class Tab2TeacherProfile extends Fragment {
         tvTeahcerProfileGender = view.findViewById(R.id.tvTeahcerProfileGender);
         tvTeahcerProfileDayOfBirth = view.findViewById(R.id.tvTeahcerProfileDayOfBirth);
         tvTeahcerProfilePhoneNumber = view.findViewById(R.id.tvTeahcerProfilePhoneNumber);
+        ivTeahcerPicProfile = view.findViewById(R.id.ivTeahcerPicProfile);
 
     }
 
@@ -60,9 +66,12 @@ public class Tab2TeacherProfile extends Fragment {
             tvTeahcerProfileGender.setText("女");
         }
 
-
+        int imageSize = getResources().getDisplayMetrics().widthPixels /3;
+        teacherGetImageTask = new TeacherGetImageTask(Common.URL + "/TeachersListServerlet", id, imageSize);
+        String url = Common.URL+"/TeachersListServerlet";
+        teacherGetImageTask = new TeacherGetImageTask(url, id, imageSize, ivTeahcerPicProfile);
+        teacherGetImageTask.execute();
 
     }
-
 
 }

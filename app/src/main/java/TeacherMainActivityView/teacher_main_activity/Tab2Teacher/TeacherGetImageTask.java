@@ -18,18 +18,18 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-class TeacherGetImageTask extends AsyncTask<Object, Integer, Bitmap> {
+public class TeacherGetImageTask extends AsyncTask<Object, Integer, Bitmap> {
     private final static String TAG = "TeacherGetImageTask";
     private String url;
     private int id, imageSize;
     // WeakReference物件不會阻止參照到的實體被回收
     private WeakReference<ImageView> imageViewWeakReference;
 
-    TeacherGetImageTask(String url, int id, int imageSize) {
+    public TeacherGetImageTask(String url, int id, int imageSize) {
         this(url, id, imageSize, null);
     }
 
-    TeacherGetImageTask(String url, int id, int imageSize, ImageView imageView) {
+    public TeacherGetImageTask(String url, int id, int imageSize, ImageView imageView) {
         this.url = url;
         this.id = id;
         this.imageSize = imageSize;

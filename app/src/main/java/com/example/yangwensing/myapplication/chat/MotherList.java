@@ -38,12 +38,15 @@ public class MotherList extends Fragment {
     private MyTask chatlistTask;
     String sender = "";
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chatlist, container, false);
         rvChatlist = view.findViewById(R.id.rvchatlist);
         rvChatlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        tvtitle = view.findViewById(R.id.tvggyy);
+
 
 
         //設定標題
@@ -85,6 +88,7 @@ public class MotherList extends Fragment {
         public void onBindViewHolder(MyViewHolder holder, int position) {
             final ChatLists cl = chatLists.get(position);
             String url = Common.URL + "/LoginHelp";
+            holder.tvtitle.setText("老師：");
             holder.tvreceiver.setText(cl.getReceiver());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,10 +121,13 @@ public class MotherList extends Fragment {
 
         class MyViewHolder extends RecyclerView.ViewHolder {
             TextView tvreceiver;
+            TextView tvtitle;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 tvreceiver = itemView.findViewById(R.id.tvreceiver);
+                tvtitle = itemView.findViewById(R.id.tvggyy);
+
 
 
             }

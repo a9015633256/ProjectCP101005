@@ -1,6 +1,7 @@
 package com.example.yangwensing.myapplication.classes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +32,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+
+import TeacherMainActivityView.teacher_main_activity.MainActivity;
 
 public class ClassManager extends Fragment {
 
@@ -346,6 +349,7 @@ public class ClassManager extends Fragment {
         public void onBindViewHolder(final MyViewHolder holder, int position) {
             final Classes c = classes.get(position);
             String url = Common.URL + "/LoginHelp";
+            final int classId = c.getId();
             holder.tvClass.setText(c.getClasses());
             holder.tvTeacher.setText(c.getTeacher());
             final String e = String.valueOf(c.getId());
@@ -355,23 +359,21 @@ public class ClassManager extends Fragment {
             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
             preferences.edit().putString("tt", t).apply();
 
-
-
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle b = new Bundle();
-                    String id = String.valueOf(c.getId());
-                    String teacherid = String.valueOf(c.getTeacherid());
-                    b.putString("teacherid",teacherid);
-                    b.putString("ClassID",id);
-                    Fragment f = new ClassJoin();
-                    f.setArguments(b);
-                    Fragment fragment = new ExamFragment();
-                    fragment.setArguments(b);
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.content, fragment)
-                            .addToBackStack(null).commit();
+                    SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                    String classis = holder.tvClass.getText().toString();
+                    preferences.edit()
+                            .putInt("classId", classId)
+                            .putString("c", classis)
+                            .apply();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("c", classis);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("tvclass", bundle);
+                    startActivity(intent);
+
                 }
             });
 
