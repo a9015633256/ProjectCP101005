@@ -160,7 +160,7 @@ public class ChatList extends Fragment {
                 Log.e(TAG, e.toString());
             }
             if (chatLists == null || chatLists.isEmpty()) {
-                Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "你可能不是班導", Toast.LENGTH_SHORT).show();
 
             } else {
                 rvChatlist.setAdapter(new ChatList.ChatListRecyclerViewAdapter(getActivity(), chatLists));
