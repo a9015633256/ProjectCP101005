@@ -85,8 +85,8 @@ public class TipsClass {
     Navigation2_ExamSubject         考試管理
     Navigation3_Homework            功課管理
     Navigation4_ParentConnection    連絡家長
-    TeacherChangeFilePage           更改資料介面
-    TeacherSettingPage              （假資料，之後會刪除
+    TeacherChangeFilePage
+    TeacherSettingPage              更改資料介面
 
 
 
@@ -133,6 +133,9 @@ public class TipsClass {
     -----------
 
     manifest區
+
+    android:windowSoftInputMode="adjustPan" 讓打字鍵盤不會自動跳出來
+
     以下六個頁面是extends AppCompatActivity
     <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation1_ClassManagement"></activity>
     <activity android:name="TeacherMainActivityView.teacher_main_activity.Navigation3_Homework"></activity>

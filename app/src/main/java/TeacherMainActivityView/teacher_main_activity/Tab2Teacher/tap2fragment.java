@@ -38,6 +38,7 @@ public class tap2fragment extends Fragment {
     private String c;
     private TeacherGetImageTask teacherGetImageTask;
     private MyTask ClassSubjectTeacherTask;
+    private String title = "";
 
     @Nullable
     @Override
@@ -197,6 +198,9 @@ public class tap2fragment extends Fragment {
         if (ClassSubjectTeacherTask != null) {
             ClassSubjectTeacherTask.cancel(true);
         }
+        Log.d(TAG, title + ": onStop");
+
 
     }
+
 }
