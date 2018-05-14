@@ -43,8 +43,6 @@ public class Navigation1_ClassManagement extends AppCompatActivity {
                         startActivity(intent0);
                         break;
 
-                    case R.id.ic_Management:
-                        break;
 
                     case R.id.ic_Homework:
                         Intent intent2 = new Intent(Navigation1_ClassManagement.this, Navigation3_Homework.class);

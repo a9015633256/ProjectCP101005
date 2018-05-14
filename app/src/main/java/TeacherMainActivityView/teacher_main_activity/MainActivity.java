@@ -58,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ic_Home:
                         break;
 
-                    case R.id.ic_Management:
-                        Intent intent1 = new Intent(MainActivity.this, Navigation1_ClassManagement.class);
-                        startActivity(intent1);
-                        break;
 
                     case R.id.ic_Homework:
                         Intent intent2 = new Intent(MainActivity.this, Navigation3_Homework.class);

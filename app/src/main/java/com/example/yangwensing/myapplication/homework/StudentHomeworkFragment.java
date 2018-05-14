@@ -1,11 +1,13 @@
 package com.example.yangwensing.myapplication.homework;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.yangwensing.myapplication.MainActivity;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -75,11 +78,10 @@ public class StudentHomeworkFragment extends Fragment {
     }
 
 
-
     @Override
     public void onStop() {
         super.onStop();
-        if (getHomeworkTask != null){
+        if (getHomeworkTask != null) {
             getHomeworkTask.cancel(true);
         }
     }
@@ -209,7 +211,7 @@ public class StudentHomeworkFragment extends Fragment {
                 tvTitle.setText(homeworkIsDone.getTitle());
 
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
-                if (homeworkIsDone.isHomeworkDone()) {
+                if (!homeworkIsDone.isHomeworkDone()) {
                     tvIsCompleted.setText("未完成");
                 }
 
@@ -222,7 +224,9 @@ public class StudentHomeworkFragment extends Fragment {
                         StudentHomeworkDetailFragment studentHomeworkDetailFragment = new StudentHomeworkDetailFragment();
                         studentHomeworkDetailFragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().replace(R.id.content, studentHomeworkDetailFragment).addToBackStack(null).commit();
+                        if (getFragmentManager() != null) {
+                            getFragmentManager().beginTransaction().replace(R.id.content, studentHomeworkDetailFragment).addToBackStack(null).commit();
+                        }
 
 
                     }

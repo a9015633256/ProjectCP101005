@@ -34,6 +34,7 @@ import java.util.List;
 
 import TeacherMainActivityView.CommonPart.Common;
 import TeacherMainActivityView.CommonPart.MyTask;
+import TeacherMainActivityView.teacher_main_activity.Tab2Teacher.ClassSubjectTeacher;
 
 //Tab學生資料
 public class tap1fragment extends Fragment {
@@ -158,11 +159,12 @@ public class tap1fragment extends Fragment {
         public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
             final ClassStudentMember classStudentMember = classStudentMembers.get(position);
             String url = Common.URL + "/StudentServlet";
-            final int idb = classStudentMember.getId();
-            studentGetImageTask = new StudentGetImageTask(url, idb, imageSize, myViewHolder.studentImageview);
+            int id = classStudentMember.getId();
+            studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
             studentGetImageTask.execute();
             myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
             myViewHolder.studentPhone.setText(classStudentMember.getStudent_Phone());
+
 
             myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {//長按刪除，更新的部分
                 @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -210,16 +212,17 @@ public class tap1fragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    int studentId = classStudentMember.getId();
+//                    int studentId = classStudentMember.getId();
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt("studentIdForTeacher", studentId);
+                    bundle.putInt("studentIdForTeacher", id);
+                    Log.d(TAG, "onClick: "+id);
 
                     StudentInfoFragment studentInfoFragment=  new StudentInfoFragment();
                     studentInfoFragment.setArguments(bundle);
 
                     if (getFragmentManager() != null) {
-                        getFragmentManager().beginTransaction().replace(R.id.content, studentInfoFragment).addToBackStack(null).commit();
+                        getFragmentManager().beginTransaction().replace(R.id.body, studentInfoFragment).addToBackStack(null).commit();
                     }
 
 

@@ -41,7 +41,6 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
         getDataFromPref();
 
-
         findViews(view);
 
 //        bottomNavigationView = getActivity().findViewById(R.id.navigation);
@@ -121,7 +120,7 @@ public class TeacherHomeworkAddFragment extends Fragment {
         teacherId = preferences.getInt("teacherId", 0);
         subjectId = preferences.getInt("subjectId", 0);
         classId = preferences.getInt("classId", 0);
-        className = preferences.getString("className", "");
+        className = preferences.getString("c", "");
 
 
     }

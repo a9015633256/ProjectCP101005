@@ -65,8 +65,11 @@ public class Tab1_StudentCreatAccount extends Fragment {
                         try {
                             myTask = new MyTask(Common.URL + "/StudentAccountServlet", jsonObject.toString());
                             int count = Integer.valueOf(myTask.execute().get());
-                            if (count == 0) {
+                            if (count == 1) {
                                 Toast.makeText(getActivity(), "SignUp Success", Toast.LENGTH_LONG).show();
+                            }else {
+                                Toast.makeText(getActivity(), "SignUp Fail", Toast.LENGTH_LONG).show();
+
                             }
                         } catch (Exception e) {
                             Log.e(TAG,"error message"+toString());

@@ -68,6 +68,10 @@ public class MyTask extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         } catch (IOException e) {
             Log.e(TAG, e.toString());
+        }finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
 
         Log.d(TAG, "input: " + instr);

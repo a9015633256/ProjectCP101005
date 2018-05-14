@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherHomeworkCheckFragment extends Fragment {
-    private static final String TAG = "TeacherHomeworkCheckFragment";
+    private static final String TAG = "TeacherHomeCFragment";
     private RecyclerView recyclerView;
     private Button btCheck;
 
@@ -58,6 +59,8 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teacher_homework_check, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
+
+
 
         findViews(view);
 
@@ -110,6 +113,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
             }
         };
+
         tabLayout.addOnTabSelectedListener(onTabSelectedListener);
 
 
@@ -145,7 +149,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
             try {
 
-                String jsonIn = getHomeworkTask.execute().get();
+                String jsonIn = updateHomeworkTask.execute().get();
                 int count = Integer.valueOf(jsonIn);
 
                 if (count == 0) {
@@ -204,7 +208,6 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         tabLayout.setVisibility(View.GONE);
-        tabLayout.removeOnTabSelectedListener(onTabSelectedListener);
         homeworkCheckList.clear();
     }
 
@@ -356,6 +359,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

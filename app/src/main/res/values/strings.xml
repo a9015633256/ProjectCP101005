@@ -12,7 +12,7 @@
     <string name="title_info">Student Info</string>
     <string name="title_homework">Homework</string>
     <string name="title_exam">Exam</string>
-    <string name="title_contact">Teacher List</string>
+    <string name="title_contact">Contact</string>
     <string name="text_studentId">Student ID:</string>
     <string name="text_class">Class:</string>
     <string name="text_gender">Gender:</string>
@@ -58,20 +58,13 @@
     <string name="text_pickPhoto">Pick Photo</string>
     <string name="msg_NoCameraAppsFound">No Camera Apps Found!!</string>
     <string-array name="subject">
-        <item>國文</item>
-        <item>英文</item>
-        <item>數學</item>
-        <item>社會</item>
-        <item>自然</item>
+        <item>JAVA</item>
+        <item>Android_Studio</item>
+        <item>Math</item>
+        <item>English</item>
+        <item>Chinese</item>
     </string-array>
-    <string-array name="anothersubject">
-        <item>無</item>
-        <item>國文</item>
-        <item>英文</item>
-        <item>數學</item>
-        <item>社會</item>
-        <item>自然</item>
-    </string-array>
+
     <string name="tab_text_1">StudentList</string>
     <string name="tab_text_2">TeacherList</string>
     <string name="action_settings">Settings</string>
@@ -84,7 +77,7 @@
     <string name="Homework">Homework</string>
     <string name="ParentConnection">ParentConnection</string>
     <string name="Phone">PhoneNumber</string>
-    <string name="AddStudent">AddStudent</string>
+    <string name="AddStudent">Add Student</string>
     <string name="Birthday">Birthday</string>
     <string name="Gender">Gender</string>
     <string name="Name">Name</string>

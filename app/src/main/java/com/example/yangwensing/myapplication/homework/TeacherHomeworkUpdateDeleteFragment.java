@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,6 +26,8 @@ import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.JsonObject;
 
 public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
+    private static final String TAG ="TeacherHomeUFragment";
+
     //    private BottomNavigationView bottomNavigationView;
     private EditText etTitle, etContent;
     private Button btUpdate;
@@ -32,7 +35,6 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     private TabLayout.OnTabSelectedListener onTabSelectedListener;
     private MyTask updateHomeworkTask;
     private static MyTask deleteHomeworkTask;
-    ;
 
 
     //接上一頁資料用
@@ -64,11 +66,12 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
             Common.showToast(getActivity(), R.string.msg_data_error);
         }
 
+
+
         //tabLayout給老師作業勾選
         tabLayout = getActivity().findViewById(R.id.tlForTeacherHomework);
         tabLayout.getTabAt(0).select();
         tabLayout.setVisibility(View.VISIBLE);
-
         onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -169,6 +172,8 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
     @Override
     public void onStop() {
+
+        Log.d(TAG, "onStop: 1234");
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
         if (updateHomeworkTask != null) {
@@ -187,7 +192,6 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     @Override
     public void onDestroyView() {
         tabLayout.setVisibility(View.GONE);
-        tabLayout.removeOnTabSelectedListener(onTabSelectedListener);
         super.onDestroyView();
     }
 
@@ -202,7 +206,9 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_deleteHomework:
-                new AlertDialogFragment().show(getFragmentManager(), "delete");
+                if (getFragmentManager() != null) {
+                    new AlertDialogFragment().show(getFragmentManager(), "delete");
+                }
 
 
                 break;

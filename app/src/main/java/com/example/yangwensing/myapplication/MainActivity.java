@@ -34,7 +34,7 @@ import com.example.yangwensing.myapplication.main.Common;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnForStudent;
-    private TabLayout tlForTeacherHomeworkCheck;
+//    private TabLayout tlForTeacherHomeworkCheck;
     private static int alarmType = 0;
 
 
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, loginFragment);
         fragmentTransaction.commit();
 
-        //tabLayout給老師作業勾選
-        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
+//        //tabLayout給老師作業勾選
+//        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
+//        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
+//        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
 
 
     }
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflate = getMenuInflater();
         inflate.inflate(R.menu.menu_options, menu);
 
-//        closeOptionsMenu();
 
 
         return true;
@@ -183,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                                 .putString("className", "")
                                 .apply();
 
-                        //清除所有backStack(但會呼叫create跟destroy->會有跳出訊息的缺點)
+                        //清除所有backStack(但會呼叫
 //                        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 

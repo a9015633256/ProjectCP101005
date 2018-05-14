@@ -241,5 +241,6 @@ public class ChatFragment extends Fragment {
         super.onStop();
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
+        Common.disconnectServer();
     }
 }
