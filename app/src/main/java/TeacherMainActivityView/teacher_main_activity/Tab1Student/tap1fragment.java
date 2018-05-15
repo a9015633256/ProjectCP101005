@@ -66,6 +66,7 @@ public class tap1fragment extends Fragment {
 
         getClassName();
 
+
         btAdd = view.findViewById(R.id.btAdd);//浮動按鈕
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +160,7 @@ public class tap1fragment extends Fragment {
         public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
             final ClassStudentMember classStudentMember = classStudentMembers.get(position);
             String url = Common.URL + "/StudentServlet";
-            int id = classStudentMember.getId();
+            final int id = classStudentMember.getId();
             studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
             studentGetImageTask.execute();
             myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
