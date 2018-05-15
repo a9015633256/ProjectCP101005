@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.chat.MotherList;
 import com.example.yangwensing.myapplication.contact.StudentContactFragment;
 import com.example.yangwensing.myapplication.exam.StudentExamFragment;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new StudentHomeworkFragment();
                     break;
                 case R.id.navigation_exam:
-                    selectedFragment = new StudentExamFragment();
+                    selectedFragment = new ExamFragment();
                     break;
                 case R.id.navigation_contact:
                     selectedFragment = new MotherList();

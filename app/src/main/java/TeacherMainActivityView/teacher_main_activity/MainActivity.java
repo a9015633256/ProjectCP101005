@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent2 = new Intent(MainActivity.this, Navigation3_Homework.class);
                         startActivity(intent2);
                         break;
-
                     case R.id.ic_ExamSubject:
                         Intent intent3 = new Intent(MainActivity.this, Navigation2_ExamSubject.class);
                         startActivity(intent3);
@@ -99,10 +98,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Teacher_ChangeFile:
-                Intent intent5 = new Intent(MainActivity.this, TeacherChangeFilePage.class);
-                startActivity(intent5);
-                break;
+
             case R.id.Teacher_Setting:
                 Intent intent2 = new Intent(MainActivity.this, TeacherSettingPage.class);
                 startActivity(intent2);

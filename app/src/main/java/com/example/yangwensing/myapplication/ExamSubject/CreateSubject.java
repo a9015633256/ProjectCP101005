@@ -54,8 +54,10 @@ public class CreateSubject extends Fragment {
         Classid = b.getString("ClassID");
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        Subjectid = preferences.getString("Subject","0");
-        Teacherid = preferences.getString("Teacher","0");
+
+        ///
+        Subjectid = String.valueOf(preferences.getInt("subjectID",10));
+        Teacherid = String.valueOf(preferences.getInt("teacherid",0));
 
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -133,10 +135,10 @@ public class CreateSubject extends Fragment {
                     jsonObject.addProperty("Subject",new Gson().toJson(exam));
 
 
-                    myTask = new MyTask(Common.URL + "/LoginHelp", jsonObject.toString());
+                    myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                     try {
                         int count = Integer.valueOf(myTask.execute().get());
-                        if (count == 0) {
+                        if (count == -1) {
                             Toast.makeText(getActivity(), "Add failed!",
                                     Toast.LENGTH_SHORT).show();
                         } else {
@@ -146,7 +148,7 @@ public class CreateSubject extends Fragment {
                             fragment.setArguments(bb);
                             FragmentManager fragmentManager = getFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.content, fragment);
+                            fragmentTransaction.replace(R.id.main_content, fragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
                         }

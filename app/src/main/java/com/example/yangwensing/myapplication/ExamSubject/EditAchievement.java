@@ -37,6 +37,7 @@ public class EditAchievement extends Fragment {
     private TextView tvSubject,tvClassname,tvTeacherName;
     private ImageView ivAnalysis;
     private Button bttUpete,btSure;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class EditAchievement extends Fragment {
         tvTeacherName = view.findViewById(R.id.tvTeacherr);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
+
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();
         ExamSubjectID = b.getString("Subjectid");
@@ -66,7 +68,7 @@ public class EditAchievement extends Fragment {
                 Fragment fragment = new PerformanceAnalysisChart();
                 FragmentManager fragmentManager= getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment);
+                fragmentTransaction.replace(R.id.main_content, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -77,7 +79,7 @@ public class EditAchievement extends Fragment {
         List<Exam> exams = new ArrayList<>();
 
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "id");
             jsonObject.addProperty("Achievementid",AchievementID);
@@ -149,7 +151,7 @@ public class EditAchievement extends Fragment {
                         jsonObject.addProperty("AchievementID",AchievementID);
 
                         int count = 0;
-                        myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
+                        myTask = new MyTask(Common.URLForHen+"/LoginHelp",jsonObject.toString());
                         try {
                             String result = myTask.execute().get();
                             count = Integer.valueOf(result);
@@ -169,7 +171,7 @@ public class EditAchievement extends Fragment {
                                     fragment.setArguments(b);
                                     FragmentManager fragmentManager = getFragmentManager();
                                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.content, fragment);
+                                    fragmentTransaction.replace(R.id.main_content, fragment);
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
                                 }

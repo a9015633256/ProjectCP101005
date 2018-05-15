@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.R;
 
 import TeacherMainActivityView.CommonPart.BottomNavigationBarHelper;
@@ -22,9 +24,12 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
         setContentView(R.layout.teacher_navigation3_exam_subject);
         setTitle(R.string.ExamSubject);
         TextView title = findViewById(R.id.tvTitle3);
-        title.setText("this is view3");
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
+
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content,new ExamFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -40,10 +45,8 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
                         Intent intent3 = new Intent(Navigation2_ExamSubject.this, Navigation3_Homework.class);
                         startActivity(intent3);
                         break;
-
                     case R.id.ic_ExamSubject:
                         break;
-
                     case R.id.ic_Chat:
                         Intent intent4 = new Intent(Navigation2_ExamSubject.this, Navigation4_ParentConnection.class);
                         startActivity(intent4);

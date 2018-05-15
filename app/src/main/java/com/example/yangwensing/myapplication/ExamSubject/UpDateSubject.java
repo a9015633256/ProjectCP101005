@@ -67,7 +67,7 @@ public class UpDateSubject extends Fragment {
                    jsonObject.addProperty("Date",date);
                    jsonObject.addProperty("Content",content);
                    int count = 0;
-                   myTask = new MyTask(Common.URL+"/LoginHelp",jsonObject.toString());
+                   myTask = new MyTask(Common.URLForHen+"/LoginHelp",jsonObject.toString());
                    try {
                        String result = myTask.execute().get();
                        count = Integer.valueOf(result);
@@ -166,7 +166,7 @@ public class UpDateSubject extends Fragment {
                     fragment.setArguments(b);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.content, fragment);
+                    fragmentTransaction.replace(R.id.main_content, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
 
