@@ -125,7 +125,7 @@ public class ChatFragment extends Fragment {
             String sender = senderte;
             View viewr;
             Toast.makeText(getActivity(), "have message", Toast.LENGTH_SHORT).show();
-            for (int i=1; i<messages.size(); i++) {
+            for (int i=0; i<messages.size(); i++) {
                 if (senderte.equals(messages.get(i).getSender())){
                     String text = sender + ":\n " + messages.get(i).getMessage() + "\n";
 
