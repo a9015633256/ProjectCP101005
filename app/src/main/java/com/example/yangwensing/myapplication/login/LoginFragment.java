@@ -160,7 +160,7 @@ public class LoginFragment extends Fragment {
         boolean isUserValid = false;
 
         if (networkConnected()) {
-            String url = Common.URL + "/LoginHelp";
+            String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             if (name.matches(accoutwho)) {
                 jsonObject.addProperty("action", "findByName");
