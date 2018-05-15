@@ -165,9 +165,14 @@ public class AchievementFragment extends Fragment {
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
 
-                        holder.etAchievement.setHint(null);
+//                        holder.etAchievement.setHint(null);
                     } else {
-                        holder.etAchievement.setHint("NO");
+//                        holder.etAchievement.setHint("NO");
+
+                        int Score = Integer.valueOf(holder.etAchievement.getText().toString());
+                        exam.setScore(Score);
+                        Common.showToast(getActivity(),"5678");
+
                     }
                 }
             });
@@ -181,6 +186,7 @@ public class AchievementFragment extends Fragment {
                     Studentid = String.valueOf(exam.getExamstudent());
                     AchievementID = String.valueOf(exam.getAchievementID());
                     String score = holder.etAchievement.getText().toString();
+                    Gson gson = new Gson();
                     if (score.trim().isEmpty()) {
                         holder.etAchievement.setError("IsValid Achievement");
                         isValid = false;
@@ -188,6 +194,7 @@ public class AchievementFragment extends Fragment {
                     if (isValid) {
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action", "insertAchievement");
+                        jsonObject.addProperty("scores", gson.toJson(exams));
                         jsonObject.addProperty("score", score);
                         jsonObject.addProperty("AchievementID", AchievementID);
 
