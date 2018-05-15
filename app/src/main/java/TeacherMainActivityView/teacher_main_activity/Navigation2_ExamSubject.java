@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.R;
 
 import TeacherMainActivityView.CommonPart.BottomNavigationBarHelper;
@@ -23,10 +24,12 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
         setContentView(R.layout.teacher_navigation3_exam_subject);
         setTitle(R.string.ExamSubject);
         TextView title = findViewById(R.id.tvTitle3);
-        title.setText("this is view3");
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
 
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content,new ExamFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

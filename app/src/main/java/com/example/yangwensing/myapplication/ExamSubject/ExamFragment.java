@@ -269,12 +269,12 @@ public class ExamFragment extends Fragment {
                                         }
                                         if (count == 0) {
                                             Common.showToast(getActivity(), "delete fail");
+                                        }else {
+                                            exams.remove(exams1);
+                                            ExamAdapter.this.notifyDataSetChanged();
+                                            Common.showToast(getActivity(), "success");
+                                            recyclerView.invalidate();
                                         }
-                                    } else {
-                                        exams.remove(exams1);
-                                        ExamAdapter.this.notifyDataSetChanged();
-                                        Common.showToast(getActivity(), "success");
-                                        recyclerView.invalidate();
                                     }
 
                             }

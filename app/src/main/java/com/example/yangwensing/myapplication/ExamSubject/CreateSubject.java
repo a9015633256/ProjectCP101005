@@ -54,7 +54,9 @@ public class CreateSubject extends Fragment {
         Classid = b.getString("ClassID");
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        Subjectid = preferences.getString("Subject","0");
+
+        ///
+        Subjectid = String.valueOf(preferences.getInt("subjectID",10));
         Teacherid = String.valueOf(preferences.getInt("teacherid",0));
 
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -136,7 +138,7 @@ public class CreateSubject extends Fragment {
                     myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                     try {
                         int count = Integer.valueOf(myTask.execute().get());
-                        if (count == 0) {
+                        if (count == -1) {
                             Toast.makeText(getActivity(), "Add failed!",
                                     Toast.LENGTH_SHORT).show();
                         } else {
