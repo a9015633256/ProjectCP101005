@@ -52,6 +52,25 @@
         android:background="@color/Project"
         android:text="@string/textRegister" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAutoFillStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTextRed"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAutoFillTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTextBlack"/>
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

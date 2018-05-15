@@ -42,6 +42,8 @@ public class LoginFragment extends Fragment {
     private int studentId;
     private int teacherid;
     private int subjectid;
+    private FloatingActionButton fabStudent;
+    private FloatingActionButton fabTeacher;
 
     //帳號比對格式
     String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
@@ -61,6 +63,10 @@ public class LoginFragment extends Fragment {
         bnForStudent = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
+
+        //偷懶輸入
+        setFAB(view);
+
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
@@ -147,6 +153,43 @@ public class LoginFragment extends Fragment {
 
     }
 
+    private void setFAB(View view) {
+        final View fragmentView = view;
+
+        fabStudent = view.findViewById(R.id.fabAutoFillStudent);
+        fabTeacher = view.findViewById(R.id.fabAutoFillTeacher);
+
+        fabStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText etName = fragmentView.findViewById(R.id.etName);
+                etName.setText("student1");
+                EditText etPassword = fragmentView.findViewById(R.id.etPassword);
+                etPassword.setText("1");
+
+
+
+            }
+        });
+
+        fabTeacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText etName = fragmentView.findViewById(R.id.etName);
+                etName.setText("cp102@hotmail.com");
+                EditText etPassword = fragmentView.findViewById(R.id.etPassword);
+                etPassword.setText("22222");
+
+
+
+            }
+        });
+
+
+    }
+
     //隱藏右上選單
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -160,7 +203,7 @@ public class LoginFragment extends Fragment {
         boolean isUserValid = false;
 
         if (networkConnected()) {
-            String url = Common.URLForHen + "/LoginHelp";
+            String url = Common.URL + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
             if (name.matches(accoutwho)) {
                 jsonObject.addProperty("action", "findByName");
