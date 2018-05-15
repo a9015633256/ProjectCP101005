@@ -2,6 +2,7 @@ package com.example.yangwensing.myapplication.login;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.MainActivity;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Account;
 import com.example.yangwensing.myapplication.main.Common;
@@ -266,14 +268,20 @@ public class RegisterFragment extends Fragment {
                         }else
                         {
                             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
-                            Fragment loginFragment = new LoginFragment();
 
-                            FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.addToBackStack(null);
-
-                            fragmentTransaction.replace(R.id.content, loginFragment);
-                            fragmentTransaction.commit();
+                            //回到登入頁面用開啟新activity的方式，就不需叫清理backStack了
+                            Intent i = new Intent(getActivity(), MainActivity.class);
+                            // set the new task and clear flags
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+//                            Fragment loginFragment = new LoginFragment();
+//
+//                            FragmentManager fragmentManager = getFragmentManager();
+//                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+////                            fragmentTransaction.addToBackStack(null);
+//
+//                            fragmentTransaction.replace(R.id.content, loginFragment);
+//                            fragmentTransaction.commit();
                         }
                     } catch (Exception e) {
                         Log.d(TAG, "error message" + e.toString());
