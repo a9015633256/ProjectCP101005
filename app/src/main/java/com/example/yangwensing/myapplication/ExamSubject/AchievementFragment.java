@@ -171,7 +171,6 @@ public class AchievementFragment extends Fragment {
 
                         int Score = Integer.valueOf(holder.etAchievement.getText().toString());
                         exam.setScore(Score);
-                        Common.showToast(getActivity(),"5678");
 
                     }
                 }

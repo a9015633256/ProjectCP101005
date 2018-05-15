@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new StudentHomeworkFragment();
                     break;
                 case R.id.navigation_exam:
-                    selectedFragment = new ExamFragment();
+                    selectedFragment = new StudentExamFragment();
+//                    selectedFragment = new ExamFragment();
                     break;
                 case R.id.navigation_contact:
                     selectedFragment = new MotherList();
