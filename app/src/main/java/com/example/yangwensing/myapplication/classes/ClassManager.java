@@ -40,11 +40,11 @@ public class ClassManager extends Fragment {
     private static final String TAG = "ClassManager";
     private RecyclerView rvClass;
     private MyTask classgetTask;
-//    private Button btdelete,btCreat,btJoin;
+    //    private Button btdelete,btCreat,btJoin;
     private TabLayout caselect;
     List<Classes> classes = null;
 
-    String user ="";
+    String user = "";
 
     @Nullable
     @Override
@@ -59,7 +59,7 @@ public class ClassManager extends Fragment {
 //        user = bundle.getString("name");
 //        user = bundle.getString("name");
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        user = preferences.getString("name","0");
+        user = preferences.getString("name", "0");
 
 
 //        btdelete = view.findViewById(R.id.btDelete);
@@ -68,26 +68,30 @@ public class ClassManager extends Fragment {
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
+//        if (caselect.getTabAt(0) != null) {
+//
+//            caselect.getTabAt(0).select();
+//        }
 
         caselect.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()){
+                switch (tab.getPosition()) {
                     case 0:
                         showAllClasses();
 //                        btdelete.setVisibility(View.VISIBLE);
-                        if(classes == null || classes.isEmpty()){
+                        if (classes == null || classes.isEmpty()) {
                             rvClass.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             rvClass.setVisibility(View.VISIBLE);
                         }
                         break;
                     case 1:
                         showJoinClasses();
 //                        btdelete.setVisibility(View.GONE);
-                        if(classes == null || classes.isEmpty()){
+                        if (classes == null || classes.isEmpty()) {
                             rvClass.setVisibility(View.GONE);
-                        }else{
+                        } else {
                             rvClass.setVisibility(View.VISIBLE);
                         }
                         break;
@@ -165,13 +169,14 @@ public class ClassManager extends Fragment {
 //        });
 
 
-
         rvClass = view.findViewById(R.id.rvNews);
         rvClass.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         return view;
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -182,6 +187,7 @@ public class ClassManager extends Fragment {
         menu.getItem(1).setVisible(false);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -198,7 +204,7 @@ public class ClassManager extends Fragment {
 
                 fragmentTransaction.addToBackStack(null);
 
-                fragmentTransaction.replace(R.id.content,classCreate);
+                fragmentTransaction.replace(R.id.content, classCreate);
                 fragmentTransaction.commit();
 
                 break;
@@ -214,7 +220,7 @@ public class ClassManager extends Fragment {
 
                 fragmentTransactionjo.addToBackStack(null);
 
-                fragmentTransactionjo.replace(R.id.content,classJoin);
+                fragmentTransactionjo.replace(R.id.content, classJoin);
                 fragmentTransactionjo.commit();
 
                 break;
@@ -230,7 +236,7 @@ public class ClassManager extends Fragment {
 
                 fragmentTransactionde.addToBackStack(null);
 
-                fragmentTransactionde.replace(R.id.content,classdelete);
+                fragmentTransactionde.replace(R.id.content, classdelete);
                 fragmentTransactionde.commit();
 
                 break;
@@ -240,9 +246,9 @@ public class ClassManager extends Fragment {
                 preferences.edit()
                         .putInt("studentId", 0)
                         .putInt("teacherId", 0)
-                        .putInt("subjectId",0)
-                        .putInt("classId",0)
-                        .putString("className","")
+                        .putInt("subjectId", 0)
+                        .putInt("classId", 0)
+                        .putString("className", "")
                         .apply();
 
                 //清除所有backStack
@@ -262,12 +268,12 @@ public class ClassManager extends Fragment {
 
     private void showAllClasses() {
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URLForHen + "/LoginHelp";
+            String url = Common.URL + "/LoginHelp";
 
 //            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getAll");
-            jsonObject.addProperty("name",user);
+            jsonObject.addProperty("name", user);
             String jsonOut = jsonObject.toString();
             classgetTask = new MyTask(url, jsonOut);
             try {
@@ -289,14 +295,15 @@ public class ClassManager extends Fragment {
             Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void showJoinClasses() {
         if (Common.networkConnected(getActivity())) {
-            String url = Common.URLForHen + "/LoginHelp";
+            String url = Common.URL + "/LoginHelp";
 
 //            List<Classes> classes = null;
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getJoin");
-            jsonObject.addProperty("name",user);
+            jsonObject.addProperty("name", user);
             String jsonOut = jsonObject.toString();
             classgetTask = new MyTask(url, jsonOut);
             try {
@@ -318,6 +325,7 @@ public class ClassManager extends Fragment {
             Toast.makeText(getActivity(), "No Net", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -341,10 +349,12 @@ public class ClassManager extends Fragment {
             View itemView = layoutInflater.inflate(R.layout.fragment_teacher_class_manager, parent, false);
             return new MyViewHolder(itemView);
         }
+
         @Override
         public int getItemCount() {
             return classes.size();
         }
+
         @Override
         public void onBindViewHolder(final MyViewHolder holder, int position) {
             final Classes c = classes.get(position);
@@ -355,9 +365,9 @@ public class ClassManager extends Fragment {
             final String e = String.valueOf(c.getId());
             holder.tvClassCode.setText(e);
 
-            int t= c.getTeacherid();
-            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-            preferences.edit().putInt("teacherid", t).apply();
+            int t = c.getTeacherid();
+//            SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+//            preferences.edit().putInt("teacherid", t).apply();
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -380,20 +390,20 @@ public class ClassManager extends Fragment {
         }
 
 
-
         class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView tvClass, tvTeacher,tvClassCode;
+            TextView tvClass, tvTeacher, tvClassCode;
 
             MyViewHolder(View itemView) {
                 super(itemView);
                 tvClass = itemView.findViewById(R.id.tvClassc);
-                 tvTeacher= itemView.findViewById(R.id.tvTeacherr);
-                 tvClassCode = itemView.findViewById(R.id.tvClassCode);
+                tvTeacher = itemView.findViewById(R.id.tvTeacherr);
+                tvClassCode = itemView.findViewById(R.id.tvClassCode);
 
 
             }
         }
     }
+
     public void onStop() {
         super.onStop();
         if (classgetTask != null) {

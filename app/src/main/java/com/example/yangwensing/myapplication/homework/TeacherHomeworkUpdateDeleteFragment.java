@@ -70,7 +70,6 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
         //tabLayout給老師作業勾選
         tabLayout = getActivity().findViewById(R.id.tlForTeacherHomework);
-        tabLayout.getTabAt(0).select();
         tabLayout.setVisibility(View.VISIBLE);
         onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
@@ -105,6 +104,7 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
             }
         };
         tabLayout.addOnTabSelectedListener(onTabSelectedListener);
+        tabLayout.getTabAt(0).select();
 
 
         btUpdate.setOnClickListener(new View.OnClickListener() {

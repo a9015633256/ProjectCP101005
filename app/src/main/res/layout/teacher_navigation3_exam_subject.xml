@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="TeacherMainActivityView.teacher_main_activity.MainActivity">
 
-    <TextView
-        android:id="@+id/tvTitle3"
+
+
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btNavigation_Bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:textSize="30sp"
-        android:textAlignment="center"/>
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
+        app:menu="@menu/teacher_navigation_bar_menu">
 
-    <RelativeLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom">
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/btNavigation_Bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            app:menu="@menu/teacher_navigation_bar_menu">
-
-        </android.support.design.widget.BottomNavigationView>
+    </android.support.design.widget.BottomNavigationView>
 
 
-    </RelativeLayout>
 
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

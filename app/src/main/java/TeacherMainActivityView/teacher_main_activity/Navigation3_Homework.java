@@ -29,11 +29,6 @@ public class Navigation3_Homework extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
 
-                //tabLayout給老師作業勾選
-        tlForTeacherHomeworkCheck = findViewById(R.id.tlForTeacherHomework);
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkContent));
-        tlForTeacherHomeworkCheck.addTab(tlForTeacherHomeworkCheck.newTab().setText(R.string.text_tabHomeworkCheck));
-
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, new TeacherHomeworkFragment(), "TeacherHomeworkFragment").commit();

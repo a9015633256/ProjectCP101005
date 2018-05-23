@@ -159,4 +159,5 @@
     <string name="msg_UpdateSuccess">UpdateSuccess</string>
     <string name="ChooseGender">Choose Gender</string>
     <string name="title_profile">Profile</string>
+    <string name="title_addStudentToClass">Add Student To Class</string>
 </resources>

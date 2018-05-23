@@ -11,8 +11,8 @@ import java.util.List;
 //將Tabs轉為陣列，讀取數量
 public class SectionsPageAdapter extends FragmentPagerAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+    private  List<Fragment> mFragmentList = new ArrayList<>();
+    private  List<String> mFragmentTitleList = new ArrayList<>();
 
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);
@@ -39,4 +39,6 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return mFragmentList.size();
     }
+
+
 }

@@ -108,8 +108,10 @@ public class tap2fragment extends Fragment {
     }
 
     private void switchFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.body2, fragment);
+
+        //修改為切換母fragment->這樣addToBackStack才有作用
+        FragmentTransaction fragmentTransaction = getParentFragment().getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_content, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

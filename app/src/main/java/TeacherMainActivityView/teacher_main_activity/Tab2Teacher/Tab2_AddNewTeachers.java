@@ -8,11 +8,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,6 +48,11 @@ public class Tab2_AddNewTeachers extends Fragment {
     private TeacherGetImageTask teacherGetImageTask;
     private MyTask InsertTask;
     private int classId;
+    private  FloatingActionButton btAdd;
+
+    private BottomNavigationView bottomNavigationView;
+
+
 
     @Nullable
     @Override
@@ -52,6 +61,10 @@ public class Tab2_AddNewTeachers extends Fragment {
         btSearchTeacher = view.findViewById(R.id.btSearchTeacher);
         edSearchTeacher = view.findViewById(R.id.edSearchTeacher);
         rlTeachers = view.findViewById(R.id.rlTeachers);
+
+        btAdd = view.findViewById(R.id.btAdd);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+
         rlTeachers.setLayoutManager(new LinearLayoutManager(getActivity()));
         btSearchTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +73,12 @@ public class Tab2_AddNewTeachers extends Fragment {
             }
         });
 
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+
+
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        ((MainActivity) getActivity()).hideFloatingActionButton();//沒辦法消失，暫時找不到辦法
-    }
 
     private void SearchTeacherID() {
         String TeacherID = edSearchTeacher.getText().toString();
@@ -177,6 +188,9 @@ public class Tab2_AddNewTeachers extends Fragment {
                                             int count = Integer.valueOf(InsertTask.execute().get());
                                             if (count == 0) {
                                                 Toast.makeText(getActivity(), "SignUp Success", Toast.LENGTH_LONG).show();
+                                                if (getFragmentManager() != null) {
+                                                    getFragmentManager().popBackStack();
+                                                }
                                             }
                                         } catch (Exception e) {
                                             Log.e(TAG, "error message" + toString());
@@ -207,7 +221,8 @@ public class Tab2_AddNewTeachers extends Fragment {
         if (SearchTask != null) {
             SearchTask.cancel(true);
         }
-        ((MainActivity) getActivity()).showFloatingActionButton();
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
     }
 
     private int getClassId() {
@@ -217,4 +232,15 @@ public class Tab2_AddNewTeachers extends Fragment {
     }
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.removeGroup(0);
+    }
 }
