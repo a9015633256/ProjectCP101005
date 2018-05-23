@@ -1,8 +1,11 @@
 package com.example.yangwensing.myapplication.exam;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,11 +69,10 @@ public class StudentExamChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
         findViews(view);
-
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            examId = bundle.getInt("examId");
+            examId = bundle.getInt("ex");
             studentScore = bundle.getInt("studentScore");
             examName = bundle.getString("examName");
         } else {
@@ -367,39 +369,39 @@ public class StudentExamChartFragment extends Fragment {
     private List<Entry> getAllScores() {
         List<Entry> scoreEntries = new ArrayList<>();
         //假如要忽略沒有人數的數據
-//        if (scoreAPlusList.size() != 0) {
-//            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
-//        }
-//        if (scoreAList.size() != 0) {
-//            scoreEntries.add(new Entry(95, scoreAList.size()));
-//        }
-//        if (scoreBList.size() != 0) {
-//            scoreEntries.add(new Entry(85, scoreBList.size()));
-//        }
-//        if (scoreCList.size() != 0) {
-//            scoreEntries.add(new Entry(75, scoreCList.size()));
-//        }
-//        if (scoreDList.size() != 0) {
-//            scoreEntries.add(new Entry(65, scoreDList.size()));
-//        }
-//        if (scoreEList.size() != 0) {
-//            scoreEntries.add(new Entry(55, scoreEList.size()));
-//        }
-//        if (scoreFList.size() != 0) {
-//            scoreEntries.add(new Entry(45, scoreFList.size()));
-//        }
-//        if (scoreGList.size() != 0) {
-//            scoreEntries.add(new Entry(35, scoreGList.size()));
-//        }
-//        if (scoreHList.size() != 0) {
-//            scoreEntries.add(new Entry(25, scoreHList.size()));
-//        }
-//        if (scoreIList.size() != 0) {
-//            scoreEntries.add(new Entry(15, scoreIList.size()));
-//        }
-//        if (scoreJList.size() != 0) {
-//            scoreEntries.add(new Entry(5, scoreJList.size()));
-//        }
+        if (scoreAPlusList.size() != 0) {
+            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
+        }
+        if (scoreAList.size() != 0) {
+            scoreEntries.add(new Entry(95, scoreAList.size()));
+        }
+        if (scoreBList.size() != 0) {
+            scoreEntries.add(new Entry(85, scoreBList.size()));
+        }
+        if (scoreCList.size() != 0) {
+            scoreEntries.add(new Entry(75, scoreCList.size()));
+        }
+        if (scoreDList.size() != 0) {
+            scoreEntries.add(new Entry(65, scoreDList.size()));
+        }
+        if (scoreEList.size() != 0) {
+            scoreEntries.add(new Entry(55, scoreEList.size()));
+        }
+        if (scoreFList.size() != 0) {
+            scoreEntries.add(new Entry(45, scoreFList.size()));
+        }
+        if (scoreGList.size() != 0) {
+            scoreEntries.add(new Entry(35, scoreGList.size()));
+        }
+        if (scoreHList.size() != 0) {
+            scoreEntries.add(new Entry(25, scoreHList.size()));
+        }
+        if (scoreIList.size() != 0) {
+            scoreEntries.add(new Entry(15, scoreIList.size()));
+        }
+        if (scoreJList.size() != 0) {
+            scoreEntries.add(new Entry(5, scoreJList.size()));
+        }
 
         scoreEntries.add(new Entry(100, scoreAPlusList.size()));
         scoreEntries.add(new Entry(95, scoreAList.size()));

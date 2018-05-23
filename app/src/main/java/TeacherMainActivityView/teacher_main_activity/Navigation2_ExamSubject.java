@@ -23,7 +23,6 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_navigation3_exam_subject);
         setTitle(R.string.ExamSubject);
-        TextView title = findViewById(R.id.tvTitle3);
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNavigation_Bar);
         BottomNavigationBarHelper.disableShiftMode(bottomNavigationView);
 

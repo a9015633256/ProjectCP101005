@@ -6,12 +6,13 @@ class Exam {
     private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
-    public Exam (int classid,String examtitle,int subjectid,int teacherid,int examsubjectid){
+    public Exam (int classid,String examtitle,int subjectid,int teacherid,int examsubjectid,int score){
         this.classid = classid;
         this.examtitle = examtitle;
         this.subjectid = subjectid;
         this.teacherid = teacherid;
         this.examsubjectid = examsubjectid;
+        this.score = score;
     }
 
     public Exam(int id, String title, String date , String context){
