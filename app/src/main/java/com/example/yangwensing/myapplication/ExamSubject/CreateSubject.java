@@ -55,9 +55,9 @@ public class CreateSubject extends Fragment {
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
 
-        ///
-        Subjectid = String.valueOf(preferences.getInt("subjectID",10));
-        Teacherid = String.valueOf(preferences.getInt("teacherid",0));
+
+        Subjectid = String.valueOf(preferences.getInt("subjectId",10));
+        Teacherid = String.valueOf(preferences.getInt("teacherId",0));
 
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 

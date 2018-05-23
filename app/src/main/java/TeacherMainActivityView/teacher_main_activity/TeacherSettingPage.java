@@ -289,7 +289,10 @@ public class TeacherSettingPage extends AppCompatActivity {
                     + getString(R.string.msg_InputEmpty) + "\n";
             isInputValid = false;
         }
-        Common.showToast(this, massage);
+        if (!massage.equals("")){
+            Common.showToast(this, massage);
+        }
+
         Teachers teachers = new Teachers(ida,at,"",ml,grn,pe,de);
         if (isInputValid) {
             if (Common.networkConnected(TeacherSettingPage.this)) {
@@ -314,6 +317,7 @@ public class TeacherSettingPage extends AppCompatActivity {
                     Common.showToast(this, R.string.msg_UpdateFail);
                 } else {
                     Common.showToast(this, R.string.msg_UpdateSuccess);
+                    finish();
                 }
             } else {
                 Common.showToast(this, R.string.msg_NoNetwork);

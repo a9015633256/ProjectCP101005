@@ -51,6 +51,7 @@ public class tap1fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.teacher_tap1_contact_fragment, container, false);
+
         swipeRefreshLayout =
                 view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {//下拉更新
@@ -85,6 +86,8 @@ public class tap1fragment extends Fragment {
     public void onStart() {
         super.onStart();
         showAllStudents();
+        showFloatingActionButton();
+
     }
 
     private void showAllStudents() {
@@ -222,9 +225,11 @@ public class tap1fragment extends Fragment {
                     StudentInfoFragment studentInfoFragment=  new StudentInfoFragment();
                     studentInfoFragment.setArguments(bundle);
 
-                    if (getFragmentManager() != null) {
-                        getFragmentManager().beginTransaction().replace(R.id.body, studentInfoFragment).addToBackStack(null).commit();
-                    }
+                        if (getParentFragment() != null) {
+                            if (getParentFragment().getFragmentManager() != null) {
+                                getParentFragment().getFragmentManager().beginTransaction().replace(R.id.main_content, studentInfoFragment).addToBackStack(null).commit();
+                            }
+                        }
 
 
                 }
@@ -246,14 +251,27 @@ public class tap1fragment extends Fragment {
         if (studentsDeleteTask != null) {
             studentsDeleteTask.cancel(true);
         }
+        hideFloatingActionButton();
+
 
     }
 
     private void switchFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.body, fragment);
+        FragmentTransaction fragmentTransaction = getParentFragment().getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_content, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
+
+    public void showFloatingActionButton() {
+        btAdd.show();
+    }
+
+    public void hideFloatingActionButton() {
+        btAdd.hide();
+    }
+
 
 }

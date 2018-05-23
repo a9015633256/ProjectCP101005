@@ -57,6 +57,20 @@ public class EditAchievement extends Fragment {
         ExamSubjectID = b.getString("Subjectid");
         AchievementID = b.getString("Achievementid");
         ClassID = b.getString(("ClassID"));
+        btSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                b.putString("ClassID",ClassID);
+                Fragment fragment = new ExamFragment();
+                fragment.setArguments(b);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_content, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
 
 
@@ -138,15 +152,34 @@ public class EditAchievement extends Fragment {
             tvSubject.setText((getText(R.string.ExamSubject1)+t));
             tvClassname .setText(c);
             tvTeacherName.setText(e);
+
+            holder.etAchievement.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+
+//                        holder.etAchievement.setHint(null);
+                    } else {
+//                        holder.etAchievement.setHint("NO");
+
+                        int Score = Integer.valueOf(holder.etAchievement.getText().toString());
+                        exam.setScore(Score);
+//                        Common.showToast(getActivity(),"");
+                    }
+                }
+            });
+
             bttUpete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle b = getArguments();
                     AchievementID = String.valueOf(exam.getAchievementID());
+                    Gson gson = new Gson();
                     String score = holder.etAchievement.getText().toString();
                     if (Common.networkConnected(getActivity())){
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action","insertAchievement");
+                        jsonObject.addProperty("scores", gson.toJson(exams));
                         jsonObject.addProperty("score",score);
                         jsonObject.addProperty("AchievementID",AchievementID);
 
@@ -160,23 +193,8 @@ public class EditAchievement extends Fragment {
                         }if (count == 0 ){
                             Common.showToast(getActivity(),"update fail");
                         }else {
+                            Recyclerr.this.notifyDataSetChanged();
                             Common.showToast(getActivity(),"update success");
-
-                            btSure.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Bundle b = new Bundle();
-                                    b.putString("ClassID",ClassID);
-                                    Fragment fragment = new ExamFragment();
-                                    fragment.setArguments(b);
-                                    FragmentManager fragmentManager = getFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    fragmentTransaction.replace(R.id.main_content, fragment);
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
-                                }
-                            });
-
 
                         }
                     }

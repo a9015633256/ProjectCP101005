@@ -43,13 +43,12 @@
 
         <TextView
             android:id="@+id/password"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Password:" />
         <EditText
             android:id="@+id/rgPassword"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
 

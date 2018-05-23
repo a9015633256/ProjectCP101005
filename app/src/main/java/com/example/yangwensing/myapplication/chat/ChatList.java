@@ -74,7 +74,7 @@ public class ChatList extends Fragment {
         super.onStart();
         showAllcanchat();
         //隱藏底部導覽列
-        bottomNavigationView.setVisibility(View.GONE);
+//        bottomNavigationView.setVisibility(View.GONE);
     }
 
 
@@ -175,6 +175,6 @@ public class ChatList extends Fragment {
             chatlistTask.cancel(true);
         }
         //重新顯示底部導覽列
-        bottomNavigationView.setVisibility(View.VISIBLE);
+//        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

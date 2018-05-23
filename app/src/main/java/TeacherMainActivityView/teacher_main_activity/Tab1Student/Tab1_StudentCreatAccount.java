@@ -5,9 +5,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +32,11 @@ public class Tab1_StudentCreatAccount extends Fragment {
     private final static String TAG = "Tab1StudentCreatAccount";
     private MyTask myTask;
     private int classId;
+    private FloatingActionButton btAdd;
+
+    private BottomNavigationView bottomNavigationView;
+
+
 
     @Nullable
     @Override
@@ -35,8 +45,13 @@ public class Tab1_StudentCreatAccount extends Fragment {
         final EditText etStudentAccountID = view.findViewById(R.id.etStudentAccountID);
         final EditText etStudentAP = view.findViewById(R.id.etStudentAP);
         final EditText etStudentName = view.findViewById(R.id.etStudentName);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+
+        getActivity().setTitle(R.string.title_addStudentToClass);
+
         classId = getClassId();
-        ((MainActivity) getActivity()).hideFloatingActionButton();
+//        btAdd = view
+//        ((MainActivity) getActivity()).hideFloatingActionButton();
         Button btAddStudentAccount = view.findViewById(R.id.btAddStudentAccount);
         btAddStudentAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +80,12 @@ public class Tab1_StudentCreatAccount extends Fragment {
                         try {
                             myTask = new MyTask(Common.URL + "/StudentAccountServlet", jsonObject.toString());
                             int count = Integer.valueOf(myTask.execute().get());
+                            count = 1;
                             if (count == 1) {
                                 Toast.makeText(getActivity(), "SignUp Success", Toast.LENGTH_LONG).show();
+                                if (getFragmentManager() != null) {
+                                    getFragmentManager().popBackStack();
+                                }
                             }else {
                                 Toast.makeText(getActivity(), "SignUp Fail", Toast.LENGTH_LONG).show();
 
@@ -84,14 +103,17 @@ public class Tab1_StudentCreatAccount extends Fragment {
             }
         });
 
+        setHasOptionsMenu(true);
+
+
         return view;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((MainActivity) getActivity()).showFloatingActionButton();
-    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        ((MainActivity) getActivity()).showFloatingActionButton();
+//    }
 
 
     private int getClassId() {
@@ -100,4 +122,22 @@ public class Tab1_StudentCreatAccount extends Fragment {
         return id;
     }
 
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+    public void onStop() {
+        super.onStop();
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        menu.removeGroup(0);
+    }
 }

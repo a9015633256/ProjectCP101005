@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -25,6 +28,8 @@ public class Tab2TeacherProfile extends Fragment {
     private EditText tvTeahcerProfileId, tvTeahcerProfileName, tvTeahcerProfileGender, tvTeahcerProfileDayOfBirth, tvTeahcerProfilePhoneNumber;
     private ImageView ivTeahcerPicProfile;
     private TeacherGetImageTask teacherGetImageTask;
+    private BottomNavigationView bottomNavigationView;
+
 
     @Nullable
     @Override
@@ -33,6 +38,8 @@ public class Tab2TeacherProfile extends Fragment {
 
         findViews(view);
         getTeacherProfile();
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
+
 
         return view;
     }
@@ -44,6 +51,7 @@ public class Tab2TeacherProfile extends Fragment {
         tvTeahcerProfileDayOfBirth = view.findViewById(R.id.tvTeahcerProfileDayOfBirth);
         tvTeahcerProfilePhoneNumber = view.findViewById(R.id.tvTeahcerProfilePhoneNumber);
         ivTeahcerPicProfile = view.findViewById(R.id.ivTeahcerPicProfile);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
     }
 
@@ -74,4 +82,22 @@ public class Tab2TeacherProfile extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.removeGroup(0);
+    }
 }

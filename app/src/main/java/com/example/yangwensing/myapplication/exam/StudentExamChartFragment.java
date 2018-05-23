@@ -71,7 +71,7 @@ public class StudentExamChartFragment extends Fragment {
 
         if (bundle != null) {
             examId = bundle.getInt("examId");
-            studentScore = bundle.getInt("studentScore");
+//            studentScore = bundle.getInt("studentScore");
             examName = bundle.getString("examName");
         } else {
             Common.showToast(getActivity(), R.string.msg_data_error);
@@ -258,7 +258,7 @@ public class StudentExamChartFragment extends Fragment {
         /* 取得各品牌車每月銷售量資料 */
         List<Entry> allScoreEntries = getAllScores();
         List<Entry> averageScoreEntries = getAverageScore();
-        List<Entry> studentScoreEntries = getStudentScore();
+//        List<Entry> studentScoreEntries = getStudentScore();
 
 //        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
 //        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
@@ -304,16 +304,16 @@ public class StudentExamChartFragment extends Fragment {
         lineDataSetAverageScore.setDrawValues(false);
         lineDataSetAverageScore.setDrawVerticalHighlightIndicator(true);
 
-        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
-        lineDataSetStudentScore.setCircleRadius(4);
-        lineDataSetStudentScore.setDrawCircleHole(false);
-        lineDataSetStudentScore.setCircleColor(Color.RED);
-        lineDataSetStudentScore.setColor(Color.RED);
-        lineDataSetStudentScore.setLineWidth(4);
-        lineDataSetStudentScore.setHighLightColor(Color.RED);
-        lineDataSetStudentScore.setValueTextColor(Color.DKGRAY);
-        lineDataSetStudentScore.setValueTextSize(10);
-        lineDataSetStudentScore.setDrawValues(false);
+//        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
+//        lineDataSetStudentScore.setCircleRadius(4);
+//        lineDataSetStudentScore.setDrawCircleHole(false);
+//        lineDataSetStudentScore.setCircleColor(Color.RED);
+//        lineDataSetStudentScore.setColor(Color.RED);
+//        lineDataSetStudentScore.setLineWidth(4);
+//        lineDataSetStudentScore.setHighLightColor(Color.RED);
+//        lineDataSetStudentScore.setValueTextColor(Color.DKGRAY);
+//        lineDataSetStudentScore.setValueTextSize(10);
+//        lineDataSetStudentScore.setDrawValues(false);
 
 
         lineChart.setClickable(false);
@@ -326,7 +326,7 @@ public class StudentExamChartFragment extends Fragment {
         List<ILineDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
         dataSets.add(lineDataSetAllScore);
         dataSets.add(lineDataSetAverageScore);
-        dataSets.add(lineDataSetStudentScore);
+//        dataSets.add(lineDataSetStudentScore);
         LineData lineData = new LineData(dataSets);
         lineChart.setData(lineData);
 
@@ -427,13 +427,13 @@ public class StudentExamChartFragment extends Fragment {
         return scoreEntries;
     }
 
-    private List<Entry> getStudentScore() {
-        List<Entry> scoreEntries = new ArrayList<>();
-        scoreEntries.add(new Entry(studentScore, maxY));
-
-
-        return scoreEntries;
-    }
+//    private List<Entry> getStudentScore() {
+//        List<Entry> scoreEntries = new ArrayList<>();
+//        scoreEntries.add(new Entry(studentScore, maxY));
+//
+//
+//        return scoreEntries;
+//    }
 
     @Override
     public void onDestroyView() {
