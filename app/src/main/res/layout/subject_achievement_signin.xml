@@ -21,17 +21,18 @@
                 android:layout_marginTop="5dp"
                 android:textSize="17sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <Button
                 android:id="@+id/btUpdateAchievement"
                 android:layout_width="85dp"
                 android:layout_height="40dp"
                 android:background="@drawable/button"
                 android:text="@string/Update"
-                android:textColor="#ffffff"
-                />
+                android:textColor="#ffffff" />
 
 
         </RelativeLayout>
@@ -59,32 +60,33 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/Class"/>
+                android:text="@string/Class"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvClassc"
-                android:textSize="18sp"
-                android:layout_marginStart="60dp"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:layout_marginStart="160dp"
                 android:text="@string/Teacher"
-                android:layout_marginStart="160dp"/>
+                android:textSize="18sp" />
+
             <TextView
+                android:id="@+id/tvTeacherr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:layout_marginStart="240dp"
-                android:id="@+id/tvTeacherr"
-                />
+                android:textSize="18sp" />
 
         </RelativeLayout>
 
@@ -94,23 +96,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-           <ImageView
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:layout_marginEnd="50dp"
-               android:layout_alignParentRight="true"
-               android:id="@+id/ivAnalysis"
-               android:src="@drawable/analysis"/>
+
+            <ImageView
+                android:id="@+id/ivAnalysis"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/analysis" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:text="@string/Analysis"/>
+                android:text="@string/Analysis"
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -162,14 +167,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/_"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:text="@string/_" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"

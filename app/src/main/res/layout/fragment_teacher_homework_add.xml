@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/ivUserPic"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -23,44 +23,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_title" />
+                    android:text="@string/text_title"
+                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/etAddHomeworkTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
 
             </LinearLayout>
 
 
             <TextView
-                android:layout_marginTop="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/text_Content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:text="@string/text_Content" />
 
             <EditText
-                android:textAlignment="center"
                 android:id="@+id/etAddHomeworkContent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="26dp"
                 android:layout_marginEnd="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="6dp"
                 android:layout_weight="1"
+                android:background="@drawable/shape_text_area"
                 android:ems="10"
                 android:hint="enter the detail here if neccesary"
                 android:inputType="textMultiLine"
-                android:background="@drawable/shape_text_area"
                 android:lines="10"
                 android:singleLine="false"
-                />
-
+                android:textAlignment="center" />
 
 
             <Button
@@ -68,10 +69,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="@string/text_AddHomework"
                 android:background="@color/colorPrimary"
-                android:textColor="@color/colorTextWhite"
-                />
+                android:textSize="20dp"
+                android:text="@string/text_AddHomework"
+                android:textColor="@color/colorTextWhite" />
 
         </LinearLayout>
 

@@ -4,47 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvClassc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="23dp"
-        android:text="@string/ClassSearch"
-        android:textSize="18dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
-            android:hint="@string/etSearch" />
-    </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:id="@+id/tvClassc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/ClassSearch"
+                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/btSearch"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/button"
-        android:text="@string/btSearch"
-        android:textColor="#ffffff" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/etSearch" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btSearch"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginEnd="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button"
+            android:text="@string/btSearch"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="110dp">
 
 
     </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>
 
 

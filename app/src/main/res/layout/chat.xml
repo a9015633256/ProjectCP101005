@@ -3,11 +3,11 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:layout_margin="6dp"
     android:padding="6dp"
-    card_view:cardBackgroundColor="#ffdddddd"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@color/formColor3"
+    card_view:cardCornerRadius="10dp"
     card_view:cardElevation="6dp">
 
     <RelativeLayout
@@ -16,31 +16,32 @@
         android:layout_height="wrap_content">
 
         <!--<ImageView-->
-            <!--android:id="@+id/ivSpot"-->
-            <!--android:layout_width="250px"-->
-            <!--android:layout_height="250px"-->
-            <!--android:src="@drawable/fire" />-->
+        <!--android:id="@+id/ivSpot"-->
+        <!--android:layout_width="250px"-->
+        <!--android:layout_height="250px"-->
+        <!--android:src="@drawable/fire" />-->
 
 
         <TextView
             android:id="@+id/tvreceiver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="68dp"
-            android:layout_marginTop="8dp"
-
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/tvggyy"
             android:text="Name"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/tvggyy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="15dp"
             android:text="學生："
-           />
-
+            android:textColor="@color/colorTextBlack"
+            android:textSize="20dp" />
 
 
     </RelativeLayout>

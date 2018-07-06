@@ -11,5 +11,11 @@
     <color name="coloFloatingButtonOrange">#FF5722</color>
     <color name="stateWrong">#FF0000</color>
     <color name="stateCorrect">#00FF00</color>
+    <color name="formColor">#7b2ce906</color>
+    <color name="formColor2">#572ce906</color>
+    <color name="formColor3">#c52c7ae7</color>
+    <color name="formColor4">#bf1a8404</color>
+    <color name="formColor5">#33ff5cfa</color>
+
 
 </resources>

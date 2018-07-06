@@ -5,10 +5,10 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tree_background"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="TeacherMainActivityView.teacher_main_activity.MainActivity">
-
 
 
     <FrameLayout
@@ -29,7 +29,6 @@
         app:menu="@menu/teacher_navigation_bar_menu">
 
     </android.support.design.widget.BottomNavigationView>
-
 
 
 </LinearLayout>

@@ -106,7 +106,7 @@
     <string name="ClassName">ClassName</string>
     <string name="Sure">Sure</string>
     <string name="btSearch">Search</string>
-    <string name="ClassSearch">SearchClass</string>
+    <string name="ClassSearch">SearchClass:</string>
     <string name="etSearch">ClassCode</string>
     <string name="ClassNam">ClassName : </string>
     <string name="tvsubject">Subject : </string>

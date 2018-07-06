@@ -41,8 +41,7 @@
         android:layout_height="wrap_content"
         android:background="@color/Project"
         android:text="@string/textLogin"
-
-        />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btRegister"
@@ -60,14 +59,13 @@
             android:id="@+id/fabAutoFillStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorTextRed"/>
+            android:backgroundTint="@color/colorTextRed" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAutoFillTeacher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorTextBlack"/>
-
+            android:backgroundTint="@color/colorTextBlack" />
 
 
     </LinearLayout>
