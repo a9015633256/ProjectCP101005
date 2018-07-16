@@ -20,7 +20,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/ClassSearch"
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <android.support.design.widget.TextInputLayout
@@ -62,18 +62,3 @@
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

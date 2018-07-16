@@ -27,7 +27,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="50dp"
                 android:text="107年4月10日"
-                android:textColor="@drawable/ic_message_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20sp" />
 
         </android.support.v7.widget.CardView>

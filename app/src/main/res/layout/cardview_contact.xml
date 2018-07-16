@@ -31,7 +31,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/ivTeacherPic"
             android:text="老師：周二哥"
-            android:textColor="@drawable/ic_message_black_24dp"
+            android:textColor="@color/colorTextBlack"
             android:textSize="20sp" />
 
         <TextView

@@ -29,7 +29,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:textColor="@drawable/baseline_assessment_black_24dp"
+                        android:textColor="@color/colorTextBlack"
                         android:textSize="20dp"
                         android:text="帳號(信箱):" />
 
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="Password:" />
 
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="Password Confirm:" />
 
@@ -111,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="姓名：" />
 
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="Birthday:" />
 
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="PhoneNumber:"
                     />
@@ -179,7 +179,7 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:paddingTop="10dp"
                     android:text="Gender:" />
@@ -216,7 +216,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:paddingTop="10dp"
                     android:text="@string/textSubject" />

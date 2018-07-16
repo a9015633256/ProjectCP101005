@@ -35,7 +35,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="學號："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText
@@ -55,7 +55,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="班級："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText
@@ -75,7 +75,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="姓名："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="性別："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText
@@ -115,7 +115,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="生日："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText
@@ -135,7 +135,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:text="電話："
-                android:textColor="@drawable/baseline_assessment_black_24dp"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="20dp" />
 
             <EditText

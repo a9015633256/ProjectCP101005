@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:layout_marginTop="5dp"
-            android:textColor="@drawable/ic_message_black_24dp"
+            android:textColor="@color/colorTextBlack"
             android:text="1231231"
             android:textSize="20dp" />
 
@@ -33,7 +33,7 @@
             android:background="@color/formColor2"
             android:text="@string/tvSignin"
             android:textAlignment="center"
-            android:textColor="@drawable/ic_message_black_24dp"
+            android:textColor="@color/colorTextBlack"
             android:textSize="17dp" />
         <ImageView
             android:id="@+id/ivEditAchievement"

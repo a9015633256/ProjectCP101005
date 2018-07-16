@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_email"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_name"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_gender"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_class"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_subject1"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_subject2"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView
@@ -186,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_phoneNumber"
-                    android:textColor="@drawable/ic_message_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp" />
 
                 <TextView

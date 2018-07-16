@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="超級宇宙無敵大瀑布"
             android:layout_marginTop="6dp"
-            android:textColor="@drawable/ic_message_black_24dp"
+            android:textColor="@color/colorTextBlack"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/teacherImageview"
             android:textSize="16dp" />

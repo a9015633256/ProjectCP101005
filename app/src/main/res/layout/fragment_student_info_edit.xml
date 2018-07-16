@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textSize="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:text="@string/text_studentId" />
 
                 <EditText
@@ -89,7 +89,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_class"
                     android:textSize="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"/>
+                    android:textColor="@color/colorTextBlack"/>
 
                 <EditText
                     android:id="@+id/etStudentInfoClassName"
@@ -114,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="@string/text_name" />
 
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textSize="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:text="@string/text_gender" />
 
                 <EditText
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textSize="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:text="@string/text_dayOfBirth" />
 
                 <EditText
@@ -191,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="@string/text_phoneNumber" />
 
@@ -217,7 +217,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textColor="@drawable/baseline_assessment_black_24dp"
+                    android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:text="@string/text_address" />
 
