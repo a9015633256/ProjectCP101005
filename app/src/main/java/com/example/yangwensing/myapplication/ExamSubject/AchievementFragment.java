@@ -3,6 +3,7 @@ package com.example.yangwensing.myapplication.ExamSubject;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +47,9 @@ public class AchievementFragment extends Fragment {
     private String Teacherid = "";
     private String AchievementID = "";
 
+    private BottomNavigationView bottomNavigationView;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +62,9 @@ public class AchievementFragment extends Fragment {
         tvClass = view.findViewById(R.id.tvClassc);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
         bttUpete.setVisibility(View.GONE);
+
 //        btSend.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -142,6 +148,21 @@ public class AchievementFragment extends Fragment {
         return view;
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        super.onStop();
     }
 
 

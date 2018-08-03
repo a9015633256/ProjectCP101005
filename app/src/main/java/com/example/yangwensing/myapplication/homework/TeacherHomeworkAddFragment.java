@@ -43,10 +43,6 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
         findViews(view);
 
-//        bottomNavigationView = getActivity().findViewById(R.id.navigation);
-//        bottomNavigationView.setVisibility(View.GONE);
-
-
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,10 +104,20 @@ public class TeacherHomeworkAddFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         //隱藏底部導覽列
         bottomNavigationView.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        if (insertHomeworkTask != null) {
+
+            insertHomeworkTask.cancel(true);
+        }
+        super.onStop();
     }
 
 
@@ -134,16 +140,7 @@ public class TeacherHomeworkAddFragment extends Fragment {
 
     }
 
-    @Override
-    public void onStop() {
-//重新顯示底部導覽列
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        if (insertHomeworkTask != null) {
 
-            insertHomeworkTask.cancel(true);
-        }
-        super.onStop();
-    }
 
 
 }
