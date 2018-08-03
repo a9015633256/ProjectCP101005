@@ -63,8 +63,8 @@ public class Navigation1_ClassManagement extends Fragment {
     private void SetupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getChildFragmentManager());
 
-        adapter.addFragment(new tap1fragment(), "StudentList");
-        adapter.addFragment(new tap2fragment(), "TeacherList");
+        adapter.addFragment(new tap1fragment(), getString(R.string.tab_text_1));
+        adapter.addFragment(new tap2fragment(), getString(R.string.tab_text_2));
 
         viewPager.setAdapter(adapter);
 

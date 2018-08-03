@@ -68,10 +68,8 @@ public class ClassManager extends Fragment {
         caselect = view.findViewById(R.id.caselect);
         caselect.addTab(caselect.newTab().setText("導師班"));
         caselect.addTab(caselect.newTab().setText("科任班"));
-//        if (caselect.getTabAt(0) != null) {
-//
-//            caselect.getTabAt(0).select();
-//        }
+
+
 
         caselect.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -108,6 +106,8 @@ public class ClassManager extends Fragment {
 
             }
         });
+
+
 
 //點擊方塊style
 //        btCreat.setOnClickListener(new View.OnClickListener() {
@@ -182,10 +182,22 @@ public class ClassManager extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
+        menu.removeGroup(0);
         inflater.inflate(R.menu.options_menu_classmanager, menu);
-        menu.getItem(0).setVisible(false);
-        menu.getItem(1).setVisible(false);
+        inflater.inflate(R.menu.menu_options,menu);
 
+//        menu.getItem(1).setVisible(false);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (caselect.getTabAt(0) != null) {
+
+            caselect.getTabAt(0).select();
+
+        }
     }
 
     @Override
@@ -240,24 +252,24 @@ public class ClassManager extends Fragment {
                 fragmentTransactionde.commit();
 
                 break;
-            case R.id.cmlogout:
-                //重置偏好設定檔儲存的登入設定
-                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putInt("studentId", 0)
-                        .putInt("teacherId", 0)
-                        .putInt("subjectId", 0)
-                        .putInt("classId", 0)
-                        .putString("className", "")
-                        .apply();
-
-                //清除所有backStack
-                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                //回到登入頁面
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
-
-                break;
+//            case R.id.cmlogout:
+//                //重置偏好設定檔儲存的登入設定
+//                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+//                preferences.edit()
+//                        .putInt("studentId", 0)
+//                        .putInt("teacherId", 0)
+//                        .putInt("subjectId", 0)
+//                        .putInt("classId", 0)
+//                        .putString("className", "")
+//                        .apply();
+//
+//                //清除所有backStack
+//                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//                //回到登入頁面
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+//
+//                break;
             default:
                 break;
         }

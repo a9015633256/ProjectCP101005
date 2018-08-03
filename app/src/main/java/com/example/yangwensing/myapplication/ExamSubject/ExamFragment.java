@@ -50,7 +50,7 @@ public class ExamFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_all, container, false);
-        getActivity().setTitle(R.string.ExamSubjectt);
+        getActivity().setTitle(R.string.title_examOverview);
         recyclerView = view.findViewById(R.id.recyclerr);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         List<Exam> exams = new ArrayList<>();

@@ -65,6 +65,7 @@ public class ChatList extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         sender = preferences.getString("name","user");
 
+        getActivity().setTitle(R.string.title_contactParents);
 
 
         return view;

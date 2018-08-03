@@ -25,7 +25,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_title"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/etAddHomeworkTitle"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="@color/colorTextBlack"
                 android:text="@string/text_Content" />
 
@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_text_area"
                 android:ems="10"
-                android:hint="enter the detail here if neccesary"
+                android:hint="@string/hint_enter_homework_content"
                 android:inputType="textMultiLine"
                 android:lines="10"
                 android:singleLine="false"

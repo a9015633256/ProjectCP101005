@@ -150,7 +150,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.Teacher_Loggin_out:
-                Toast.makeText(getBaseContext(), "Log Out!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "Log Out!", Toast.LENGTH_SHORT).show();
+                com.example.yangwensing.myapplication.MainActivity.alarmType = 1;
+
+                new com.example.yangwensing.myapplication.MainActivity.AlertDialogFragment().show(getSupportFragmentManager(), "exit"); //呼叫警示視窗fragment
+
                 break;
             case R.id.Teacher_Exit:
                 finish();//關閉list

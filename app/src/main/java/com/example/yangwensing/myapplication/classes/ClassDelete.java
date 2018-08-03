@@ -137,24 +137,24 @@ public class ClassDelete extends Fragment {
                 fragmentTransactionde.commit();
 
                 break;
-            case R.id.cmlogout:
-                //重置偏好設定檔儲存的登入設定
-                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putInt("studentId", 0)
-                        .putInt("teacherId", 0)
-                        .putInt("subjectId", 0)
-                        .putInt("classId", 0)
-                        .putString("className", "")
-                        .apply();
-
-                //清除所有backStack
-                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-                //回到登入頁面
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
-
-                break;
+//            case R.id.cmlogout:
+//                //重置偏好設定檔儲存的登入設定
+//                SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+//                preferences.edit()
+//                        .putInt("studentId", 0)
+//                        .putInt("teacherId", 0)
+//                        .putInt("subjectId", 0)
+//                        .putInt("classId", 0)
+//                        .putString("className", "")
+//                        .apply();
+//
+//                //清除所有backStack
+//                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//                //回到登入頁面
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content, new LoginFragment()).commit();
+//
+//                break;
             default:
                 break;
         }

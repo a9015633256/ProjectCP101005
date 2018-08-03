@@ -154,10 +154,10 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
                 if (count == 0) {
 
-                    Common.showToast(getActivity(), "Update homework failed!!");
+                    Common.showToast(getActivity(), R.string.msg_UpdateFail);
                 } else {
 
-                    Common.showToast(getActivity(), "Update succeeded!!");
+                    Common.showToast(getActivity(), R.string.msg_UpdateSuccess);
                     getFragmentManager().popBackStack();
 
 

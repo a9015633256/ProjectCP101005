@@ -4,20 +4,20 @@
     <item
         android:id="@+id/ic_Home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
+        android:title="@string/title_manage" />
 
     <item
         android:id="@+id/ic_Homework"
         android:icon="@drawable/ic_assignment_black_24dp"
-        android:title="Homework" />
+        android:title="@string/title_homeworkOverview" />
     <item
         android:id="@+id/ic_ExamSubject"
         android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="ExamSubject" />
+        android:title="@string/title_examOverview" />
     <item
         android:id="@+id/ic_Chat"
         android:icon="@drawable/ic_chat_black_24dp"
-        android:title="Chat" />
+        android:title="@string/title_contactParents" />
 
 
 </menu>

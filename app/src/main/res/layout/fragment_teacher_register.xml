@@ -67,7 +67,7 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
-                    android:text="Password:" />
+                    android:text="密碼:" />
 
                 <EditText
                     android:id="@+id/rgPassword"
@@ -90,7 +90,7 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
-                    android:text="Password Confirm:" />
+                    android:text="請再輸入一次密碼:" />
 
                 <EditText
                     android:id="@+id/rgPasswordConfirm"
@@ -135,7 +135,7 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
-                    android:text="Birthday:" />
+                    android:text="生日:" />
 
                 <EditText
                     android:id="@+id/birthday"
@@ -158,7 +158,7 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
-                    android:text="PhoneNumber:"
+                    android:text="電話號碼:"
                     />
 
                 <EditText
@@ -182,7 +182,7 @@
                     android:textColor="@color/colorTextBlack"
                     android:textSize="20dp"
                     android:paddingTop="10dp"
-                    android:text="Gender:" />
+                    android:text="性別:" />
 
                 <RadioGroup
                     android:id="@+id/rgGender"
