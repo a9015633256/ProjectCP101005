@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.exam.StudentExamChartFragment;
+import com.example.yangwensing.myapplication.charts.TeacherExamChartFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -92,10 +92,7 @@ public class AchievementFragment extends Fragment {
                 bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
                 bundle2.putString("examName",text);
 
-
-
-
-                Fragment fragment = new StudentExamChartFragment();
+                Fragment fragment = new TeacherExamChartFragment();
 
                 fragment.setArguments(bundle2);
 

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,15 +18,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
 import com.example.yangwensing.myapplication.chat.MotherList;
-import com.example.yangwensing.myapplication.contact.StudentContactFragment;
-import com.example.yangwensing.myapplication.exam.StudentExamFragment;
+import com.example.yangwensing.myapplication.charts.BackUpStudentExamFragment;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
-import com.example.yangwensing.myapplication.homework.TeacherHomeworkCheckFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
 import com.example.yangwensing.myapplication.main.BottomNavigationViewHelper;
@@ -78,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new StudentHomeworkFragment();
                     break;
                 case R.id.navigation_exam:
-                    selectedFragment = new StudentExamFragment();
+                    selectedFragment = new BackUpStudentExamFragment();
 //                    selectedFragment = new ExamFragment();
                     break;
                 case R.id.navigation_contact:

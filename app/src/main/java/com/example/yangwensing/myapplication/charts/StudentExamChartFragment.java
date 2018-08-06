@@ -1,26 +1,32 @@
-package com.example.yangwensing.myapplication.exam;
+package com.example.yangwensing.myapplication.charts;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.EntryXComparator;
 import com.google.gson.Gson;
@@ -36,14 +42,15 @@ import java.util.List;
 
 public class StudentExamChartFragment extends Fragment {
     private static final String TAG = "StudentExamChartFragment";
-    private EditText etExamName, etStudentScore, etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage;
-    private LineChart lineChart;
+    private EditText etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage, etScoreHighest, etScoreLowest;
+    private TextView tvExamName;
+    private BarChart lineChart;
     private int maxY = 0;
-    private int studentScore;
     private String averageScore;
     private int examId;
     private String examName;
     private MyTask getAchievementTask;
+    private BottomNavigationView bottomNavigationView;
 
     //整理資料用
     private List<Integer> scoreList = new ArrayList<>();
@@ -53,17 +60,13 @@ public class StudentExamChartFragment extends Fragment {
     private List<Integer> scoreCList = new ArrayList<>();
     private List<Integer> scoreDList = new ArrayList<>();
     private List<Integer> scoreEList = new ArrayList<>();
-    private List<Integer> scoreFList = new ArrayList<>();
-    private List<Integer> scoreGList = new ArrayList<>();
-    private List<Integer> scoreHList = new ArrayList<>();
-    private List<Integer> scoreIList = new ArrayList<>();
-    private List<Integer> scoreJList = new ArrayList<>();
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_student_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
+        View view = inflater.inflate(R.layout.fragment_teacher_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
+
+        getActivity().setTitle(R.string.title_chart_exam);
 
         findViews(view);
 
@@ -71,18 +74,18 @@ public class StudentExamChartFragment extends Fragment {
 
         if (bundle != null) {
             examId = bundle.getInt("examId");
-//            studentScore = bundle.getInt("studentScore");
             examName = bundle.getString("examName");
+
         } else {
             Common.showToast(getActivity(), R.string.msg_data_error);
+
             //假資料
             examId = 1;
-            examName = "text";
-            studentScore = 100;
+            examName = "examName";
         }
 
         if (examName != null) {
-            etExamName.setText(examName);
+            tvExamName.setText(examName);
         }
 
         //根據examId取得db資料
@@ -97,12 +100,47 @@ public class StudentExamChartFragment extends Fragment {
         return view; //要改成回傳view
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        if (getAchievementTask != null) {
+            getAchievementTask.cancel(true);
+        }
+        super.onStop();
+    }
+
 
     private void setupView() {
         double totalScore = 0;
+        int highestScore = 0;
+        int lowestScore = 100;
 
+        //清空資料
+        scoreAPlusList.clear();
+        scoreAList.clear();
+        scoreBList.clear();
+        scoreCList.clear();
+        scoreDList.clear();
+        scoreEList.clear();
+
+        //分類
         for (int i : scoreList) {
             totalScore += i;
+            if (i > highestScore) {
+                highestScore = i;
+            }
+            if (i < lowestScore) {
+                lowestScore = i;
+            }
 
             if (i == 100) {
                 scoreAPlusList.add(i);
@@ -118,23 +156,8 @@ public class StudentExamChartFragment extends Fragment {
             } else if (i >= 60) {
                 scoreDList.add(i);
 
-            } else if (i >= 50) {
-                scoreEList.add(i);
-
-            } else if (i >= 40) {
-                scoreFList.add(i);
-
-            } else if (i >= 30) {
-                scoreGList.add(i);
-
-            } else if (i >= 20) {
-                scoreHList.add(i);
-
-            } else if (i >= 10) {
-                scoreIList.add(i);
-
             } else {
-                scoreJList.add(i);
+                scoreEList.add(i);
 
             }
 
@@ -142,18 +165,14 @@ public class StudentExamChartFragment extends Fragment {
 
         maxY = scoreAPlusList.size();
         int[] listForY = {
-                scoreAPlusList.size(), scoreAList.size(), scoreBList.size(), scoreCList.size(), scoreDList.size(), scoreEList.size(), scoreFList.size(), scoreGList.size(), scoreHList.size(), scoreIList.size(), scoreJList.size()
+                scoreAPlusList.size(), scoreAList.size(), scoreBList.size(), scoreCList.size(), scoreDList.size(), scoreEList.size()
         };
 
         for (int i : listForY) {
             if (maxY < i) {
                 maxY = i;
-
             }
         }
-
-
-        etStudentScore.setText(String.valueOf(studentScore));
 
         etScoreAPlus.setText(String.valueOf(scoreAPlusList.size()) + "人");
         etScoreA.setText(String.valueOf(scoreAList.size()) + "人");
@@ -161,16 +180,13 @@ public class StudentExamChartFragment extends Fragment {
         etScoreC.setText(String.valueOf(scoreCList.size()) + "人");
         etScoreD.setText(String.valueOf(scoreDList.size()) + "人");
         etScoreE.setText(String.valueOf(
-                scoreEList.size() +
-                        scoreFList.size() +
-                        scoreGList.size() +
-                        scoreHList.size() +
-                        scoreIList.size() +
-                        scoreJList.size()
+                scoreEList.size()
         ) + "人");
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         averageScore = decimalFormat.format(totalScore / scoreList.size());
-        etScoreAverage.setText(averageScore);
+        etScoreAverage.setText(averageScore + "分");
+        etScoreHighest.setText(highestScore + "分");
+        etScoreLowest.setText(lowestScore + "分");
 
 
     }
@@ -190,34 +206,38 @@ public class StudentExamChartFragment extends Fragment {
                 Type listType = new TypeToken<List<Integer>>() {
                 }.getType();
 
+                scoreList.clear();
                 scoreList = gson.fromJson(jsonIn, listType);
 
 
             } catch (Exception e) {
                 e.printStackTrace();
                 Common.showToast(getActivity(), R.string.text_no_server);
-
             }
-
-
         } else {
             Common.showToast(getActivity(), R.string.text_no_network);
-
         }
-
-
     }
 
     private void setupChart() {
 
-        lineChart.setBackgroundColor(Color.WHITE);
+        lineChart.setBackgroundColor(Color.TRANSPARENT);
+        lineChart.setDrawValueAboveBar(true); //顯示0人
+        lineChart.getLegend().setEnabled(false); //隱藏顏色label(每個顏色代表什麼意義的label)
+        lineChart.setTouchEnabled(false); //關閉圖表互動功能
+
         /* 取得並設定X軸標籤文字 */
         XAxis xAxis = lineChart.getXAxis(); //沒辦法放在下面
         /* 設定最大值到100(分) */
-        xAxis.setAxisMaximum(100);
+        xAxis.setAxisMaximum(7);
         /* 設定最小值到0(分) */
         xAxis.setAxisMinimum(0);
+        xAxis.setLabelCount(8, true);
         xAxis.setAvoidFirstLastClipping(true);
+
+        //設定x軸文字
+        IAxisValueFormatter xAxisFormatter = new ScoreAxisValueFormatter();
+        xAxis.setValueFormatter(xAxisFormatter);
 
         /* 取得左側Y軸物件 */
         YAxis yAxisLeft = lineChart.getAxisLeft();
@@ -235,7 +255,6 @@ public class StudentExamChartFragment extends Fragment {
         description.setText("");
         description.setTextSize(16);
         lineChart.setDescription(description);
-
 
         /* 監聽是否點選chart內容值 */
         lineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -256,53 +275,25 @@ public class StudentExamChartFragment extends Fragment {
         });
 
         /* 取得各品牌車每月銷售量資料 */
-        List<Entry> allScoreEntries = getAllScores();
-        List<Entry> averageScoreEntries = getAverageScore();
-//        List<Entry> studentScoreEntries = getStudentScore();
-
-//        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
-//        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
-//        /* 設定資料圓點半徑 */
-//        lineDataSetToyota.setCircleRadius(4);
-//        /* 設定資料圓點是否中空 */
-//        lineDataSetToyota.setDrawCircleHole(true);
-//        /* 設定資料圓點顏色 */
-//        lineDataSetToyota.setCircleColor(Color.RED);
-//        /* 設定線的顏色 */
-//        lineDataSetToyota.setColor(Color.BLUE);
-//        /* 設定線的粗細 */
-//        lineDataSetToyota.setLineWidth(4);
-//        /* 設定highlight線的顏色，highlight線為點擊就會顯示的線 */
-//        lineDataSetToyota.setHighLightColor(Color.CYAN);
-//        /* 設定資料點上的文字顏色 */
-//        lineDataSetToyota.setValueTextColor(Color.DKGRAY);
-//        /* 設定資料點上的文字大小 */
-//        lineDataSetToyota.setValueTextSize(10);
+        List<BarEntry> allScoreEntries = getAllScores();
 
         //設定用建構式放入資料、用方法設定UI
-        LineDataSet lineDataSetAllScore = new LineDataSet(allScoreEntries, "AllScore");
-        lineDataSetAllScore.setCircleRadius(0);
-        lineDataSetAllScore.setDrawCircles(false);
-        lineDataSetAllScore.setDrawCircleHole(false);
-        lineDataSetAllScore.setCircleColor(Color.MAGENTA);
-        lineDataSetAllScore.setColor(Color.BLACK);
-        lineDataSetAllScore.setLineWidth(1);
+        BarDataSet lineDataSetAllScore = new BarDataSet(allScoreEntries, null);
+//        lineDataSetAllScore.setColor(R.color.orange);
         lineDataSetAllScore.setHighLightColor(Color.CYAN);
         lineDataSetAllScore.setValueTextColor(Color.DKGRAY);
         lineDataSetAllScore.setValueTextSize(10);
-        lineDataSetAllScore.setDrawValues(false);
+        lineDataSetAllScore.setDrawValues(true);
 
-        LineDataSet lineDataSetAverageScore = new LineDataSet(averageScoreEntries, "AverageScore");
-        lineDataSetAverageScore.setCircleRadius(4);
-        lineDataSetAverageScore.setDrawCircleHole(false);
-        lineDataSetAverageScore.setCircleColor(Color.BLUE);
-        lineDataSetAverageScore.setColor(Color.BLUE);
-        lineDataSetAverageScore.setLineWidth(4);
-        lineDataSetAverageScore.setHighLightColor(Color.BLUE);
-        lineDataSetAverageScore.setValueTextColor(Color.DKGRAY);
-        lineDataSetAverageScore.setValueTextSize(10);
-        lineDataSetAverageScore.setDrawValues(false);
-        lineDataSetAverageScore.setDrawVerticalHighlightIndicator(true);
+        IValueFormatter peopleCountValueFormatter = new PeopleCountValueFormatter();
+        lineDataSetAllScore.setValueFormatter(peopleCountValueFormatter);
+
+//        BarDataSet lineDataSetAverageScore = new BarDataSet(averageScoreEntries, "AverageScore");
+//        lineDataSetAverageScore.setColor(Color.BLUE);
+//        lineDataSetAverageScore.setHighLightColor(Color.BLUE);
+//        lineDataSetAverageScore.setValueTextColor(Color.DKGRAY);
+//        lineDataSetAverageScore.setValueTextSize(10);
+//        lineDataSetAverageScore.setDrawValues(false);
 
 //        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
 //        lineDataSetStudentScore.setCircleRadius(4);
@@ -315,7 +306,6 @@ public class StudentExamChartFragment extends Fragment {
 //        lineDataSetStudentScore.setValueTextSize(10);
 //        lineDataSetStudentScore.setDrawValues(false);
 
-
         lineChart.setClickable(false);
 
         //使y軸沒有小數點
@@ -323,11 +313,9 @@ public class StudentExamChartFragment extends Fragment {
         yAxisLeft.setGranularityEnabled(true); // Required to enable granularity
 
         /* 有幾個LineDataSet，就繪製幾條線 */
-        List<ILineDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
+        List<IBarDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
         dataSets.add(lineDataSetAllScore);
-        dataSets.add(lineDataSetAverageScore);
-//        dataSets.add(lineDataSetStudentScore);
-        LineData lineData = new LineData(dataSets);
+        BarData lineData = new BarData(dataSets);
         lineChart.setData(lineData);
 
 //        calculateMinMax();
@@ -350,114 +338,36 @@ public class StudentExamChartFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        etExamName = view.findViewById(R.id.tvExamName);
-        etStudentScore = view.findViewById(R.id.tvScore);
+        tvExamName = view.findViewById(R.id.tvExamName);
         etScoreAPlus = view.findViewById(R.id.tvScoreAPlus);
         etScoreA = view.findViewById(R.id.tvScoreA);
         etScoreB = view.findViewById(R.id.tvScoreB);
         etScoreC = view.findViewById(R.id.tvScoreC);
         etScoreD = view.findViewById(R.id.tvScoreD);
         etScoreE = view.findViewById(R.id.tvScoreE);
-        etScoreAverage = view.findViewById(R.id.tvScoreAverage);
+        etScoreAverage = view.findViewById(R.id.etScoreAverage);
+        etScoreHighest = view.findViewById(R.id.etScoreHighest);
+        etScoreLowest = view.findViewById(R.id.etScoreLowest);
         lineChart = view.findViewById(R.id.lineChart);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
     }
 
 
-    private List<Entry> getAllScores() {
-        List<Entry> scoreEntries = new ArrayList<>();
-        //假如要忽略沒有人數的數據
-//        if (scoreAPlusList.size() != 0) {
-//            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
-//        }
-//        if (scoreAList.size() != 0) {
-//            scoreEntries.add(new Entry(95, scoreAList.size()));
-//        }
-//        if (scoreBList.size() != 0) {
-//            scoreEntries.add(new Entry(85, scoreBList.size()));
-//        }
-//        if (scoreCList.size() != 0) {
-//            scoreEntries.add(new Entry(75, scoreCList.size()));
-//        }
-//        if (scoreDList.size() != 0) {
-//            scoreEntries.add(new Entry(65, scoreDList.size()));
-//        }
-//        if (scoreEList.size() != 0) {
-//            scoreEntries.add(new Entry(55, scoreEList.size()));
-//        }
-//        if (scoreFList.size() != 0) {
-//            scoreEntries.add(new Entry(45, scoreFList.size()));
-//        }
-//        if (scoreGList.size() != 0) {
-//            scoreEntries.add(new Entry(35, scoreGList.size()));
-//        }
-//        if (scoreHList.size() != 0) {
-//            scoreEntries.add(new Entry(25, scoreHList.size()));
-//        }
-//        if (scoreIList.size() != 0) {
-//            scoreEntries.add(new Entry(15, scoreIList.size()));
-//        }
-//        if (scoreJList.size() != 0) {
-//            scoreEntries.add(new Entry(5, scoreJList.size()));
-//        }
+    private List<BarEntry> getAllScores() {
+        List<BarEntry> scoreEntries = new ArrayList<>();
 
-        scoreEntries.add(new Entry(100, scoreAPlusList.size()));
-        scoreEntries.add(new Entry(95, scoreAList.size()));
-        scoreEntries.add(new Entry(85, scoreBList.size()));
-        scoreEntries.add(new Entry(75, scoreCList.size()));
-        scoreEntries.add(new Entry(65, scoreDList.size()));
-        scoreEntries.add(new Entry(55, scoreEList.size()));
-        scoreEntries.add(new Entry(45, scoreFList.size()));
-        scoreEntries.add(new Entry(35, scoreGList.size()));
-        scoreEntries.add(new Entry(25, scoreHList.size()));
-        scoreEntries.add(new Entry(15, scoreIList.size()));
-        scoreEntries.add(new Entry(5, scoreJList.size()));
+        scoreEntries.add(new BarEntry(6, scoreAPlusList.size()));
+        scoreEntries.add(new BarEntry(5, scoreAList.size()));
+        scoreEntries.add(new BarEntry(4, scoreBList.size()));
+        scoreEntries.add(new BarEntry(3, scoreCList.size()));
+        scoreEntries.add(new BarEntry(2, scoreDList.size()));
+        scoreEntries.add(new BarEntry(1, scoreEList.size()));
         Collections.sort(scoreEntries, new EntryXComparator());
 
-
         return scoreEntries;
     }
 
-    private List<Entry> getAverageScore() {
-        List<Entry> scoreEntries = new ArrayList<>();
-        float averageScoreAsFloat = Float.valueOf(averageScore);
-        scoreEntries.add(new Entry(averageScoreAsFloat, maxY));
 
-
-        return scoreEntries;
-    }
-
-//    private List<Entry> getStudentScore() {
-//        List<Entry> scoreEntries = new ArrayList<>();
-//        scoreEntries.add(new Entry(studentScore, maxY));
-//
-//
-//        return scoreEntries;
-//    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        scoreList.clear();
-        scoreAPlusList.clear();
-        scoreAList.clear();
-        scoreBList.clear();
-        scoreCList.clear();
-        scoreDList.clear();
-        scoreEList.clear();
-        scoreFList.clear();
-        scoreGList.clear();
-        scoreHList.clear();
-        scoreIList.clear();
-        scoreJList.clear();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (getAchievementTask != null) {
-            getAchievementTask.cancel(true);
-        }
-    }
 }
 
