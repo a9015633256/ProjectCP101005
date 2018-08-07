@@ -40,15 +40,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TeacherExamChartFragment extends Fragment {
-    private static final String TAG = "StudentExamChartFragment";
+public class TeacherSingleExamChartFragment extends Fragment {
+    private static final String TAG = "TeacherSingleExamChartFragment";
     private EditText etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage, etScoreHighest, etScoreLowest;
     private TextView tvExamName;
     private BarChart lineChart;
-    private int maxY = 0;
-    private String averageScore;
     private int examId;
-    private String examName;
     private MyTask getAchievementTask;
     private BottomNavigationView bottomNavigationView;
 
@@ -72,6 +69,8 @@ public class TeacherExamChartFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
+        //取得上一頁傳來的examID跟examName
+        String examName;
         if (bundle != null) {
             examId = bundle.getInt("examId");
             examName = bundle.getString("examName");
@@ -83,12 +82,11 @@ public class TeacherExamChartFragment extends Fragment {
             examId = 1;
             examName = "examName";
         }
-
         if (examName != null) {
             tvExamName.setText(examName);
         }
 
-        //根據examId取得db資料
+        //根據examID取得db資料
         if (examId != 0) {
             getDataFromDB();
 
@@ -163,16 +161,6 @@ public class TeacherExamChartFragment extends Fragment {
 
         }
 
-        maxY = scoreAPlusList.size();
-        int[] listForY = {
-                scoreAPlusList.size(), scoreAList.size(), scoreBList.size(), scoreCList.size(), scoreDList.size(), scoreEList.size()
-        };
-
-        for (int i : listForY) {
-            if (maxY < i) {
-                maxY = i;
-            }
-        }
 
         etScoreAPlus.setText(String.valueOf(scoreAPlusList.size()) + "人");
         etScoreA.setText(String.valueOf(scoreAList.size()) + "人");
@@ -183,7 +171,7 @@ public class TeacherExamChartFragment extends Fragment {
                 scoreEList.size()
         ) + "人");
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        averageScore = decimalFormat.format(totalScore / scoreList.size());
+        String averageScore = decimalFormat.format(totalScore / scoreList.size());
         etScoreAverage.setText(averageScore + "分");
         etScoreHighest.setText(highestScore + "分");
         etScoreLowest.setText(lowestScore + "分");
