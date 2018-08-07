@@ -3,6 +3,7 @@ package com.example.yangwensing.myapplication.ExamSubject;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,7 @@ public class EditAchievement extends Fragment {
     private TextView tvSubject,tvClassname,tvTeacherName;
     private ImageView ivAnalysis;
     private Button bttUpete,btSure;
+    private BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
@@ -51,6 +53,7 @@ public class EditAchievement extends Fragment {
         tvTeacherName = view.findViewById(R.id.tvTeacherr);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();
@@ -71,9 +74,6 @@ public class EditAchievement extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
-
-
 
 
         ivAnalysis.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +120,21 @@ public class EditAchievement extends Fragment {
             Common.showToast(getActivity(), "No network connection available");
         }
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        super.onStop();
     }
 
     private class Recyclerr extends RecyclerView.Adapter<Recyclerr.ViewHolder> {

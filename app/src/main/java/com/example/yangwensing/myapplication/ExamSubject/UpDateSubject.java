@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -30,6 +31,8 @@ public class UpDateSubject extends Fragment {
     private EditText etTeacher, etSubject, etDate, etTitle, etContent;
     private Button btSure,btUpdate;
     private String ClassID = "";
+    private BottomNavigationView bottomNavigationView;
+
 
 
     @Nullable
@@ -43,6 +46,9 @@ public class UpDateSubject extends Fragment {
         btSure = view.findViewById(R.id.btSure);
         etDate.setInputType(InputType.TYPE_NULL);
         btUpdate = view.findViewById(R.id.btUpdate);
+
+        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+
         Bundle q = getArguments();
         String title = q.getString("title");
         String date = q.getString("date");
@@ -177,6 +183,21 @@ public class UpDateSubject extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //隱藏底部導覽列
+        bottomNavigationView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onStop() {
+        //重新顯示底部導覽列
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        super.onStop();
     }
 
 
