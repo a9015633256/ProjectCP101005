@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="60dp"
     android:gravity="center">
 
 
@@ -10,12 +10,11 @@
         android:id="@+id/tvStudentNumber"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="40dp"
-
+        android:layout_marginStart="20dp"
         android:gravity="center"
-
         android:singleLine="true"
         android:text="610789"
+        android:textSize="20dp"
         android:textColor="@color/colorTextBlack" />
 
     <TextView
@@ -23,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="110dp"
         android:gravity="center"
         android:singleLine="true"
         android:text="Sam"
+        android:textSize="20dp"
         android:textColor="@color/colorTextBlack" />
 
     <CheckBox
@@ -35,12 +34,10 @@
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:button="@drawable/cb_selector"
         android:gravity="center"
-        android:textColor="@color/colorTextRed"
-
-        />
+        android:textColor="@color/colorTextRed"/>
 
 
 </RelativeLayout>

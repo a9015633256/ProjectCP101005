@@ -1,99 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cityscape" />
+        android:layout_height="wrap_content">
 
 
-    <TextView
-        android:id="@+id/sdNumber"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="學號："
-        android:textSize="25dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="學號："
-        android:textSize="25dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/formColor"
+                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/user_pic" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/sdClass"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="班級："
-        android:textSize="25dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="班級："
-        android:textSize="25dp" />
+            <TextView
+                android:id="@+id/sdNumber"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="學號："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/sdName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="姓名："
-        android:textSize="25dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="學號："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="姓名："
-        android:textSize="25dp" />
+            <TextView
+                android:id="@+id/sdClass"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="班級："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/sdGender"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="性別："
-        android:textSize="25dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="班級："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="性別："
-        android:textSize="25dp" />
+            <TextView
+                android:id="@+id/sdName"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="姓名："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/sdBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="生日："
-        android:textSize="25dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="姓名："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="生日："
-        android:textSize="25dp" />
+            <TextView
+                android:id="@+id/sdGender"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="性別："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/sdPhone"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="電話："
-        android:textSize="25dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="性別："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/Phone"
-        android:text="電話："
-        android:textSize="25dp" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/sdBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="生日："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
 
-</ScrollView >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:text="生日："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/sdPhone"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="電話："
+                android:textColor="@color/colorTextBlack"
+                android:textSize="20dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/Phone"
+                android:text="電話："
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

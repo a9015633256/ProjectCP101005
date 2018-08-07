@@ -2,9 +2,11 @@ package TeacherMainActivityView.teacher_main_activity.Tab2Teacher;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,10 +14,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
@@ -28,6 +33,7 @@ import java.util.List;
 
 import TeacherMainActivityView.CommonPart.Common;
 import TeacherMainActivityView.CommonPart.MyTask;
+import TeacherMainActivityView.teacher_main_activity.Tab1Student.tap1fragment;
 
 
 //Tab導師資料
@@ -37,7 +43,7 @@ public class tap2fragment extends Fragment {
     private RecyclerView rvTeachers;
     private String c;
     private TeacherGetImageTask teacherGetImageTask;
-    private MyTask ClassSubjectTeacherTask;
+    private MyTask ClassSubjectTeacherTask, TeacherDeleteTask;
     private String title = "";
 
     @Nullable
@@ -108,8 +114,10 @@ public class tap2fragment extends Fragment {
     }
 
     private void switchFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.body2, fragment);
+
+        //修改為切換母fragment->這樣addToBackStack才有作用
+        FragmentTransaction fragmentTransaction = getParentFragment().getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_content, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -168,6 +176,48 @@ public class tap2fragment extends Fragment {
             teacherGetImageTask.execute();//取得圖片
             holder.teacherName.setText(classSubjectTeacher.getTeacher_Account());
             holder.teacherPhone.setText(classSubjectTeacher.getTeacher_Phone());
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public boolean onLongClick(View v) {
+                    PopupMenu popupMenu = new PopupMenu(getActivity(), v, Gravity.END);//popoutmenu
+                    popupMenu.inflate(R.menu.teacher_popup_menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.delete://長按刪除
+                                    if (Common.networkConnected(getActivity())) {
+                                        String url = Common.URL + "/TeachersListServerlet";
+                                        JsonObject jsonObject = new JsonObject();
+                                        jsonObject.addProperty("action", "delete");
+                                        jsonObject.addProperty("teachers", new Gson().toJson(classSubjectTeacher));
+                                        int count = 0;
+                                        try {
+                                            TeacherDeleteTask = new MyTask(url, jsonObject.toString());
+                                            String result = TeacherDeleteTask.execute().get();
+                                            count = Integer.valueOf(result);
+                                        } catch (Exception e) {
+                                            Log.e(TAG, e.toString());
+                                        }
+                                        if (count == 0) {
+                                            Common.showToast(getActivity(), R.string.msg_DeleteFail);
+                                        } else {
+                                            classSubjectTeachers.remove(classSubjectTeacher);
+                                            ClassSubjectTeacherAdapter.this.notifyDataSetChanged();
+                                            Common.showToast(getActivity(), R.string.msg_DeleteSuccess);
+                                        }
+                                    } else {
+                                        Common.showToast(getActivity(), R.string.msg_NoNetwork);
+                                    }
+                            }
+                            return true;
+                        }
+                    });
+                    popupMenu.show();
+                    return true;
+                }
+            });
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

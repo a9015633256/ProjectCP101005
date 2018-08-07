@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="6dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="70dp"
     android:orientation="horizontal"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="9dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/formColor">
 
     <RelativeLayout
         android:padding="8dp"
@@ -16,9 +17,10 @@
 
         <ImageView
             android:id="@+id/teacherImageview"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/waterfall" />
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/waterfall"
+            android:layout_centerVertical="true"/>
 
 
         <TextView
@@ -27,16 +29,17 @@
             android:layout_height="wrap_content"
             android:text="超級宇宙無敵大瀑布"
             android:layout_marginTop="6dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorTextBlack"
             android:layout_marginStart="12dp"
             android:layout_toEndOf="@+id/teacherImageview"
-            android:textSize="20sp" />
+            android:textSize="16dp" />
         <TextView
             android:id="@+id/teacherPhone"
             android:text="0985-640-651"
             android:textColor="@color/colorPrimary"
             android:layout_alignStart="@+id/teacherName"
             android:layout_below="@id/teacherName"
+            android:textSize="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
@@ -44,6 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/arrowCall"
             android:layout_centerVertical="true"
+            android:background="@color/formColor2"
             android:layout_marginStart="200dp"
             android:layout_toEndOf="@id/teacherImageview"
             android:src="@drawable/ic_call_black_24dp" />
@@ -53,6 +57,7 @@
             android:id="@+id/arrowMessage"
             android:layout_centerVertical="true"
             android:layout_marginStart="240dp"
+            android:background="@color/formColor2"
             android:layout_toEndOf="@id/teacherImageview"
             android:src="@drawable/ic_message_black_24dp" />
     </RelativeLayout>

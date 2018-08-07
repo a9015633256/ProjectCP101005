@@ -7,41 +7,54 @@
         android:layout_width="match_parent"
         android:layout_height="600dp">
 
+        <LinearLayout
+            android:id="@+id/liColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/formColor"
+            android:orientation="horizontal">
         <ImageView
             android:id="@+id/ivTeahcerPicProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:src="@drawable/user_pic" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivTeahcerPicProfile"
-            android:layout_marginTop="30dp"
+            android:layout_below="@id/liColor"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_teacherId" />
+                    android:text="@string/text_teacherId"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/tvTeahcerProfileId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="number"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack" />
+                    android:text="text"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
 
             </LinearLayout>
@@ -49,112 +62,114 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_name" />
+                    android:text="@string/text_name"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/tvTeahcerProfileName"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack"
-
-                    />
+                    android:text="text"
+                    android:textColor="@color/colorPrimaryDark" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_gender" />
+                    android:text="@string/text_gender"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/tvTeahcerProfileGender"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack"
-
-                    />
+                    android:text="text"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_dayOfBirth" />
+                    android:text="@string/text_dayOfBirth"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/tvTeahcerProfileDayOfBirth"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack" />
+                    android:text="text"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
                 android:weightSum="8">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_phoneNumber" />
+                    android:text="@string/text_phoneNumber"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <EditText
                     android:id="@+id/tvTeahcerProfilePhoneNumber"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="20dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="phone"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack" />
+                    android:text="text"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
 

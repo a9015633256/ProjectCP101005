@@ -8,7 +8,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/normal" />
+        android:src="@drawable/icon_home" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -19,7 +19,7 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="UserName" />
+            android:hint="@string/hint_enterUsername" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -31,7 +31,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/hint_enterPassword"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
@@ -41,17 +41,36 @@
         android:layout_height="wrap_content"
         android:background="@color/Project"
         android:text="@string/textLogin"
-
+        android:textSize="20sp"
         />
 
     <Button
         android:id="@+id/btRegister"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/Project"
+        android:textSize="20sp"
         android:text="@string/textRegister" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAutoFillStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTextRed" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAutoFillTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorTextBlack" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

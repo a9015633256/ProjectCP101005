@@ -11,19 +11,17 @@
 
     <!--&lt;!&ndash;swiperegresh下拉更新&ndash;&gt;-->
     <!--<android.support.v4.widget.SwipeRefreshLayout-->
-        <!--android:id="@+id/swipeRefreshLayout"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
+    <!--android:id="@+id/swipeRefreshLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvClass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <!--</android.support.v4.widget.SwipeRefreshLayout>-->
-
 
 
     <!-- build.gradle (Module:app) must add [com.android.support:design] API -->

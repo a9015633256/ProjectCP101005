@@ -68,7 +68,7 @@ public class TeacherHomeworkFragment extends Fragment {
 
         getDataFromPref();
 
-        getActivity().setTitle(className + "  Homework Overview");
+        getActivity().setTitle(R.string.title_homeworkOverview);
 
         findViews(view);
 

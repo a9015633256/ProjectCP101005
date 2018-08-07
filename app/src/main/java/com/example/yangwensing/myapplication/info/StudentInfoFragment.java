@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class StudentInfoFragment extends Fragment {
+    private final static String TAG = "StudentInfoFragment";
     private int studentId;
     private Student student;
     //EditText把輸入功能關閉、充當textView用
@@ -35,8 +37,9 @@ public class StudentInfoFragment extends Fragment {
     private ImageView ivStudentPic;
     private MyTask findStudentByIdTask;
     private GetImageTask getStudentPicTask;
-    private final static String TAG = "StudentInfoFragment";
 
+    private BottomNavigationView bottomNavigationView;
+    private boolean isFromTeacherPage = false;
 
     @Nullable
     @Override
@@ -46,20 +49,22 @@ public class StudentInfoFragment extends Fragment {
 
         findViews(view);
 
+
         Bundle bundle = getArguments();
         if (bundle != null && bundle.getInt("studentIdForTeacher") != 0) {
             studentId = bundle.getInt("studentIdForTeacher");
-
+            bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+            isFromTeacherPage = true;
 
 
 
         } else {
-            setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
             studentId = Common.getDataFromPref(
                     getActivity(), "studentId", 0);
 
         }
 
+        setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
 
 
@@ -159,7 +164,13 @@ public class StudentInfoFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.menu_options_edit_info, menu);
+        if (isFromTeacherPage){
+            menu.removeGroup(0);
+
+        }else {
+            inflater.inflate(R.menu.menu_options_edit_info, menu);
+
+        }
 
 
     }
@@ -202,6 +213,15 @@ public class StudentInfoFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        if (isFromTeacherPage){
+            bottomNavigationView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         if (findStudentByIdTask != null) {
@@ -211,6 +231,9 @@ public class StudentInfoFragment extends Fragment {
         if (getStudentPicTask != null) {
             getStudentPicTask.cancel(true);
 
+        }
+        if (isFromTeacherPage){
+            bottomNavigationView.setVisibility(View.VISIBLE);
         }
 
     }

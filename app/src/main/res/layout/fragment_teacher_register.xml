@@ -1,200 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/account"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="帳號(信箱):" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/rgAccount"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
-        <TextView
-            android:id="@+id/state"
-            android:clickable="true"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="帳號重複或格式錯誤"
-            android:textColor="#FF0000"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/account"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="20dp"
+                        android:text="帳號(信箱):" />
+
+                    <TextView
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="110dp"
+                        android:clickable="true"
+                        android:text="帳號重複或格式錯誤"
+                        android:textColor="#FF0000" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/rgAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/password"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password:" />
-        <EditText
-            android:id="@+id/rgPassword"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Password Confirm:" />
-        <EditText
-            android:id="@+id/rgPasswordConfirm"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:text="密碼:" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/rgPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="姓名：" />
-        <EditText
-            android:id="@+id/rgname"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content" />
+            </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Birthday:" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:text="請再輸入一次密碼:" />
 
-        <EditText
-            android:id="@+id/birthday"
-            android:layout_width="290dp"
-            android:layout_height="wrap_content"
-            android:inputType="none"/>
+                <EditText
+                    android:id="@+id/rgPasswordConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="PhoneNumber:" />
-        <EditText
-            android:id="@+id/PhoneNumber"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:text="姓名：" />
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:text="Gender:" />
-        <RadioGroup
-            android:id="@+id/rgGender"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/rgname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
-            <RadioButton
-                android:id="@+id/rbFemale"
-                android:layout_width="100dp"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:text="生日:" />
+
+                <EditText
+                    android:id="@+id/birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:text="電話號碼:"
+                    />
+
+                <EditText
+                    android:id="@+id/PhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_rbFemale" />
+                android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/rbMale"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/text_rbMale" />
-        </RadioGroup>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:paddingTop="10dp"
+                    android:text="性別:" />
 
+                <RadioGroup
+                    android:id="@+id/rgGender"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp">
 
-    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rbFemale"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_rbFemale" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:text="@string/textSubject" />
-
-        <Spinner
-            android:id="@+id/spSubject1"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:layout_marginTop="5dp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btCreat"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="建立"
-            android:background="@color/Project"/>
-
-        <Button
-            android:id="@+id/btBack"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="@string/textBack"
-            android:background="@color/Project"/>
-    </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rbMale"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_rbMale" />
+                </RadioGroup>
 
 
+            </LinearLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/textSubject" />
+
+                <Spinner
+                    android:id="@+id/spSubject1"
+                    android:layout_width="100dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="100dp"
+                    android:layout_marginTop="5dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btCreat"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:text="建立"
+                    android:textColor="@color/colorTextWhite" />
+
+                <Button
+                    android:id="@+id/btBack"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:background="@drawable/button"
+                    android:text="@string/textBack"
+                    android:textColor="@color/colorTextWhite" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</ScrollView>

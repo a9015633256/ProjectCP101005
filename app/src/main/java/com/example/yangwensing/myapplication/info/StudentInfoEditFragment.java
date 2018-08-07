@@ -83,7 +83,6 @@ public class StudentInfoEditFragment extends Fragment {
 
         findViews(view);
 
-
         //取得上一頁資訊並顯示在畫面上
         getStudentInfo();
 

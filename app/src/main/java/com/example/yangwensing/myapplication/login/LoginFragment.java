@@ -42,6 +42,8 @@ public class LoginFragment extends Fragment {
     private int studentId;
     private int teacherid;
     private int subjectid;
+    private FloatingActionButton fabStudent;
+    private FloatingActionButton fabTeacher;
 
     //帳號比對格式
     String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
@@ -54,13 +56,17 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        getActivity().setTitle(R.string.textLogin);
+//        getActivity().setTitle(R.string.textLogin);
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         final EditText etName = view.findViewById(R.id.etName);
         final EditText etPassword = view.findViewById(R.id.etPassword);
         bnForStudent = getActivity().findViewById(R.id.bnForStudent);
         Button btLogin = view.findViewById(R.id.btLogin);
         Button btRegister = view.findViewById(R.id.btRegister);
+
+        //偷懶輸入
+        setFAB(view);
+
 
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效
 
@@ -144,6 +150,43 @@ public class LoginFragment extends Fragment {
 
 
         return view;
+
+    }
+
+    private void setFAB(View view) {
+        final View fragmentView = view;
+
+        fabStudent = view.findViewById(R.id.fabAutoFillStudent);
+        fabTeacher = view.findViewById(R.id.fabAutoFillTeacher);
+
+        fabStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText etName = fragmentView.findViewById(R.id.etName);
+                etName.setText("student1");
+                EditText etPassword = fragmentView.findViewById(R.id.etPassword);
+                etPassword.setText("1");
+
+
+
+            }
+        });
+
+        fabTeacher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText etName = fragmentView.findViewById(R.id.etName);
+                etName.setText("cp102@hotmail.com");
+                EditText etPassword = fragmentView.findViewById(R.id.etPassword);
+                etPassword.setText("22222");
+
+
+
+            }
+        });
+
 
     }
 

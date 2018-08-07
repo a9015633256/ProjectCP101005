@@ -13,8 +13,8 @@
     <item
         android:id="@+id/cmdelete"
         android:title="刪除班級" />
-    <item
-        android:id="@+id/cmlogout"
-        android:title="登出" />
+    <!--<item-->
+        <!--android:id="@+id/cmlogout"-->
+        <!--android:title="登出" />-->
 
 </menu>

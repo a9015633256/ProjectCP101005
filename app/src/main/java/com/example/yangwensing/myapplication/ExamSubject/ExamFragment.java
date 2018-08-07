@@ -44,15 +44,13 @@ public class ExamFragment extends Fragment {
     String Teacher = "";
     String teacherid = "";
     String Achievement = "";
-    String score = "";
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subject_all, container, false);
-
-        getActivity().setTitle(R.string.ExamSubjectt);
+        getActivity().setTitle(R.string.title_examOverview);
         recyclerView = view.findViewById(R.id.recyclerr);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         List<Exam> exams = new ArrayList<>();
@@ -137,7 +135,6 @@ public class ExamFragment extends Fragment {
 
             Teacher = String.valueOf(exams1.getTeacherid());
             Subject = String.valueOf(exams1.getExamsubjectid());
-            score = String.valueOf(exams1.getScore());
             Achievement = String.valueOf(exams1.getAchievementid());
             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
             preferences.edit().putString("Subject", Subject)
@@ -155,13 +152,12 @@ public class ExamFragment extends Fragment {
 
                     String Studentid= String.valueOf(exams1.getSubjectid());
                     String Achievementid = String.valueOf(exams1.getAchievementid());
-                    int e = exams1.getAchievementID();
                     b.putString("Subjectid",Studentid);
                     b.putString("Achievementid",Achievementid);
                     b.putString("Title",exams1.getTitle());
                     b.putString("ClassID",Classid);
                     b.putString("classname",exams1.getClassname());
-                    b.putInt("score", (exams1.getScore()));
+                    b.putString("score", String.valueOf(exams1.getScore()));
                     b.putString("teachername",exams1.getTeachername());
 
                     Fragment fragment = new EditAchievement();
@@ -179,19 +175,14 @@ public class ExamFragment extends Fragment {
 
                     Fragment fragment = new AchievementFragment();
                     bundle.putString("ID", Classid);
-                    int score = exams1.getScore();
-                    String examName = exams1.getExamtitle();
-                    int examid = exams1.getExamsubjectid();
                     Subject = String.valueOf(exams1.getSubjectid());
                     Achievement = String.valueOf(exams1.getAchievementid());
                     bundle.putString("Subject", Subject);
                     bundle.putString("Achievement",Achievement);
-                    bundle.putInt("socre",score);
-                    bundle.putInt("e",examid);
-                    bundle.putString("examName",examName);
 
 
                     fragment.setArguments(bundle);
+
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.main_content, fragment);

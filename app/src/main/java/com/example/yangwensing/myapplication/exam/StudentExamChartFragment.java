@@ -1,11 +1,8 @@
 package com.example.yangwensing.myapplication.exam;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,11 +66,12 @@ public class StudentExamChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
         findViews(view);
+
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            examId = bundle.getInt("ex");
-            studentScore = bundle.getInt("studentScore");
+            examId = bundle.getInt("examId");
+//            studentScore = bundle.getInt("studentScore");
             examName = bundle.getString("examName");
         } else {
             Common.showToast(getActivity(), R.string.msg_data_error);
@@ -260,7 +258,7 @@ public class StudentExamChartFragment extends Fragment {
         /* 取得各品牌車每月銷售量資料 */
         List<Entry> allScoreEntries = getAllScores();
         List<Entry> averageScoreEntries = getAverageScore();
-        List<Entry> studentScoreEntries = getStudentScore();
+//        List<Entry> studentScoreEntries = getStudentScore();
 
 //        /* 利用List<Entry>資料建立LineDataSet，line chart需要LineDataSet資料集來繪圖 */
 //        LineDataSet lineDataSetToyota = new LineDataSet(toyotaEntries, "Toyota");
@@ -306,16 +304,16 @@ public class StudentExamChartFragment extends Fragment {
         lineDataSetAverageScore.setDrawValues(false);
         lineDataSetAverageScore.setDrawVerticalHighlightIndicator(true);
 
-        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
-        lineDataSetStudentScore.setCircleRadius(4);
-        lineDataSetStudentScore.setDrawCircleHole(false);
-        lineDataSetStudentScore.setCircleColor(Color.RED);
-        lineDataSetStudentScore.setColor(Color.RED);
-        lineDataSetStudentScore.setLineWidth(4);
-        lineDataSetStudentScore.setHighLightColor(Color.RED);
-        lineDataSetStudentScore.setValueTextColor(Color.DKGRAY);
-        lineDataSetStudentScore.setValueTextSize(10);
-        lineDataSetStudentScore.setDrawValues(false);
+//        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
+//        lineDataSetStudentScore.setCircleRadius(4);
+//        lineDataSetStudentScore.setDrawCircleHole(false);
+//        lineDataSetStudentScore.setCircleColor(Color.RED);
+//        lineDataSetStudentScore.setColor(Color.RED);
+//        lineDataSetStudentScore.setLineWidth(4);
+//        lineDataSetStudentScore.setHighLightColor(Color.RED);
+//        lineDataSetStudentScore.setValueTextColor(Color.DKGRAY);
+//        lineDataSetStudentScore.setValueTextSize(10);
+//        lineDataSetStudentScore.setDrawValues(false);
 
 
         lineChart.setClickable(false);
@@ -328,7 +326,7 @@ public class StudentExamChartFragment extends Fragment {
         List<ILineDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
         dataSets.add(lineDataSetAllScore);
         dataSets.add(lineDataSetAverageScore);
-        dataSets.add(lineDataSetStudentScore);
+//        dataSets.add(lineDataSetStudentScore);
         LineData lineData = new LineData(dataSets);
         lineChart.setData(lineData);
 
@@ -369,39 +367,39 @@ public class StudentExamChartFragment extends Fragment {
     private List<Entry> getAllScores() {
         List<Entry> scoreEntries = new ArrayList<>();
         //假如要忽略沒有人數的數據
-        if (scoreAPlusList.size() != 0) {
-            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
-        }
-        if (scoreAList.size() != 0) {
-            scoreEntries.add(new Entry(95, scoreAList.size()));
-        }
-        if (scoreBList.size() != 0) {
-            scoreEntries.add(new Entry(85, scoreBList.size()));
-        }
-        if (scoreCList.size() != 0) {
-            scoreEntries.add(new Entry(75, scoreCList.size()));
-        }
-        if (scoreDList.size() != 0) {
-            scoreEntries.add(new Entry(65, scoreDList.size()));
-        }
-        if (scoreEList.size() != 0) {
-            scoreEntries.add(new Entry(55, scoreEList.size()));
-        }
-        if (scoreFList.size() != 0) {
-            scoreEntries.add(new Entry(45, scoreFList.size()));
-        }
-        if (scoreGList.size() != 0) {
-            scoreEntries.add(new Entry(35, scoreGList.size()));
-        }
-        if (scoreHList.size() != 0) {
-            scoreEntries.add(new Entry(25, scoreHList.size()));
-        }
-        if (scoreIList.size() != 0) {
-            scoreEntries.add(new Entry(15, scoreIList.size()));
-        }
-        if (scoreJList.size() != 0) {
-            scoreEntries.add(new Entry(5, scoreJList.size()));
-        }
+//        if (scoreAPlusList.size() != 0) {
+//            scoreEntries.add(new Entry(100, scoreAPlusList.size()));
+//        }
+//        if (scoreAList.size() != 0) {
+//            scoreEntries.add(new Entry(95, scoreAList.size()));
+//        }
+//        if (scoreBList.size() != 0) {
+//            scoreEntries.add(new Entry(85, scoreBList.size()));
+//        }
+//        if (scoreCList.size() != 0) {
+//            scoreEntries.add(new Entry(75, scoreCList.size()));
+//        }
+//        if (scoreDList.size() != 0) {
+//            scoreEntries.add(new Entry(65, scoreDList.size()));
+//        }
+//        if (scoreEList.size() != 0) {
+//            scoreEntries.add(new Entry(55, scoreEList.size()));
+//        }
+//        if (scoreFList.size() != 0) {
+//            scoreEntries.add(new Entry(45, scoreFList.size()));
+//        }
+//        if (scoreGList.size() != 0) {
+//            scoreEntries.add(new Entry(35, scoreGList.size()));
+//        }
+//        if (scoreHList.size() != 0) {
+//            scoreEntries.add(new Entry(25, scoreHList.size()));
+//        }
+//        if (scoreIList.size() != 0) {
+//            scoreEntries.add(new Entry(15, scoreIList.size()));
+//        }
+//        if (scoreJList.size() != 0) {
+//            scoreEntries.add(new Entry(5, scoreJList.size()));
+//        }
 
         scoreEntries.add(new Entry(100, scoreAPlusList.size()));
         scoreEntries.add(new Entry(95, scoreAList.size()));
@@ -429,13 +427,13 @@ public class StudentExamChartFragment extends Fragment {
         return scoreEntries;
     }
 
-    private List<Entry> getStudentScore() {
-        List<Entry> scoreEntries = new ArrayList<>();
-        scoreEntries.add(new Entry(studentScore, maxY));
-
-
-        return scoreEntries;
-    }
+//    private List<Entry> getStudentScore() {
+//        List<Entry> scoreEntries = new ArrayList<>();
+//        scoreEntries.add(new Entry(studentScore, maxY));
+//
+//
+//        return scoreEntries;
+//    }
 
     @Override
     public void onDestroyView() {

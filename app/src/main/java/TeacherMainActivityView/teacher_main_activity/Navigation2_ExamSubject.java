@@ -52,7 +52,7 @@ public class Navigation2_ExamSubject extends AppCompatActivity {
                         break;
                 }
 
-                return false;
+                return true;
             }
         });
     }

@@ -29,7 +29,6 @@ public class Homework implements Serializable{
     public Homework(int subjectId, int teacherId ,String title, String content,int classId) {
         this.title = title;
         this.content = content;
-        this.date = date;
         this.subjectId = subjectId;
         this.teacherId = teacherId;
         this.classId = classId;

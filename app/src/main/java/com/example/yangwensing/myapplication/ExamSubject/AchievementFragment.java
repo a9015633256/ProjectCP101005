@@ -59,7 +59,17 @@ public class AchievementFragment extends Fragment {
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bttUpete = view.findViewById(R.id.btUpdateAchievement);
         bttUpete.setVisibility(View.GONE);
-
+//        btSend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                List<Exam> exams = new ArrayList<>();
+//                ;
+//                JsonObject jsonObject = new JsonObject();
+//                jsonObject.addProperty("action","ii");
+//                jsonObject.addProperty("t",new  Gson().toJson(exams));
+//
+//            }
+//        });
 
         Bundle b = getArguments();
         Classid = b.getString("ID");
@@ -68,15 +78,21 @@ public class AchievementFragment extends Fragment {
         ivAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = getArguments();
-                int i   = b.getInt("e");
-                int socre = b.getInt("score");
-                String examName = b.getString("examName");
-                b.putInt("ex",i);
-                b.putInt("studentScore",socre);
-                b.putString("examName",examName);
+
+                Bundle bundle = getArguments();
+                String text = bundle.getString("name");
+
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
+                bundle2.putString("examName",text);
+
+
+
+
                 Fragment fragment = new StudentExamChartFragment();
-                fragment.setArguments(b);
+
+                fragment.setArguments(bundle2);
+
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, fragment);
@@ -185,10 +201,10 @@ public class AchievementFragment extends Fragment {
                     AchievementID = String.valueOf(exam.getAchievementID());
                     String score = holder.etAchievement.getText().toString();
                     Gson gson = new Gson();
-//                    if (score.trim().isEmpty()) {
-//                        holder.etAchievement.setError("IsValid Achievement");
-//                        isValid = false;
-//                    }
+                    if (score.trim().isEmpty()) {
+                        holder.etAchievement.setError("IsValid Achievement");
+                        isValid = false;
+                    }
                     if (isValid) {
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("action", "insertAchievement");
@@ -212,6 +228,7 @@ public class AchievementFragment extends Fragment {
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(R.id.main_content, fragment);
+                                fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
 
                             }

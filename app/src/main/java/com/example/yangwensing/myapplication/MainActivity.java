@@ -36,7 +36,7 @@ import com.example.yangwensing.myapplication.main.Common;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bnForStudent;
 //    private TabLayout tlForTeacherHomeworkCheck;
-    private static int alarmType = 0;
+    public static int alarmType = 0;
 
 
     @Override
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle(R.string.text_logOut)
                         .setIcon(R.drawable.ic_alert)
                         .setMessage(R.string.msg_wantToLogOut)
-                        .setPositiveButton(R.string.text_Yes, this)
+                        .setPositiveButton(R.string.text_logOut, this)
                         .setNegativeButton(R.string.text_No, this)
                         .create();
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     .setTitle(R.string.text_exit)
                     .setIcon(R.drawable.ic_alert)
                     .setMessage(R.string.msg_wantToExit)
-                    .setPositiveButton(R.string.text_Yes, this)
+                    .setPositiveButton(R.string.text_exit, this)
                     .setNegativeButton(R.string.text_No, this)
                     .create();
 

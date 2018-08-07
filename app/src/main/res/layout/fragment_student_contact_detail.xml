@@ -10,11 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:background="@color/formColor"/>
+
         <ImageView
             android:id="@+id/ivUserPic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="25dp"
             android:src="@drawable/user_pic" />
 
         <LinearLayout
@@ -24,24 +30,26 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_email" />
+                    android:text="@string/text_email"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="12345abcd@gmail.com"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -49,66 +57,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_name" />
+                    android:text="@string/text_name"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="王大民"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp" />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_gender" />
+                    android:text="@string/text_gender"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="男"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp" />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_class" />
+                    android:text="@string/text_class"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="CP101"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp" />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -116,24 +129,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_subject1" />
+                    android:text="@string/text_subject1"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="國文"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp"
-
-                    />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -141,47 +154,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_subject2" />
+                    android:text="@string/text_subject2"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="數學"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp"
-
-                    />
-
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_phoneNumber" />
+                    android:text="@string/text_phoneNumber"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="0912345678"
-                    android:textColor="@color/colorTextBlack"
-                    android:textSize="20sp"
-
-                    />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
 
             </LinearLayout>
