@@ -228,10 +228,10 @@ public class TeacherExamChartFragment extends Fragment {
         /* 取得並設定X軸標籤文字 */
         XAxis xAxis = lineChart.getXAxis(); //沒辦法放在下面
         /* 設定最大值到100(分) */
-        xAxis.setAxisMaximum(7); //把分數分成六個區間，0跟7作為左右留空
+//        xAxis.setAxisMaximum(7); //把分數分成六個區間，0跟7作為左右留空
         /* 設定最小值到0(分) */
-        xAxis.setAxisMinimum(0);
-        xAxis.setLabelCount(8, true); //強制顯示每個label，其中count要與max, min相符才有效
+//        xAxis.setAxisMinimum(0);
+//        xAxis.setLabelCount(8, true); //強制顯示每個label，其中count要與max, min相符才有效
 //        xAxis.setAvoidFirstLastClipping(true);
 
         //設定x軸文字
@@ -250,7 +250,9 @@ public class TeacherExamChartFragment extends Fragment {
         /* 取得右側Y軸物件 */
         YAxis yAxisRight = lineChart.getAxisRight();
         /* 是否顯示右側Y軸 */
-        yAxisRight.setEnabled(false);
+        yAxisRight.setDrawLabels(false); //設定顯示右側y軸，但不要有數值也不要格線->就只是作為右框線
+        yAxisRight.setDrawGridLines(false);
+//        yAxisRight.setEnabled(false);
 
         /* 設定右下角描述文字 */
         Description description = new Description();
