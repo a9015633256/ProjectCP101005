@@ -167,7 +167,7 @@
     <string name="title_home">首頁</string>
     <string name="title_contactParents">聯絡家長</string>
     <string name="title_chart_exam">圖表分析</string>
-    <string name="text_average_score">平均分:</string>
-    <string name="text_highest_score">最高分:</string>
-    <string name="text_lowest_score">最低分</string>
+    <string name="text_average_score">平均分數:</string>
+    <string name="text_highest_score">最高分數:</string>
+    <string name="text_lowest_score">最低分數:</string>
 </resources>

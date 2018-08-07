@@ -221,29 +221,31 @@ public class TeacherExamChartFragment extends Fragment {
 
     private void setupChart() {
 
-        lineChart.setBackgroundColor(Color.TRANSPARENT);
-        lineChart.setDrawValueAboveBar(true); //顯示0人
+        lineChart.setBackgroundColor(Color.TRANSPARENT); //背景透明
         lineChart.getLegend().setEnabled(false); //隱藏顏色label(每個顏色代表什麼意義的label)
         lineChart.setTouchEnabled(false); //關閉圖表互動功能
 
         /* 取得並設定X軸標籤文字 */
         XAxis xAxis = lineChart.getXAxis(); //沒辦法放在下面
         /* 設定最大值到100(分) */
-        xAxis.setAxisMaximum(7);
+        xAxis.setAxisMaximum(7); //把分數分成六個區間，0跟7作為左右留空
         /* 設定最小值到0(分) */
         xAxis.setAxisMinimum(0);
-        xAxis.setLabelCount(8, true);
-        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setLabelCount(8, true); //強制顯示每個label，其中count要與max, min相符才有效
+//        xAxis.setAvoidFirstLastClipping(true);
 
         //設定x軸文字
-        IAxisValueFormatter xAxisFormatter = new ScoreAxisValueFormatter();
+        IAxisValueFormatter xAxisFormatter = new ScoreAxisValueFormatter(); //自創類別，實作其方法:根據x數值回傳想要的字串
         xAxis.setValueFormatter(xAxisFormatter);
 
         /* 取得左側Y軸物件 */
         YAxis yAxisLeft = lineChart.getAxisLeft();
         /* 設定左側Y軸最大值 */
 //        yAxisLeft.setAxisMaximum((float) (maxY * 1.3));
-        yAxisLeft.setAxisMinimum((0));
+        yAxisLeft.setAxisMinimum((0)); //maxY預設就會比最大數值高一點點
+        //使y軸沒有小數點
+        yAxisLeft.setGranularity(1.0f);
+        yAxisLeft.setGranularityEnabled(true); // Required to enable granularity
 
         /* 取得右側Y軸物件 */
         YAxis yAxisRight = lineChart.getAxisRight();
@@ -275,50 +277,25 @@ public class TeacherExamChartFragment extends Fragment {
         });
 
         /* 取得各品牌車每月銷售量資料 */
-        List<BarEntry> allScoreEntries = getAllScores();
+        List<BarEntry> allScoreEntries = getAllScores(); //自方，把分數資料做分類
 
         //設定用建構式放入資料、用方法設定UI
-        BarDataSet lineDataSetAllScore = new BarDataSet(allScoreEntries, null);
-//        lineDataSetAllScore.setColor(R.color.orange);
+        BarDataSet lineDataSetAllScore = new BarDataSet(allScoreEntries, null); //label是legend，即左下角的label
+//        lineDataSetAllScore.setColor(R.color.orange); //預設是淡藍色
         lineDataSetAllScore.setHighLightColor(Color.CYAN);
         lineDataSetAllScore.setValueTextColor(Color.DKGRAY);
         lineDataSetAllScore.setValueTextSize(10);
         lineDataSetAllScore.setDrawValues(true);
 
+        //自定類別，設定資料上面的文字標記
         IValueFormatter peopleCountValueFormatter = new PeopleCountValueFormatter();
         lineDataSetAllScore.setValueFormatter(peopleCountValueFormatter);
-
-//        BarDataSet lineDataSetAverageScore = new BarDataSet(averageScoreEntries, "AverageScore");
-//        lineDataSetAverageScore.setColor(Color.BLUE);
-//        lineDataSetAverageScore.setHighLightColor(Color.BLUE);
-//        lineDataSetAverageScore.setValueTextColor(Color.DKGRAY);
-//        lineDataSetAverageScore.setValueTextSize(10);
-//        lineDataSetAverageScore.setDrawValues(false);
-
-//        LineDataSet lineDataSetStudentScore = new LineDataSet(studentScoreEntries, "StudentScore");
-//        lineDataSetStudentScore.setCircleRadius(4);
-//        lineDataSetStudentScore.setDrawCircleHole(false);
-//        lineDataSetStudentScore.setCircleColor(Color.RED);
-//        lineDataSetStudentScore.setColor(Color.RED);
-//        lineDataSetStudentScore.setLineWidth(4);
-//        lineDataSetStudentScore.setHighLightColor(Color.RED);
-//        lineDataSetStudentScore.setValueTextColor(Color.DKGRAY);
-//        lineDataSetStudentScore.setValueTextSize(10);
-//        lineDataSetStudentScore.setDrawValues(false);
-
-        lineChart.setClickable(false);
-
-        //使y軸沒有小數點
-        yAxisLeft.setGranularity(1.0f);
-        yAxisLeft.setGranularityEnabled(true); // Required to enable granularity
 
         /* 有幾個LineDataSet，就繪製幾條線 */
         List<IBarDataSet> dataSets = new ArrayList<>(); //通常"I"代表他是個interface
         dataSets.add(lineDataSetAllScore);
         BarData lineData = new BarData(dataSets);
         lineChart.setData(lineData);
-
-//        calculateMinMax();
 
         lineChart.invalidate(); //最後重繪
 
