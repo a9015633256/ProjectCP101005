@@ -23,10 +23,15 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.homework.Homework;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nameless on 2018/4/16.
@@ -36,6 +41,7 @@ public class LoginFragment extends Fragment {
     private final static String TAG = "LoginFragment";
     private MyTask loginTask;
     private int studentId;
+    private int studentClassId;//BoHan
     private int teacherid;
     private int subjectid;
     private FloatingActionButton fabStudent;
@@ -247,18 +253,22 @@ public class LoginFragment extends Fragment {
         if (Common.networkConnected(getActivity())) {
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "findStudentIdByNameAndPassword");
+//            jsonObject.addProperty("action", "findStudentIdByNameAndPassword");
+            jsonObject.addProperty("action", "findStudentIdByNAndP");
             jsonObject.addProperty("name", name);
             jsonObject.addProperty("password", password);
             MyTask getHomeworkTask = new MyTask(Common.URLForMingTa + "/HomeworkServlet", jsonObject.toString());
 
             try {
-
+                Homework BoHanList = new Homework();
                 String jsonIn = getHomeworkTask.execute().get();
+                Gson gson = new Gson();
+                BoHanList = gson.fromJson(jsonIn,Homework.class);
+                studentId = BoHanList.getId();
+                studentClassId = BoHanList.getClassId();
 
-                studentId = Integer.valueOf(jsonIn);
                 SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                preferences.edit().putInt("studentId", studentId).apply();
+                preferences.edit().putInt("studentId", studentId).putInt("studentClassID",studentClassId).apply();
 
 
             } catch (Exception e) {
