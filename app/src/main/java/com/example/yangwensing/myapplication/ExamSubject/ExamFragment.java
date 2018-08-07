@@ -138,7 +138,6 @@ public class ExamFragment extends Fragment {
             Achievement = String.valueOf(exams1.getAchievementid());
             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
             preferences.edit().putString("Subject", Subject)
-//                    .putString("Teacher", Teacher)
                     .putString("ClassID", Classid)
                     .apply();
 
@@ -205,8 +204,6 @@ public class ExamFragment extends Fragment {
                             myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
                             String jsonIn = myTask.execute().get();
                             Log.d(TAG, jsonIn);
-//                            Type listType = new TypeToken<List<Exam>>() {
-////                            }.getType();
                             X = new Gson().fromJson(jsonIn, Exam.class);
                         } catch (Exception e) {
                             Log.e(TAG, e.toString());

@@ -31,7 +31,7 @@ import com.google.gson.JsonObject;
 public class CreateSubject extends Fragment {
     private final static String TAG = "MainFragment";
     private MyTask myTask;
-    private EditText etTeacher, etSubject, etDate, etTitle, etContent;
+    private EditText  etDate, etTitle, etContent;
     private Button btSure,btUpdate;
     private String Classid = "";
     private String Subjectid = "";
@@ -61,7 +61,7 @@ public class CreateSubject extends Fragment {
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
 
 
-        Subjectid = String.valueOf(preferences.getInt("subjectId",10));
+        Subjectid = String.valueOf(preferences.getInt("subjectId",0));
         Teacherid = String.valueOf(preferences.getInt("teacherId",0));
 
         etDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {

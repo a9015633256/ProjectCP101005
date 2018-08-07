@@ -1,18 +1,18 @@
 package com.example.yangwensing.myapplication.ExamSubject;
 
 
-class Exam {
+public class Exam {
     private int id, teacher, subject, classid,teacherid,subjectid,examsubjectid,examstudent,AchievementID,examsubject,achievementid,score;
     private String studentid, examtitle, date, title, context, name, classname,teacheraccount,teachername;
 
 
-    public Exam (int classid,String examtitle,int subjectid,int teacherid,int examsubjectid,int score){
+    public Exam (int classid,String examtitle,int subjectid,int examsubjectid,int teacherid){
         this.classid = classid;
         this.examtitle = examtitle;
         this.subjectid = subjectid;
         this.teacherid = teacherid;
         this.examsubjectid = examsubjectid;
-        this.score = score;
+//        this.score = score;
     }
 
     public Exam(int id, String title, String date , String context){

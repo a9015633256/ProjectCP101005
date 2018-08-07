@@ -34,6 +34,12 @@ public class Homework implements Serializable{
         this.classId = classId;
     }
 
+    //BoHan新增的
+    public  Homework(int id, int classId){
+        this.id = id;
+        this.classId = classId;
+    }
+
     public int getId() {
         return id;
     }

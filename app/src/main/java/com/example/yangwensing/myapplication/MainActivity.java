@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.chat.MotherList;
 import com.example.yangwensing.myapplication.charts.BackUpStudentExamFragment;
+import com.example.yangwensing.myapplication.exam.StudentExam;
+import com.example.yangwensing.myapplication.exam.StudentExamQuery;
 import com.example.yangwensing.myapplication.homework.StudentHomeworkFragment;
 import com.example.yangwensing.myapplication.info.StudentInfoFragment;
 import com.example.yangwensing.myapplication.login.LoginFragment;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new StudentHomeworkFragment();
                     break;
                 case R.id.navigation_exam:
-                    selectedFragment = new BackUpStudentExamFragment();
+                    selectedFragment = new StudentExam();
 //                    selectedFragment = new ExamFragment();
                     break;
                 case R.id.navigation_contact:

@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.charts.TeacherExamChartFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -75,18 +76,29 @@ public class EditAchievement extends Fragment {
             }
         });
 
-
         ivAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new PerformanceAnalysisChart();
-                FragmentManager fragmentManager= getFragmentManager();
+
+                Bundle bundle = getArguments();
+                String text = bundle.getString("name");
+
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
+                bundle2.putString("examName",text);
+
+                Fragment fragment = new TeacherExamChartFragment();
+
+                fragment.setArguments(bundle2);
+
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main_content, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
+
 
 
 
