@@ -21,19 +21,19 @@
                 android:layout_marginBottom="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorTextBlack"
-                    android:text="考試名稱：" />
-
-                <EditText
                     android:id="@+id/tvExamName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="考試名稱：無"
+                    android:textColor="@color/colorTextBlack"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="10dp"
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="number"
@@ -60,8 +60,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="16dp"
-                    android:text="@string/text_examScore" />
+                    android:text="@string/text_examScore"
+                    android:textSize="16dp" />
 
                 <EditText
                     android:id="@+id/tvScore"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="     100:" />
+                    android:text="     100分:" />
 
                 <EditText
                     android:id="@+id/tvScoreAPlus"
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="90 - 99:" />
+                    android:text="90 - 99分:" />
 
                 <EditText
                     android:id="@+id/tvScoreA"
@@ -148,7 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="80 - 89:" />
+                    android:text="80 - 89分:" />
 
                 <EditText
                     android:id="@+id/tvScoreB"
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="70 - 79:" />
+                    android:text="70 - 79分:" />
 
                 <EditText
                     android:id="@+id/tvScoreC"
@@ -206,40 +206,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="60 - 69:" />
+                    android:text="60 - 69分:" />
 
                 <EditText
                     android:id="@+id/tvScoreD"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="4dp"
-                    android:background="@null"
-                    android:enabled="false"
-                    android:inputType="text"
-                    android:text=""
-                    android:textColor="@color/colorTextBlack"
-
-                    />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="0  - 60:" />
-
-                <EditText
-                    android:id="@+id/tvScoreE"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
@@ -266,10 +236,189 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="Average" />
+                    android:text=" 0  - 59分:" />
 
                 <EditText
-                    android:id="@+id/tvScoreAverage"
+                    android:id="@+id/tvScoreE"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_average_score" />
+
+                <EditText
+                    android:id="@+id/etScoreAverage"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_highest_score" />
+
+                <EditText
+                    android:id="@+id/etScoreHighest"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_lowest_score" />
+
+                <EditText
+                    android:id="@+id/etScoreLowest"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_student_score" />
+
+                <EditText
+                    android:id="@+id/etStudentScore"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_student_ranking" />
+
+                <EditText
+                    android:id="@+id/etStudentRanking"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_pr_value" />
+
+                <EditText
+                    android:id="@+id/etPRValue"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"

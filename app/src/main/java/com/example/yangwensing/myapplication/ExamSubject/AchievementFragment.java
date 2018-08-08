@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.charts.TeacherExamChartFragment;
+import com.example.yangwensing.myapplication.charts.TeacherSingleExamChartFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -92,7 +92,7 @@ public class AchievementFragment extends Fragment {
                 bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
                 bundle2.putString("examName",text);
 
-                Fragment fragment = new TeacherExamChartFragment();
+                Fragment fragment = new TeacherSingleExamChartFragment();
 
                 fragment.setArguments(bundle2);
 
@@ -202,8 +202,13 @@ public class AchievementFragment extends Fragment {
                     } else {
 //                        holder.etAchievement.setHint("NO");
 
-                        int Score = Integer.valueOf(holder.etAchievement.getText().toString());
-                        exam.setScore(Score);
+                        try{
+                            int Score = Integer.valueOf(holder.etAchievement.getText().toString());
+                            exam.setScore(Score);
+                        }catch (Exception e){
+
+                        }
+
 
                     }
                 }

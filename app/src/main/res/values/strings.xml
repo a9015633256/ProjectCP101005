@@ -171,4 +171,7 @@
     <string name="text_highest_score">最高分數:</string>
     <string name="text_lowest_score">最低分數:</string>
     <string name="query">查看成績</string>
+    <string name="text_student_score">您的分數:</string>
+    <string name="text_pr_value">PR值:</string>
+    <string name="text_student_ranking">排名:</string>
 </resources>

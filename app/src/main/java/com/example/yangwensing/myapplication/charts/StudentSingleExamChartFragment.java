@@ -1,5 +1,7 @@
 package com.example.yangwensing.myapplication.charts;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,18 +39,16 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TeacherExamChartFragment extends Fragment {
-    private static final String TAG = "StudentExamChartFragment";
-    private EditText etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage, etScoreHighest, etScoreLowest;
+public class StudentSingleExamChartFragment extends Fragment {
+    private static final String TAG = "StudentSingleExamChartFragment";
+    private EditText etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage, etScoreHighest, etScoreLowest, etStudentScore, etStudentRanking, etPRValue;
     private TextView tvExamName;
     private BarChart lineChart;
-    private int maxY = 0;
-    private String averageScore;
-    private int examId;
-    private String examName;
+    private int examId = 0, studentScore = 0 , studentId = 0;
     private MyTask getAchievementTask;
     private BottomNavigationView bottomNavigationView;
 
@@ -64,7 +64,7 @@ public class TeacherExamChartFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_teacher_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
+        View view = inflater.inflate(R.layout.fragment_student_exam_chart, container, false); //回傳父元件(linearLayout) 最尾要記得加false否則預設為true
 
         getActivity().setTitle(R.string.title_chart_exam);
 
@@ -72,6 +72,8 @@ public class TeacherExamChartFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
+        //取得上一頁傳來的examID跟examName
+        String examName;
         if (bundle != null) {
             examId = bundle.getInt("examId");
             examName = bundle.getString("examName");
@@ -83,22 +85,34 @@ public class TeacherExamChartFragment extends Fragment {
             examId = 1;
             examName = "examName";
         }
-
         if (examName != null) {
             tvExamName.setText(examName);
         }
 
-        //根據examId取得db資料
+        //取得偏好設定存的學生id
+        getDataFromPref();
+
+
+        //根據examID取得db資料
         if (examId != 0) {
+
+            if (studentId != 0) {
+                getStudentScoreFromDB();
+            }
+
             getDataFromDB();
 
             //處理數據顯示
             setupView();
             setupChart();
+
+
+
         }
 
         return view; //要改成回傳view
     }
+
 
     @Override
     public void onStart() {
@@ -123,6 +137,8 @@ public class TeacherExamChartFragment extends Fragment {
         double totalScore = 0;
         int highestScore = 0;
         int lowestScore = 100;
+        int ranking = 1;
+        int prCount = 0;
 
         //清空資料
         scoreAPlusList.clear();
@@ -141,6 +157,13 @@ public class TeacherExamChartFragment extends Fragment {
             if (i < lowestScore) {
                 lowestScore = i;
             }
+            if (i < studentScore) {
+                prCount++;
+            }
+            if (i > studentScore) {
+                ranking++;
+            }
+
 
             if (i == 100) {
                 scoreAPlusList.add(i);
@@ -163,16 +186,6 @@ public class TeacherExamChartFragment extends Fragment {
 
         }
 
-        maxY = scoreAPlusList.size();
-        int[] listForY = {
-                scoreAPlusList.size(), scoreAList.size(), scoreBList.size(), scoreCList.size(), scoreDList.size(), scoreEList.size()
-        };
-
-        for (int i : listForY) {
-            if (maxY < i) {
-                maxY = i;
-            }
-        }
 
         etScoreAPlus.setText(String.valueOf(scoreAPlusList.size()) + "人");
         etScoreA.setText(String.valueOf(scoreAList.size()) + "人");
@@ -183,10 +196,34 @@ public class TeacherExamChartFragment extends Fragment {
                 scoreEList.size()
         ) + "人");
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        averageScore = decimalFormat.format(totalScore / scoreList.size());
+        String averageScore = decimalFormat.format(totalScore / scoreList.size());
         etScoreAverage.setText(averageScore + "分");
         etScoreHighest.setText(highestScore + "分");
         etScoreLowest.setText(lowestScore + "分");
+        etStudentScore.setText(studentScore + "分");
+        etStudentRanking.setText("第" + ranking + "名");
+
+        double a = (double) prCount;
+
+        int pr = (int)((double)prCount / (double)scoreList.size() * 100);
+        etPRValue.setText(pr + "%");
+
+    }
+
+    private void calculatePR(){
+
+        //sort array
+        Integer[] scoreArray = new Integer[scoreList.size()];
+
+        for (int i = 0 ; i < scoreList.size() ; i++) {
+            scoreArray[i] = scoreList.get(i);
+        }
+
+        Arrays.sort(scoreArray);
+        Arrays.sort(scoreArray,Collections.reverseOrder());
+
+
+
 
 
     }
@@ -218,6 +255,34 @@ public class TeacherExamChartFragment extends Fragment {
             Common.showToast(getActivity(), R.string.text_no_network);
         }
     }
+
+    private void getStudentScoreFromDB() {
+
+        if (Common.networkConnected(getActivity())) {
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("action", "findStudentAchievementByStudentIdAndExamId");
+            jsonObject.addProperty("examId", examId);
+            jsonObject.addProperty("studentId", studentId);
+            getAchievementTask = new MyTask(Common.URLForMingTa + "/ExamServlet", jsonObject.toString());
+
+            try {
+
+                String jsonIn = getAchievementTask.execute().get();
+
+                studentScore = Integer.valueOf(jsonIn);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Common.showToast(getActivity(), R.string.text_no_server);
+            }
+        } else {
+            Common.showToast(getActivity(), R.string.text_no_network);
+        }
+
+    }
+
 
     private void setupChart() {
 
@@ -327,8 +392,11 @@ public class TeacherExamChartFragment extends Fragment {
         etScoreAverage = view.findViewById(R.id.etScoreAverage);
         etScoreHighest = view.findViewById(R.id.etScoreHighest);
         etScoreLowest = view.findViewById(R.id.etScoreLowest);
+        etStudentScore = view.findViewById(R.id.etStudentScore);
+        etStudentRanking = view.findViewById(R.id.etStudentRanking);
+        etPRValue = view.findViewById(R.id.etPRValue);
         lineChart = view.findViewById(R.id.lineChart);
-        bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
 
     }
 
@@ -345,6 +413,11 @@ public class TeacherExamChartFragment extends Fragment {
         Collections.sort(scoreEntries, new EntryXComparator());
 
         return scoreEntries;
+    }
+
+    private void getDataFromPref() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        studentId = preferences.getInt("studentId", 0);
     }
 
 
