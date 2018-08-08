@@ -27,7 +27,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btUpdateAchievement"
+                android:id="@+id/btUpdate"
                 android:layout_width="85dp"
                 android:layout_height="40dp"
                 android:background="@drawable/button"

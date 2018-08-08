@@ -171,17 +171,19 @@ public class ExamFragment extends Fragment {
             holder.tvSingIn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    String Studentid= String.valueOf(exams1.getSubjectid());
+                    String Achievementid = String.valueOf(exams1.getAchievementid());
+                    b.putString("Subjectid",Studentid);
+                    b.putString("Achievementid",Achievementid);
+                    b.putString("Title",exams1.getTitle());
+                    b.putString("ClassID",Classid);
+                    b.putString("classname",exams1.getClassname());
+                    b.putString("score", String.valueOf(exams1.getScore()));
+                    b.putString("teachername",exams1.getTeachername());
 
-                    Fragment fragment = new AchievementFragment();
-                    bundle.putString("ID", Classid);
-                    Subject = String.valueOf(exams1.getSubjectid());
-                    Achievement = String.valueOf(exams1.getAchievementid());
-                    bundle.putString("Subject", Subject);
-                    bundle.putString("Achievement",Achievement);
-
-
-                    fragment.setArguments(bundle);
-
+                    Fragment fragment = new EditAchievement();
+                    fragment.setArguments(b);
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.main_content, fragment);

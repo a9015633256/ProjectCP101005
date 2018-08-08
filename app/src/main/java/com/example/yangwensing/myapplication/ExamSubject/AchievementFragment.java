@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +63,6 @@ public class AchievementFragment extends Fragment {
         tvTeacher = view.findViewById(R.id.tvTeacherr);
         tvClass = view.findViewById(R.id.tvClassc);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
-        bttUpete = view.findViewById(R.id.btUpdateAchievement);
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
         bttUpete.setVisibility(View.GONE);
 
@@ -193,26 +194,30 @@ public class AchievementFragment extends Fragment {
             holder.tvName.setText(Name);
             tvClass.setText(ClassName);
             tvTeacher.setText(TeacherName);
-            holder.etAchievement.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.etAchievement.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//                        holder.etAchievement.setHint(null);
-                    } else {
-//                        holder.etAchievement.setHint("NO");
+                }
 
-                        try{
-                            int Score = Integer.valueOf(holder.etAchievement.getText().toString());
-                            exam.setScore(Score);
-                        }catch (Exception e){
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        }
+                }
 
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    try{
+                        int Score = Integer.valueOf(holder.etAchievement.getText().toString());
+                        exam.setScore(Score);
+                    }catch (Exception e){
 
                     }
+
                 }
             });
+
 
 
             btSend.setOnClickListener(new View.OnClickListener() {

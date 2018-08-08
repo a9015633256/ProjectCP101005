@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,28 +55,18 @@ public class EditAchievement extends Fragment {
         tvClassname = view.findViewById(R.id.tvClassc);
         tvTeacherName = view.findViewById(R.id.tvTeacherr);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
-        bttUpete = view.findViewById(R.id.btUpdateAchievement);
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
+        bttUpete = view.findViewById(R.id.btUpdate);
+        bttUpete.setVisibility(View.GONE);
+
+
+
 
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();
         ExamSubjectID = b.getString("Subjectid");
         AchievementID = b.getString("Achievementid");
         ClassID = b.getString(("ClassID"));
-        btSure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putString("ClassID",ClassID);
-                Fragment fragment = new ExamFragment();
-                fragment.setArguments(b);
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.main_content, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
 
         ivAnalysis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,23 +172,33 @@ public class EditAchievement extends Fragment {
             tvClassname .setText(c);
             tvTeacherName.setText(e);
 
-            holder.etAchievement.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            holder.etAchievement.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//                        holder.etAchievement.setHint(null);
-                    } else {
-//                        holder.etAchievement.setHint("NO");
+                }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                    try{
                         int Score = Integer.valueOf(holder.etAchievement.getText().toString());
                         exam.setScore(Score);
-//                        Common.showToast(getActivity(),"");
+                    }catch (Exception e){
+
                     }
+
                 }
             });
 
-            bttUpete.setOnClickListener(new View.OnClickListener() {
+
+
+            btSure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle b = getArguments();
@@ -221,8 +223,12 @@ public class EditAchievement extends Fragment {
                             Common.showToast(getActivity(),"update fail");
                         }else {
                             Recyclerr.this.notifyDataSetChanged();
-                            Common.showToast(getActivity(),"update success");
-
+                            Common.showToast(getActivity(),"Success");
+                            Fragment fragment = new ExamFragment();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.main_content, fragment);
+                            fragmentTransaction.commit();
                         }
                     }
                 }
