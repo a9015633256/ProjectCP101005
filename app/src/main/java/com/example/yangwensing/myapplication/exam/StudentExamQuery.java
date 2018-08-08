@@ -3,6 +3,7 @@ package com.example.yangwensing.myapplication.exam;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ public class StudentExamQuery extends Fragment {
     private final static String TAG = "MainFragment";
     private MyTask myTask;
     private TextView tvDate, tvTitle, tvContent;
+    private BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
@@ -32,6 +34,18 @@ public class StudentExamQuery extends Fragment {
         tvTitle.setText(title);
         tvDate.setText(date);
         tvContent.setText(content);
+
+
+
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
+        bottomNavigationView.setVisibility(View.GONE);
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        super.onStop();
     }
 }

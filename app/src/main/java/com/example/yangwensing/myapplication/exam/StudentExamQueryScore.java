@@ -3,6 +3,7 @@ package com.example.yangwensing.myapplication.exam;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,7 @@ public class StudentExamQueryScore extends Fragment {
     private String ExamSubjectID,AchievementID;
     private TextView tvSubject,tvClassname,tvTeacherName;
     private ImageView ivAnalysis;
+    private BottomNavigationView bottomNavigationView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class StudentExamQueryScore extends Fragment {
         AchievementID = b.getString("Achievement");
         ClassID = b.getString(("ID"));
 
+        bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
+        bottomNavigationView.setVisibility(View.GONE);
 
 //        ivAnalysis.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -161,5 +165,11 @@ public class StudentExamQueryScore extends Fragment {
                 tvAchievement = itemView.findViewById(R.id.tvAchievement);
             }
         }
+    }
+    @Override
+    public void onStop() {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        super.onStop();
     }
 }
