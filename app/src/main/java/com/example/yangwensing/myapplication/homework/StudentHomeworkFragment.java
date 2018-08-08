@@ -163,8 +163,6 @@ public class StudentHomeworkFragment extends Fragment {
     private void getDataFromPref() {
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         studentId = preferences.getInt("studentId", 0);
-
-
     }
 
     private void findViews(View view) {

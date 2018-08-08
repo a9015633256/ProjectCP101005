@@ -202,8 +202,13 @@ public class AchievementFragment extends Fragment {
                     } else {
 //                        holder.etAchievement.setHint("NO");
 
-                        int Score = Integer.valueOf(holder.etAchievement.getText().toString());
-                        exam.setScore(Score);
+                        try{
+                            int Score = Integer.valueOf(holder.etAchievement.getText().toString());
+                            exam.setScore(Score);
+                        }catch (Exception e){
+
+                        }
+
 
                     }
                 }

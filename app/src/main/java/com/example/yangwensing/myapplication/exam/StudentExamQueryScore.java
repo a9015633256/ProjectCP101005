@@ -21,7 +21,8 @@ import com.example.yangwensing.myapplication.ExamSubject.EditAchievement;
 import com.example.yangwensing.myapplication.ExamSubject.Exam;
 import com.example.yangwensing.myapplication.ExamSubject.PerformanceAnalysisChart;
 import com.example.yangwensing.myapplication.R;
-import com.example.yangwensing.myapplication.charts.TeacherExamChartFragment;
+import com.example.yangwensing.myapplication.charts.StudentSingleExamChartFragment;
+import com.example.yangwensing.myapplication.charts.TeacherSingleExamChartFragment;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -57,28 +58,28 @@ public class StudentExamQueryScore extends Fragment {
         ClassID = b.getString(("ID"));
 
 
-//        ivAnalysis.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Bundle bundle = getArguments();
-//                String text = bundle.getString("name");
-//
-//                Bundle bundle2 = new Bundle();
-//                bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
-//                bundle2.putString("examName",text);
-//
-//                Fragment fragment = new TeacherExamChartFragment();
-//
-//                fragment.setArguments(bundle2);
-//
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.main_content, fragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
-//            }
-//        });
+        ivAnalysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle bundle = getArguments();
+                String text = bundle.getString("name");
+
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("examId",Integer.valueOf(ExamSubjectID));
+                bundle2.putString("examName",text);
+
+                Fragment fragment = new StudentSingleExamChartFragment();
+
+                fragment.setArguments(bundle2);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         List<Exam> exams = new ArrayList<>();
 

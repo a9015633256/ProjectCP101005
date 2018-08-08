@@ -355,7 +355,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_lowest_score" />
+                    android:text="@string/text_student_score" />
 
                 <EditText
                     android:id="@+id/etStudentScore"
@@ -385,7 +385,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:text="@string/text_lowest_score" />
+                    android:text="@string/text_student_ranking" />
+
+                <EditText
+                    android:id="@+id/etStudentRanking"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:text=""
+                    android:textColor="@color/colorTextBlack"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/text_pr_value" />
 
                 <EditText
                     android:id="@+id/etPRValue"
