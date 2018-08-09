@@ -36,6 +36,11 @@ import java.util.List;
 
 
 public class AchievementFragment extends Fragment {
+
+    // 目前此fragment用不到
+
+
+
     private final static String TAG = "MainFragment";
     private MyTask myTask;
     private TextView tvSubject, tvClass, tvTeacher;

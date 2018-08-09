@@ -149,13 +149,17 @@ public class CreateSubject extends Fragment {
                         } else {
                             Bundle bb = new Bundle();
                             bb.putString("ClassID",Classid);
-                            Fragment fragment = new ExamFragment();
-                            fragment.setArguments(bb);
+
+
+//                            Fragment fragment = new ExamFragment();
+//                            fragment.setArguments(bb);
                             FragmentManager fragmentManager = getFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.main_content, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
+                            fragmentManager.popBackStack();
+
+//                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                            fragmentTransaction.replace(R.id.main_content, fragment);
+//                            fragmentTransaction.addToBackStack(null);
+//                            fragmentTransaction.commit();
                         }
 
                     } catch (Exception e) {

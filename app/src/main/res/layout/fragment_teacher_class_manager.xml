@@ -70,14 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/ClassCode"
-            android:layout_marginStart="240dp"
+            android:layout_marginStart="220dp"
             />
 
         <TextView
             android:id="@+id/tvClassCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="310dp"
+            android:layout_marginStart="290dp"
             android:textSize="16sp"
             android:text="test"
             android:layout_marginTop="10dp"

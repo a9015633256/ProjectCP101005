@@ -2,15 +2,19 @@ package com.example.yangwensing.myapplication.homework;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,11 +24,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -54,6 +66,11 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private MyTask getHomeworkTask;
     private MyTask updateHomeworkTask;
 
+    private PieChart pieChart;
+    private int doneCount = 0;
+    private int unDoneCount = 0;
+    private LinearLayoutManager layoutManager;
+
 
     @Nullable
     @Override
@@ -78,6 +95,8 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
 
         getDataFromDB();
+
+        setupChart();
 
         //tabLayout顯示
         tabLayout = getActivity().findViewById(R.id.tlForTeacherHomework);
@@ -118,7 +137,8 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
 
         //rv
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         HomeworkAdapter homeworkAdapter = new HomeworkAdapter(homeworkCheckList, getActivity());
         recyclerView.setAdapter(homeworkAdapter);
 
@@ -133,6 +153,58 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
 
         return view; //要改成回傳view
+    }
+
+    private void setupChart() {
+
+        //configure chart
+//        pieChart.setMaxAngle(180);
+//        pieChart.setRotationAngle(180);
+        pieChart.getDescription().setEnabled(false);
+//        pieChart.setUsePercentValues(true);
+        pieChart.animateX(1000);
+//        pieChart.setCenterTextRadiusPercent(20);
+        pieChart.animateY(1000);
+//        pieChart.animateX(1000);
+
+//
+//        Display display = getActivity().getWindowManager().getDefaultDisplay();
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        int height = displayMetrics.heightPixels;
+//        display.getMetrics(displayMetrics);
+//
+//        int height2 = pieChart.getHeight();
+//
+//        int offset = (int)(height * 2); /* percent to move */
+//
+//        RelativeLayout.LayoutParams rlParams =
+//                (RelativeLayout.LayoutParams)pieChart.getLayoutParams();
+//        rlParams.setMargins(0, 0, 0, -offset);
+//        pieChart.setLayoutParams(rlParams);
+
+        /* 取得各品牌車單月銷售量資料 */
+        List<PieEntry> pieEntries = getDoneEntries();
+
+        //用建構式放入資料、用方法設定UI
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "繳交情況");
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextSize(20);
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(20);
+
+        /* 使用官訂顏色範本，顏色不能超過5種，否則官定範本要加顏色 */
+//        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS); 預設顏色
+        pieDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.done_green),ContextCompat.getColor(getActivity(),R.color.undone_red));
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
+
+    private List<PieEntry> getDoneEntries() {
+        List<PieEntry> doneEntries = new ArrayList<>();
+        doneEntries.add(new PieEntry(doneCount, "已繳交"));
+        doneEntries.add(new PieEntry(unDoneCount, "未繳交"));
+        return doneEntries;
     }
 
     private void updateHomeworkChecked() {
@@ -159,6 +231,17 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 
                     Common.showToast(getActivity(), R.string.msg_UpdateSuccess);
                     getFragmentManager().popBackStack();
+//                    getDataFromDB();
+//                    setupChart();
+//                    layoutManager.scrollToPositionWithOffset(0, 0);
+//                    recyclerView.getLayoutManager().scrollToPosition(0);
+//                    recyclerView.setNestedScrollingEnabled(false);
+
+//                    recyclerView.smoothScrollToPosition(20);
+//                    recyclerView.scrollBy(50,100);
+//                    recyclerView.smoothScrollToPosition(0);
+//                    new LinearLayoutManager.scrollToPositionWithOffset(0, 0);
+//
 
 
                 }
@@ -225,6 +308,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     private void findViews(View view) {
         recyclerView = view.findViewById(R.id.rvCheckList);
         btCheck = view.findViewById(R.id.btCheckHomework);
+        pieChart = view.findViewById(R.id.pieChart);
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
 
@@ -248,6 +332,18 @@ public class TeacherHomeworkCheckFragment extends Fragment {
                 }.getType();
 
                 homeworkCheckList = gson.fromJson(jsonIn, listType);
+
+                //sort data for chart
+                doneCount = 0;
+                unDoneCount = 0;
+                for (HomeworkCheck homework : homeworkCheckList){
+                    if (homework.isHomeworkDone()){
+                        doneCount++;
+                    } else {
+                        unDoneCount++;
+                    }
+                }
+
 
 
             } catch (Exception e) {

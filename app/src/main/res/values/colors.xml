@@ -17,6 +17,8 @@
     <color name="formColor4">#bf1a8404</color>
     <color name="formColor5">#33ff5cfa</color>
     <color name="orange">#FF5722</color>
+    <color name="done_green">#46e213</color>
+    <color name="undone_red">#e8e11d1d</color>
 
 
 </resources>
