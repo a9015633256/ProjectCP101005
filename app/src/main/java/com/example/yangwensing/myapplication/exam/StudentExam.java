@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.yangwensing.myapplication.ExamSubject.AchievementFragment;
 import com.example.yangwensing.myapplication.ExamSubject.Exam;
-import com.example.yangwensing.myapplication.ExamSubject.ExamFragment;
-import com.example.yangwensing.myapplication.ExamSubject.UpDateSubject;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
@@ -36,6 +34,7 @@ public class StudentExam extends Fragment {
     private final static String TAG = "ExamFragment";
     private MyTask myTask;
     private RecyclerView recyclerView;
+    private List<SectionData> hashSet = new ArrayList<>();
     String user = "";
     String Classid = "";
     String Subject = "";
@@ -70,13 +69,29 @@ public class StudentExam extends Fragment {
                 Type listType = new TypeToken<List<Exam>>() {
                 }.getType();
                 exams = new Gson().fromJson(jsonIn, listType);
+
+                if (exams != null){
+                    for (Exam exam : exams){
+                        String examSubjectId = String.valueOf(exam.getExamsubjectid());
+                        int index = hashSet.indexOf(new SectionData(examSubjectId));
+                        if (index == -1){
+                            SectionData sectionData = new SectionData(examSubjectId);
+                            hashSet.add(sectionData);
+                            sectionData.add(exam);
+                        }else{
+                            hashSet.get(index).add(exam);
+                        }
+                    }
+                }
+
+
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
             }
             if (exams == null || exams.isEmpty()) {
                 Common.showToast(getActivity(), "No User Found");
             } else {
-                recyclerView.setAdapter(new StudentExam.ExamAdapter(getActivity(), exams));//context物件跟spots傳進來
+                recyclerView.setAdapter(new StudentExam.ExamAdapter(getActivity(),hashSet));//context物件跟spots傳進來
             }
         } else {
             Common.showToast(getActivity(), "No network connection available");
@@ -89,105 +104,159 @@ public class StudentExam extends Fragment {
     }
 
      class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
-         private LayoutInflater layoutInflater;
-         private List<Exam> exams;
-        public ExamAdapter(FragmentActivity activity, List<Exam> exams) {
-            this.exams = exams;
-            layoutInflater = LayoutInflater.from(activity);
+         private Context context;
+         private List<SectionData> hashSet;
+        public ExamAdapter(Context context, List<SectionData> hashSet) {
+            this.hashSet = hashSet;
+            this.context = context;
         }
+
 
          @NonNull
          @Override
          public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-             View itemView = layoutInflater.inflate(R.layout.student_examsubject_item, parent, false);
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+             View itemView = layoutInflater.inflate(R.layout.sujbect_title, parent, false);
              return new ViewHolder(itemView);
          }
 
          @Override
-         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+         public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
              final Bundle bundle = new Bundle();
-             final Exam exams1 = exams.get(position);
-             final String text = getString(R.string.ExamSubject1) + " " + exams1.getExamtitle();
 
-             Teacher = String.valueOf(exams1.getTeacherid());
-             Subject = String.valueOf(exams1.getExamsubjectid());
-             Achievement = String.valueOf(exams1.getAchievementid());
-             SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-             preferences.edit().putString("Subject", Subject)
-                     .putString("ClassID", Classid)
-                     .apply();
+             final SectionData sectionData = hashSet.get(position);
+             holder.tvSubjectTitle.setText(sectionData.getExamSujbectId());
+             int subjectID = 0;
+
+             for (int i = 0; i < sectionData.size(); i++) {
+                 final Exam exam = (Exam) sectionData.get(i);
+                 TextView tvSubject;
+                 TextView tvSignIn;
+                 ImageView imSignIn;
+                 tvSubject = holder.linearLayout.getChildAt(i).findViewById(R.id.tvExam);
+                 tvSubject.setText("考試科目 " + exam.getExamtitle());
+                 tvSubject.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                         Exam X = null;
+                         int id = exam.getSubjectid();
+                         if (Common.networkConnected(getActivity())) {
+                             JsonObject jsonObject = new JsonObject();
+                             jsonObject.addProperty("action", "findByitem");
+                             jsonObject.addProperty("item", id);
+                             try {
+                                 myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
+                                 String jsonIn = myTask.execute().get();
+                                 Log.d(TAG, jsonIn);
+                                 X = new Gson().fromJson(jsonIn, Exam.class);
+                             } catch (Exception e) {
+                                 Log.e(TAG, e.toString());
+                             }
+                             if (X == null) {
+                                 Common.showToast(getActivity(), "Not Found");
+                             } else {
+                                 String title = X.getTitle();
+                                 String date = X.getDate();
+                                 String content = X.getContext();
+                                 Bundle b = new Bundle();
+                                 Fragment fragment = new StudentExamQuery();
+                                 b.putString("title", title);
+                                 b.putString("date", date);
+                                 b.putString("content", content);
+                                 b.putString("id", String.valueOf(exam.getSubjectid()));
+                                 b.putString("ClassID", Classid);
+                                 fragment.setArguments(b);
+                                 FragmentManager fragmentManager = getFragmentManager();
+                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                 fragmentTransaction.replace(R.id.content, fragment);
+                                 fragmentTransaction.addToBackStack(null);
+                                 fragmentTransaction.commit();
+                                 recyclerView.getAdapter().notifyDataSetChanged();
 
 
-             bundle.putString("name", text);
-             holder.tvExam.setText(text);
-
-
-             holder.tvQuery.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Fragment fragment = new StudentExamQueryScore();
-                     bundle.putString("ID", Classid);
-                     Subject = String.valueOf(exams1.getSubjectid());
-                     Achievement = String.valueOf(exams1.getAchievementid());
-                     bundle.putString("Subject", Subject);
-                     bundle.putString("Achievement",Achievement);
-
-
-                     fragment.setArguments(bundle);
-
-                     FragmentManager fragmentManager = getFragmentManager();
-                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                     fragmentTransaction.replace(R.id.content, fragment);
-                     fragmentTransaction.addToBackStack(null);
-                     fragmentTransaction.commit();
-                 }
-             });
-
-
-
-             holder.itemView.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Exam X = null;
-
-                     String id = String.valueOf(exams1.getSubjectid());
-
-                     if (Common.networkConnected(getActivity())) {
-                         JsonObject jsonObject = new JsonObject();
-                         jsonObject.addProperty("action", "findByitem");
-                         jsonObject.addProperty("item", id);
-                         try {
-                             myTask = new MyTask(Common.URLForHen + "/LoginHelp", jsonObject.toString());
-                             String jsonIn = myTask.execute().get();
-                             Log.d(TAG, jsonIn);
-                             X = new Gson().fromJson(jsonIn, Exam.class);
-                         } catch (Exception e) {
-                             Log.e(TAG, e.toString());
-                         }
-                         if (X == null) {
-                             Common.showToast(getActivity(), "Not Found");
-                         } else {
-                             String title = X.getTitle();
-                             String date = X.getDate();
-                             String content = X.getContext();
-                             Bundle b = new Bundle();
-                             Fragment fragment = new StudentExamQuery();
-                             b.putString("title", title);
-                             b.putString("date", date);
-                             b.putString("content", content);
-                             b.putString("id", String.valueOf(exams1.getSubjectid()));
-                             b.putString("ClassID", Classid);
-                             fragment.setArguments(b);
-                             FragmentManager fragmentManager = getFragmentManager();
-                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                             fragmentTransaction.replace(R.id.content, fragment);
-                             fragmentTransaction.addToBackStack(null);
-                             fragmentTransaction.commit();
-                             recyclerView.getAdapter().notifyDataSetChanged();
-
+                             }
 
                          }
 
+                     }
+                 });
+                 String text = exam.getExamtitle();
+                 tvSignIn = holder.linearLayout.getChildAt(i).findViewById(R.id.tvSignIn);
+                 tvSignIn.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+
+                         Fragment fragment = new StudentExamQueryScore();
+                         bundle.putString("ID", Classid);
+                         Subject = String.valueOf(exam.getSubjectid());
+                         Achievement = String.valueOf(exam.getAchievementid());
+
+                         bundle.putString("Subject", Subject);
+                         bundle.putString("Achievement", Achievement);
+
+
+                         fragment.setArguments(bundle);
+
+                         FragmentManager fragmentManager = getFragmentManager();
+                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                         fragmentTransaction.replace(R.id.content, fragment);
+                         fragmentTransaction.addToBackStack(null);
+                         fragmentTransaction.commit();
+                     }
+                 });
+                 imSignIn = holder.linearLayout.getChildAt(i).findViewById(R.id.ivEditAchievement);
+                 imSignIn.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                         Fragment fragment = new StudentExamQueryScore();
+                         bundle.putString("ID", Classid);
+                         Subject = String.valueOf(exam.getSubjectid());
+                         Achievement = String.valueOf(exam.getAchievementid());
+                         bundle.putString("Subject", Subject);
+                         bundle.putString("Achievement", Achievement);
+
+
+                         fragment.setArguments(bundle);
+
+                         FragmentManager fragmentManager = getFragmentManager();
+                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                         fragmentTransaction.replace(R.id.content, fragment);
+                         fragmentTransaction.addToBackStack(null);
+                         fragmentTransaction.commit();
+                     }
+                 });
+
+
+                 Teacher = String.valueOf(exam.getTeacherid());
+                 Subject = String.valueOf(exam.getExamsubjectid());
+                 Achievement = String.valueOf(exam.getAchievementid());
+                 SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+                 preferences.edit().putString("Subject", Subject)
+                         .putString("ClassID", Classid)
+                         .apply();
+
+
+                 bundle.putString("name", text);
+
+
+
+             }
+             for (int i = sectionData.size(); i < getMaxSujbectExam(); i++) {
+                 holder.linearLayout.getChildAt(i).setVisibility(View.GONE);
+
+             }
+
+
+             holder.itemView.findViewById(R.id.tvSubjectTitle).setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     if (holder.linearLayout.getVisibility() == View.GONE) {
+                         holder.linearLayout.setVisibility(View.VISIBLE);
+
+                         recyclerView.smoothScrollToPosition(position + hashSet.size());
+
+                     } else {
+                         holder.linearLayout.setVisibility(View.GONE);
                      }
 
                  }
@@ -195,18 +264,55 @@ public class StudentExam extends Fragment {
          }
 
 
+
+
          @Override
          public int getItemCount() {
-             return exams.size();
+             return hashSet.size();
          }
 
           class ViewHolder extends RecyclerView.ViewHolder {
-            TextView tvExam,tvQuery;
+           TextView tvSubjectTitle;
+           LinearLayout linearLayout;
              public ViewHolder(View itemView) {
                  super(itemView);
-                 tvExam = itemView.findViewById(R.id.tvExam);
-                 tvQuery = itemView.findViewById(R.id.tvQuery);
+                tvSubjectTitle = itemView.findViewById(R.id.tvSubjectTitle);
+                linearLayout = itemView.findViewById(R.id.SujbectLinear);
+                LayoutInflater layoutInflater = LayoutInflater.from(context);
+                int maxSubjctExam = getMaxSujbectExam();
+                for(int i = 0;i < maxSubjctExam; i ++){
+                    View childView = layoutInflater.inflate(R.layout.subject_item,linearLayout,true);
+                    childView.setId(i);
+                    linearLayout.setVisibility(View.GONE);
+                }
+
+
              }
          }
+         int getMaxSujbectExam(){
+             int maxSubjectExam = 0;
+             for(int i = 0; i < hashSet.size(); i ++){
+                 if (maxSubjectExam < hashSet.get(i).size()){
+                     maxSubjectExam = hashSet.get(i).size();
+                 }
+             }
+             return  maxSubjectExam;
+         }
      }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (myTask != null) {
+            myTask.cancel(true);
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        hashSet.clear();
+    }
 }
