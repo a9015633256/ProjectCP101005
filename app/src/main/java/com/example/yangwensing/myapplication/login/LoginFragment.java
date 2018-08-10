@@ -47,6 +47,7 @@ public class LoginFragment extends Fragment {
     private FloatingActionButton fabStudent;
     private FloatingActionButton fabTeacher;
 
+
     //帳號比對格式
     String accoutwho = "\\w{1,}@{1,1}\\w{1,}\\.\\w{1,}\\.{0,}\\w{1,}";
 
@@ -188,6 +189,10 @@ public class LoginFragment extends Fragment {
 
             }
         });
+
+        //隱藏捷徑
+//        fabTeacher.setVisibility(View.GONE);
+//        fabStudent.setVisibility(View.GONE);
 
 
     }

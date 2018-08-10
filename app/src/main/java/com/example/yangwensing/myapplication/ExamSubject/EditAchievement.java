@@ -1,24 +1,34 @@
 package com.example.yangwensing.myapplication.ExamSubject;
 
+import android.app.Application;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
@@ -42,6 +52,10 @@ public class EditAchievement extends Fragment {
     private ImageView ivAnalysis;
     private Button bttUpete,btSure;
     private BottomNavigationView bottomNavigationView;
+//    private ScrollView scrollView;
+
+
+
 
     @Nullable
     @Override
@@ -55,12 +69,10 @@ public class EditAchievement extends Fragment {
         tvClassname = view.findViewById(R.id.tvClassc);
         tvTeacherName = view.findViewById(R.id.tvTeacherr);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
+
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
         bttUpete = view.findViewById(R.id.btUpdate);
         bttUpete.setVisibility(View.GONE);
-
-
-
 
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();
@@ -91,9 +103,6 @@ public class EditAchievement extends Fragment {
             }
         });
 
-
-
-
         List<Exam> exams = new ArrayList<>();
 
         if (Common.networkConnected(getActivity())) {
@@ -103,7 +112,6 @@ public class EditAchievement extends Fragment {
             jsonObject.addProperty("Achievementid",AchievementID);
             jsonObject.addProperty("ExamSubjectID", ExamSubjectID);
             String jsonOut = jsonObject.toString();
-
 
             myTask = new MyTask(url, jsonOut);
             try {
@@ -123,6 +131,19 @@ public class EditAchievement extends Fragment {
         } else {
             Common.showToast(getActivity(), "No network connection available");
         }
+
+        //點擊recyclerView會收鍵盤->防止因有鍵盤時滑動而資料錯誤
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                return false;
+            }
+        });
+
+
         return view;
     }
 
@@ -161,7 +182,7 @@ public class EditAchievement extends Fragment {
             final Exam exam = exams.get(position);
             String nember = exam.getStudentid();
             final String name = exam.getName();
-            String score = String.valueOf(exam.getScore());
+            final String score = String.valueOf(exam.getScore());
             holder.tvNumber.setText(nember);
             holder.tvName.setText(name);
             holder.etAchievement.setText(score);
@@ -171,7 +192,11 @@ public class EditAchievement extends Fragment {
             tvSubject.setText((getText(R.string.ExamSubject1)+t));
             tvClassname .setText(c);
             tvTeacherName.setText(e);
-
+            if (position == exams.size() - 1 ) {
+                holder.linearLayout.setVisibility(View.VISIBLE);
+            } else {
+                holder.linearLayout.setVisibility(View.GONE);
+            }
             holder.etAchievement.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -245,13 +270,40 @@ public class EditAchievement extends Fragment {
          class ViewHolder extends RecyclerView.ViewHolder {
             TextView tvNumber, tvName;
              EditText etAchievement;
+             LinearLayout linearLayout;
 
              public ViewHolder(View itemView) {
                 super(itemView);
                  tvNumber = itemView.findViewById(R.id.tvNumber);
                  tvName = itemView.findViewById(R.id.tvName);
                  etAchievement = itemView.findViewById(R.id.etAchievement);
+                 linearLayout = itemView.findViewById(R.id.linearLayout);
             }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    protected class MyScrollListener implements AbsListView.OnScrollListener, View.OnScrollChangeListener {
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem,
+                             int visibleItemCount, int totalItemCount) {
+            // do nothing
+        }
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+            if (SCROLL_STATE_TOUCH_SCROLL == scrollState) {
+                View currentFocus = getActivity().getCurrentFocus();
+                if (currentFocus != null) {
+                    currentFocus.clearFocus();
+                }
+            }
+        }
+
+        @Override
+        public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
         }
     }
 }

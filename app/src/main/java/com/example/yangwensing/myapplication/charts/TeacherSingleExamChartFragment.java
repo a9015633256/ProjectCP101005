@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -213,7 +214,10 @@ public class TeacherSingleExamChartFragment extends Fragment {
         lineChart.setBackgroundColor(Color.TRANSPARENT); //背景透明
         lineChart.getLegend().setEnabled(false); //隱藏顏色label(每個顏色代表什麼意義的label)
         lineChart.setTouchEnabled(false); //關閉圖表互動功能
-
+        lineChart.animateX(500);
+        lineChart.animateY(2500, Easing.EasingOption.EaseOutBack);
+//        lineChart.animateXY(2000,2000, Easing.EasingOption.EaseOutBack, Easing.EasingOption.EaseInOutBack);
+//
         /* 取得並設定X軸標籤文字 */
         XAxis xAxis = lineChart.getXAxis(); //沒辦法放在下面
         /* 設定最大值到100(分) */

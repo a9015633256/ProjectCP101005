@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -131,11 +132,12 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
 
                         if (count == 0) {
 
-                            Common.showToast(getActivity(), "Update homework failed!!");
+                            Common.showToast(getActivity(), "更新失敗");
                         } else {
 
-                            Common.showToast(getActivity(), "Update succeeded!!");
+                            Common.showToast(getActivity(), "更新成功！");
                             getFragmentManager().popBackStack();
+
 
 
                         }
@@ -264,10 +266,10 @@ public class TeacherHomeworkUpdateDeleteFragment extends Fragment {
                             count = Integer.valueOf(jsonIn);
 
                             if (count == 0) {
-                                Common.showToast(getActivity(), "Delete homework failed!!");
+                                Common.showToast(getActivity(), "刪除失敗");
                             } else {
 
-                                Common.showToast(getActivity(), "Delete succeeded!!");
+                                Common.showToast(getActivity(), "刪除成功！");
                                 getFragmentManager().popBackStack();
 
 

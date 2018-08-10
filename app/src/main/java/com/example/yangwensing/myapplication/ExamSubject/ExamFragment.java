@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -58,7 +59,8 @@ public class ExamFragment extends Fragment {
         Classid = String.valueOf(preferences.getInt("classId",0));
 
 
-        Button btAdd = view.findViewById(R.id.btAdd);
+//        Button btAdd = view.findViewById(R.id.btAdd);
+        FloatingActionButton btAdd = view.findViewById(R.id.btAdd);
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

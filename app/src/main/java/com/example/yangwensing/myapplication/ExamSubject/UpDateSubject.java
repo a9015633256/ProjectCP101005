@@ -171,10 +171,11 @@ public class UpDateSubject extends Fragment {
                     Fragment fragment = new ExamFragment();
                     fragment.setArguments(b);
                     FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_content, fragment);
+                    fragmentManager.popBackStack();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.main_content, fragment);
 //                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+//                    fragmentTransaction.commit();
 
                 }
 //

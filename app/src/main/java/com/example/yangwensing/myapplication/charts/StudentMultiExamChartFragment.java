@@ -40,12 +40,11 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class StudentSingleExamChartFragment extends Fragment {
-    private static final String TAG = "StudentSingleExamChartFragment";
+public class StudentMultiExamChartFragment extends Fragment {
+    private static final String TAG = "StudentMultiExamChartFragment";
     private EditText etScoreAPlus, etScoreA, etScoreB, etScoreC, etScoreD, etScoreE, etScoreAverage, etScoreHighest, etScoreLowest, etStudentScore, etStudentRanking, etPRValue;
     private TextView tvExamName;
     private BarChart lineChart;
