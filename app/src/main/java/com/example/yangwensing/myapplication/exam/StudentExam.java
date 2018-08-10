@@ -125,8 +125,29 @@ public class StudentExam extends Fragment {
              final Bundle bundle = new Bundle();
 
              final SectionData sectionData = hashSet.get(position);
-             holder.tvSubjectTitle.setText(sectionData.getExamSujbectId());
-             int subjectID = 0;
+             switch (sectionData.getExamSujbectId()){
+                 case "6":
+                     holder.tvSubjectTitle.setText("JAVA");
+                     break;
+                 case "7":
+                     holder.tvSubjectTitle.setText("Android_Studio");
+                     break;
+                 case "8":
+                     holder.tvSubjectTitle.setText("Math");
+                     break;
+                 case "9":
+                     holder.tvSubjectTitle.setText("English");
+                     break;
+                 case "10":
+                     holder.tvSubjectTitle.setText("Chinese");
+                     break;
+                     default:
+                         holder.tvSubjectTitle.setText("12345");
+                         break;
+             }
+
+
+
 
              for (int i = 0; i < sectionData.size(); i++) {
                  final Exam exam = (Exam) sectionData.get(i);
@@ -253,7 +274,6 @@ public class StudentExam extends Fragment {
                      if (holder.linearLayout.getVisibility() == View.GONE) {
                          holder.linearLayout.setVisibility(View.VISIBLE);
 
-                         recyclerView.smoothScrollToPosition(position + hashSet.size());
 
                      } else {
                          holder.linearLayout.setVisibility(View.GONE);

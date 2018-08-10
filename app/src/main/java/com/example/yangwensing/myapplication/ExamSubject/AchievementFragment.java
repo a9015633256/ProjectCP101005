@@ -66,17 +66,7 @@ public class AchievementFragment extends Fragment {
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
         bttUpete.setVisibility(View.GONE);
 
-//        btSend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                List<Exam> exams = new ArrayList<>();
-//                ;
-//                JsonObject jsonObject = new JsonObject();
-//                jsonObject.addProperty("action","ii");
-//                jsonObject.addProperty("t",new  Gson().toJson(exams));
-//
-//            }
-//        });
+
 
         Bundle b = getArguments();
         Classid = b.getString("ID");
