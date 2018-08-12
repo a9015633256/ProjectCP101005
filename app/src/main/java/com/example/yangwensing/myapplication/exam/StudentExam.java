@@ -3,11 +3,13 @@ package com.example.yangwensing.myapplication.exam;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -41,12 +43,14 @@ public class StudentExam extends Fragment {
     String Teacher = "";
     String teacherid = "";
     String Achievement = "";
+    SwipeRefreshLayout refresh;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.student_examsubject, container, false);
+        final View view = inflater.inflate(R.layout.student_examsubject, container, false);
         getActivity().setTitle(R.string.title_examOverview);
+        refresh = view.findViewById(R.id.swipeRefresh);
         recyclerView = view.findViewById(R.id.studentExam);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         List<Exam> exams = new ArrayList<>();
@@ -54,6 +58,30 @@ public class StudentExam extends Fragment {
         Classid = String.valueOf(preferences.getInt("studentClassID",0));
 
 
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                hashSet.clear();
+                refresh.setRefreshing(true);
+                (new Handler()).postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        refresh.setRefreshing(false);
+                        getExam();
+
+                    }
+                },1200);
+            }
+        });
+
+        getExam();
+        return  view;
+    }
+
+
+    public void getExam(){
+        List<Exam> exams = new ArrayList<>();
         if (Common.networkConnected(getActivity())) {
             String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
@@ -70,6 +98,7 @@ public class StudentExam extends Fragment {
                 }.getType();
                 exams = new Gson().fromJson(jsonIn, listType);
 
+
                 if (exams != null){
                     for (Exam exam : exams){
                         String examSubjectId = String.valueOf(exam.getExamsubjectid());
@@ -80,10 +109,12 @@ public class StudentExam extends Fragment {
                             sectionData.add(exam);
                         }else{
                             hashSet.get(index).add(exam);
+
                         }
                     }
                 }
 
+                recyclerView.getAdapter().notifyDataSetChanged();
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());
@@ -96,20 +127,20 @@ public class StudentExam extends Fragment {
         } else {
             Common.showToast(getActivity(), "No network connection available");
         }
-
-
-
-
-        return  view;
     }
 
-     class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
+
+
+    class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
          private Context context;
          private List<SectionData> hashSet;
         public ExamAdapter(Context context, List<SectionData> hashSet) {
             this.hashSet = hashSet;
             this.context = context;
         }
+
+
+
 
 
          @NonNull
@@ -203,6 +234,7 @@ public class StudentExam extends Fragment {
                  });
                  String text = exam.getExamtitle();
                  tvSignIn = holder.linearLayout.getChildAt(i).findViewById(R.id.tvSignIn);
+                 tvSignIn.setText("查看成績");
                  tvSignIn.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
@@ -273,7 +305,6 @@ public class StudentExam extends Fragment {
                  public void onClick(View v) {
                      if (holder.linearLayout.getVisibility() == View.GONE) {
                          holder.linearLayout.setVisibility(View.VISIBLE);
-
 
                      } else {
                          holder.linearLayout.setVisibility(View.GONE);
