@@ -50,7 +50,6 @@ public class CreateSubject extends Fragment {
         etContent = view.findViewById(R.id.etContent);
         btSure = view.findViewById(R.id.btSure);
         etDate.setInputType(InputType.TYPE_NULL);
-        btUpdate = view.findViewById(R.id.btUpdate);
 
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 

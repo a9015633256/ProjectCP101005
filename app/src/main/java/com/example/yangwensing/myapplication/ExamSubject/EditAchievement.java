@@ -71,8 +71,6 @@ public class EditAchievement extends Fragment {
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
 
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
-        bttUpete = view.findViewById(R.id.btUpdate);
-        bttUpete.setVisibility(View.GONE);
 
         btSure = view.findViewById(R.id.btSend);
         Bundle b = getArguments();

@@ -69,7 +69,6 @@ public class AchievementFragment extends Fragment {
         tvClass = view.findViewById(R.id.tvClassc);
         ivAnalysis = view.findViewById(R.id.ivAnalysis);
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
-        bttUpete.setVisibility(View.GONE);
 
 
 
