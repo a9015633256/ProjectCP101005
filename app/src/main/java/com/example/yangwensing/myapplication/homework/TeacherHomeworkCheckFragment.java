@@ -162,6 +162,7 @@ public class TeacherHomeworkCheckFragment extends Fragment {
 //        pieChart.setMaxAngle(180);
 //        pieChart.setRotationAngle(180);
         pieChart.getDescription().setEnabled(false);
+        pieChart.getLegend().setEnabled(false);
 //        pieChart.setUsePercentValues(true);
         pieChart.animateX(1000);
 //        pieChart.setCenterTextRadiusPercent(20);
