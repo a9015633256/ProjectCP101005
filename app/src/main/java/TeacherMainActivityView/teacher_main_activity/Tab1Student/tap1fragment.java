@@ -167,7 +167,7 @@ public class tap1fragment extends Fragment {
             studentGetImageTask = new StudentGetImageTask(url, id, imageSize, myViewHolder.studentImageview);
             studentGetImageTask.execute();
             myViewHolder.studentName.setText(classStudentMember.getStudent_Name());
-            myViewHolder.studentPhone.setText(classStudentMember.getStudent_Phone());
+            myViewHolder.studentPhone.setText("0" + classStudentMember.getStudent_Phone());
 
 
             myViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {//長按刪除，更新的部分

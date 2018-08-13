@@ -140,6 +140,8 @@ public class StudentInfoFragment extends Fragment {
 
             //取得照片部分
             int imageSize = getResources().getDisplayMetrics().widthPixels / 3;
+            System.out.print(imageSize);
+
             getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize);
             try {
                 Bitmap bitmap = getStudentPicTask.execute().get();

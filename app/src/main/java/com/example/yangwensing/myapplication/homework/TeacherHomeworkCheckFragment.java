@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.yangwensing.myapplication.R;
+import com.example.yangwensing.myapplication.charts.PeopleCountValueFormatter;
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.github.mikephil.charting.animation.Easing;
@@ -167,20 +168,6 @@ public class TeacherHomeworkCheckFragment extends Fragment {
         pieChart.animateY(1000);
 //        pieChart.animateX(1000);
 
-//
-//        Display display = getActivity().getWindowManager().getDefaultDisplay();
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        int height = displayMetrics.heightPixels;
-//        display.getMetrics(displayMetrics);
-//
-//        int height2 = pieChart.getHeight();
-//
-//        int offset = (int)(height * 2); /* percent to move */
-//
-//        RelativeLayout.LayoutParams rlParams =
-//                (RelativeLayout.LayoutParams)pieChart.getLayoutParams();
-//        rlParams.setMargins(0, 0, 0, -offset);
-//        pieChart.setLayoutParams(rlParams);
 
         /* 取得各品牌車單月銷售量資料 */
         List<PieEntry> pieEntries = getDoneEntries();
@@ -190,11 +177,12 @@ public class TeacherHomeworkCheckFragment extends Fragment {
         pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(20);
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(20);
+        pieDataSet.setValueFormatter(new PeopleCountValueFormatter());
 
         /* 使用官訂顏色範本，顏色不能超過5種，否則官定範本要加顏色 */
 //        pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS); 預設顏色
-        pieDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.done_green),ContextCompat.getColor(getActivity(),R.color.undone_red));
+        pieDataSet.setColors(ContextCompat.getColor
+                (getActivity(),R.color.done_green),ContextCompat.getColor(getActivity(),R.color.undone_red));
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
         pieChart.invalidate();
@@ -208,6 +196,13 @@ public class TeacherHomeworkCheckFragment extends Fragment {
     }
 
     private void updateHomeworkChecked() {
+
+        if (newHomeworkCheckList.size() == 0){
+            Common.showToast(getActivity(), R.string.msg_UpdateSuccess);
+            getFragmentManager().popBackStack();
+            return;
+        }
+
 
         if (Common.networkConnected(getActivity())) {
 

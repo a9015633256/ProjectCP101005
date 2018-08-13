@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -195,6 +196,7 @@ public class StudentHomeworkFragment extends Fragment {
         public void onBindViewHolder(@NonNull final HomeworkViewHolder homeworkViewHolder, final int position) {
             final AssignDate assignDate = assignDateList.get(position);
             homeworkViewHolder.textView.setText(assignDate.getFormattedDate());
+            homeworkViewHolder.imageView.setVisibility(View.GONE);
 
             //將個別數據帶入子視窗
             for (int i = 0; i < assignDate.size(); i++) {
@@ -211,6 +213,7 @@ public class StudentHomeworkFragment extends Fragment {
                 tvIsCompleted = homeworkViewHolder.linearLayout.getChildAt(i).findViewById(R.id.tvIsCompleted);
                 if (!homeworkIsDone.isHomeworkDone()) {
                     tvIsCompleted.setText("未完成");
+                    homeworkViewHolder.imageView.setVisibility(View.VISIBLE);
                 }
 
                 homeworkViewHolder.linearLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
@@ -264,12 +267,14 @@ public class StudentHomeworkFragment extends Fragment {
 
         class HomeworkViewHolder extends RecyclerView.ViewHolder {
             private TextView textView;
+            private ImageView imageView;
             private LinearLayout linearLayout;
 
 
             HomeworkViewHolder(View itemView) {
                 super(itemView);
                 this.textView = itemView.findViewById(R.id.tvDate);
+                this.imageView = itemView.findViewById(R.id.ivWarning);
                 this.linearLayout = itemView.findViewById(R.id.llhomeworkDetail); //連接放childView的linearLayout
 
                 LayoutInflater layoutInflater = LayoutInflater.from(context);

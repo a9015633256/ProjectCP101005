@@ -43,7 +43,7 @@
     <string name="text_AddHomework">建立</string>
     <string name="text_no_network">目前無網路連線可用!</string>
     <string name="text_no_server">目前無法連接到伺服器! 請稍後再嘗試!</string>
-    <string name="msg_data_error">資料錯誤! 請重啟App!</string>
+    <string name="msg_data_error">資料錯誤! 無法繼續!</string>
     <string name="text_updateHomework">更新</string>
     <string name="title_homeworkUpdateDelete">更新作業</string>
     <string name="text_deleteHomework">刪除作業</string>
