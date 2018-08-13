@@ -53,7 +53,7 @@ public class CreateSubject extends Fragment {
 
         bottomNavigationView = getActivity().findViewById(R.id.btNavigation_Bar);
 
-        btUpdate.setVisibility(View.GONE);
+
         Bundle b = getArguments();
         Classid = b.getString("ClassID");
 
