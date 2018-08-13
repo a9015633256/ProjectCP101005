@@ -134,7 +134,7 @@ public class StudentInfoFragment extends Fragment {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Common.showToast(getActivity(), R.string.text_no_server);
+//                Common.showToast(getActivity(), R.string.text_no_server);
 
             }
 

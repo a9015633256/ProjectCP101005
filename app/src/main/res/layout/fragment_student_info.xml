@@ -42,7 +42,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_studentId"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoId"
@@ -53,7 +53,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="number"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
@@ -72,7 +71,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_class"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoClassName"
@@ -83,7 +82,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
 
@@ -112,7 +110,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
@@ -129,7 +126,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_gender"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoGender"
@@ -140,7 +137,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
@@ -157,7 +153,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_dayOfBirth"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoDayOfBirth"
@@ -169,7 +165,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="text"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
@@ -186,7 +181,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_phoneNumber"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoPhoneNumber"
@@ -197,7 +192,6 @@
                     android:background="@null"
                     android:enabled="false"
                     android:inputType="phone"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
@@ -214,7 +208,7 @@
                     android:layout_marginStart="20dp"
                     android:text="@string/text_address"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/tvStudentInfoAddress"
@@ -226,7 +220,6 @@
                     android:enabled="false"
                     android:gravity="top"
                     android:lines="5"
-                    android:text="text"
                     android:textColor="@color/colorPrimaryDark" />
 
 
