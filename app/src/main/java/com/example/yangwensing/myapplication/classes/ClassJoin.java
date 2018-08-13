@@ -230,7 +230,7 @@ public class ClassJoin extends Fragment {
 
                     ClassID = String.valueOf(classs.getId());
                     SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-                    Teacherid = preferences.getInt("teacherid", 0);
+                    Teacherid = preferences.getInt("teacherId", 0);
 
                     if (Common.networkConnected(getActivity())) {
                         JsonObject jsonObject = new JsonObject();
