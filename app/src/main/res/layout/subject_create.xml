@@ -74,26 +74,14 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btUpdate"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignBottom="@id/btSure"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="40dp"
-            android:background="@drawable/button"
-            android:text="@string/sure"
-            android:textColor="#ffffff" />
-
-        <Button
             android:id="@+id/btSure"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="200dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/button"
-            android:text="@string/Sure"
+            android:text="@string/sure"
             android:textColor="#ffffff" />
     </RelativeLayout>
 </LinearLayout>

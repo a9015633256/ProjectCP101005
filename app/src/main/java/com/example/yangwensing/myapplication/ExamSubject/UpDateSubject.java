@@ -57,7 +57,7 @@ public class UpDateSubject extends Fragment {
         etTitle.setText(title);
         etDate.setText(date);
         etContent.setText(content);
-        btUpdate.setOnClickListener(new View.OnClickListener() {
+        btSure.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Bundle b = getArguments();
@@ -83,8 +83,34 @@ public class UpDateSubject extends Fragment {
                        Common.showToast(getActivity(),"update fail");
                    }else {
                        Common.showToast(getActivity(),"update success");
+                       boolean isValid = true;
+                       String Date = etDate.getText().toString();
+                       String Title = etTitle.getText().toString();
+                       String Context = etContent.getText().toString();
 
-                   }
+
+                       if (Date.trim().isEmpty()) {
+                           etDate.setError("IsValid Date");
+                           isValid = false;
+                       }
+                       if (Title.trim().isEmpty()) {
+                           etTitle.setError("IsValid Title");
+                           isValid = false;
+                       }
+                       if (Context.trim().isEmpty()) {
+                           etContent.setError("IsValid Context");
+                           isValid = false;
+                       }
+                       if (isValid) {
+
+                       }
+                           b.putString("ClassID",ClassID);
+                           Fragment fragment = new ExamFragment();
+                           fragment.setArguments(b);
+                           FragmentManager fragmentManager = getFragmentManager();
+                           fragmentManager.popBackStack();
+
+                       }
                }
            }
        });
@@ -144,44 +170,7 @@ public class UpDateSubject extends Fragment {
 
             }
         });
-        btSure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isValid = true;
-                String Date = etDate.getText().toString();
-                String Title = etTitle.getText().toString();
-                String Context = etContent.getText().toString();
 
-
-                if (Date.trim().isEmpty()) {
-                    etDate.setError("IsValid Date");
-                    isValid = false;
-                }
-                if (Title.trim().isEmpty()) {
-                    etTitle.setError("IsValid Title");
-                    isValid = false;
-                }
-                if (Context.trim().isEmpty()) {
-                    etContent.setError("IsValid Context");
-                    isValid = false;
-                }
-                if (isValid) {
-                    Bundle b = new Bundle();
-                    b.putString("ClassID",ClassID);
-                    Fragment fragment = new ExamFragment();
-                    fragment.setArguments(b);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.popBackStack();
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.replace(R.id.main_content, fragment);
-//                    fragmentTransaction.addToBackStack(null);
-//                    fragmentTransaction.commit();
-
-                }
-//
-            }
-
-        });
 
         return view;
     }
