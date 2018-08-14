@@ -1,6 +1,9 @@
 package com.example.yangwensing.myapplication.login;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,8 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yangwensing.myapplication.chat.ChatMessage;
+import com.example.yangwensing.myapplication.chat.Message;
 import com.example.yangwensing.myapplication.classes.ClassManager;
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.homework.Homework;
@@ -29,9 +38,14 @@ import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.yangwensing.myapplication.info.StudentInfoEditFragment.TAG;
+import static com.example.yangwensing.myapplication.main.Common.chatWebSocketClient;
 
 /**
  * Created by nameless on 2018/4/16.
@@ -44,6 +58,7 @@ public class LoginFragment extends Fragment {
     private int studentClassId;//BoHan
     private int teacherid;
     private int subjectid;
+    private String accountname;
     private FloatingActionButton fabStudent;
     private FloatingActionButton fabTeacher;
 
@@ -114,6 +129,7 @@ public class LoginFragment extends Fragment {
                                 .putString("name", user)
                                 .putInt("teacherId", teacherid)
                                 .putInt("subjectId",subjectid)
+                                .putString("name",accountname)
                                 .apply();
 
                         FragmentManager fragmentManager = getFragmentManager();
@@ -130,6 +146,7 @@ public class LoginFragment extends Fragment {
                         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
                         preferences.edit()
                                 .putString("studentnumber", user)
+                                .putString("name",accountname)
                                 .apply();
 
                         //底部導覽列選第一項
@@ -137,7 +154,8 @@ public class LoginFragment extends Fragment {
                         bnForStudent.setVisibility(View.VISIBLE);
 
                     }
-
+                    Common.connectServer(getActivity(),accountname);
+                    Log.d(TAG, "onClick: " + accountname );
 
                     Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
 
@@ -225,8 +243,12 @@ public class LoginFragment extends Fragment {
                 String jsonIN = loginTask.execute().get();
                 jsonObject = new Gson().fromJson(jsonIN, JsonObject.class);
                 isUserValid = jsonObject.get("isUserValid").getAsBoolean();
+                accountname = jsonObject.get("name").getAsString();
                 teacherid = jsonObject.get("id").getAsInt();
                 subjectid = jsonObject.get("subject").getAsInt();
+
+
+                System.out.print("iiiiiiiiii" + accountname);
 
             } catch (Exception e) {
                 Log.e(TAG, e.toString());

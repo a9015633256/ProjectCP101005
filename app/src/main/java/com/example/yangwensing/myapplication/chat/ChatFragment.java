@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.example.yangwensing.myapplication.R;
 import com.example.yangwensing.myapplication.info.StudentInfoEditFragment;
-import com.example.yangwensing.myapplication.login.LoginFragment;
+
 import com.example.yangwensing.myapplication.main.Common;
 import com.example.yangwensing.myapplication.main.MyTask;
 import com.google.gson.Gson;
@@ -57,6 +57,7 @@ public class ChatFragment extends Fragment {
 
     String receiver="";
     String senderte="";
+    String accountname = "";
     private LocalBroadcastManager broadcastManager;
     private LinearLayout layout;
     private ScrollView scrollView;
@@ -79,6 +80,9 @@ public class ChatFragment extends Fragment {
         btsend = view.findViewById(R.id.btSend);
         etmessage = view.findViewById(R.id.etMessage);
 
+        SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
+        accountname = preferences.getString("name",accountname);
+
         //判斷是從哪個頁面過來的
         if (this.getTag() != null && this.getTag().equals("FromMotherList")) {
             bottomNavigationView = getActivity().findViewById(R.id.bnForStudent);
@@ -98,13 +102,13 @@ public class ChatFragment extends Fragment {
 
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         registerChatReceiver();
-        Common.connectServer(getActivity(), senderte);
+
 
         String url = Common.URL + "/LoginHelp";
         List<Message> messages = null;
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("action", "getmessage");
-        jsonObject.addProperty("sender",senderte);
+        jsonObject.addProperty("sender",accountname);
         jsonObject.addProperty("receiver",receiver);
         String jsonOut = jsonObject.toString();
         messageTask = new MyTask(url, jsonOut);
@@ -122,11 +126,11 @@ public class ChatFragment extends Fragment {
             Toast.makeText(getActivity(), "empty", Toast.LENGTH_SHORT).show();
 
         } else {
-            String sender = senderte;
+            String sender = accountname;
             View viewr;
             Toast.makeText(getActivity(), "have message", Toast.LENGTH_SHORT).show();
             for (int i=0; i<messages.size(); i++) {
-                if (senderte.equals(messages.get(i).getSender())){
+                if (accountname.equals(messages.get(i).getSender())){
                     String text = sender + ":\n " + messages.get(i).getMessage() + "\n";
 
 
@@ -163,7 +167,7 @@ public class ChatFragment extends Fragment {
                     return;
                 }
 
-                String sender = senderte;
+                String sender = accountname;
                 // 將欲傳送訊息先顯示在TextView上
 
                 showMessage(sender, message, false);
@@ -241,6 +245,6 @@ public class ChatFragment extends Fragment {
         super.onStop();
         //重新顯示底部導覽列
         bottomNavigationView.setVisibility(View.VISIBLE);
-        Common.disconnectServer();
+
     }
 }

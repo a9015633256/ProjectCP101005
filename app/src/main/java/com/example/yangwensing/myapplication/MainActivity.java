@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(i);
                         Common.disconnectServer();
 
+
                         alarmType = 0;
                         break;
                     default:
