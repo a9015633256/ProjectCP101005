@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorTextBlack"
                     android:text="@string/text_studentId" />
 
@@ -75,8 +75,8 @@
                     android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp"
-                    android:text="610789" />
+                    android:textSize="20sp"
+                    android:text="" />
 
 
             </LinearLayout>
@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:text="@string/text_class"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorTextBlack"/>
 
                 <EditText
@@ -103,7 +103,7 @@
                     android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="CP101" />
+                    android:text="" />
 
 
             </LinearLayout>
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:text="@string/text_name" />
 
                 <EditText
@@ -130,7 +130,7 @@
                     android:inputType="text"
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="王大民" />
+                    android:text="" />
 
 
             </LinearLayout>
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorTextBlack"
                     android:text="@string/text_gender" />
 
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
-                    android:text="男"
+                    android:text="女"
                     android:textColor="@color/colorPrimaryDark" />
 
             </LinearLayout>
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/colorTextBlack"
                     android:text="@string/text_dayOfBirth" />
 
@@ -180,7 +180,7 @@
                     android:inputType="text"
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:text="1999/04/04" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorTextBlack"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:text="@string/text_phoneNumber" />
 
                 <EditText
@@ -206,7 +206,7 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:inputType="phone"
-                    android:text="0912345678" />
+                    android:text="" />
 
 
             </LinearLayout>

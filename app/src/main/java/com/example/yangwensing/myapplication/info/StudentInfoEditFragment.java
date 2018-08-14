@@ -45,6 +45,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -326,7 +327,9 @@ public class StudentInfoEditFragment extends Fragment {
                 etGender.setText("女");
 
             }
-            etDayOfBirth.setText(simpleDateFormat.format(student.getDayOfBirth()));
+            if (student.getDayOfBirth() != null){
+                etDayOfBirth.setText(simpleDateFormat.format(student.getDayOfBirth()));
+            }
             etPhoneNumber.setText(String.valueOf(student.getPhoneNumber()));
             etAddress.setText((student.getAddress()));
 
@@ -341,7 +344,10 @@ public class StudentInfoEditFragment extends Fragment {
             getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", student.getId(), imageSize);
             try {
                 Bitmap bitmap = getStudentPicTask.execute().get();
-                ivStudentPic.setImageBitmap(bitmap);
+                if (bitmap != null){
+
+                    ivStudentPic.setImageBitmap(bitmap);
+                }
 
 
             } catch (InterruptedException e) {
@@ -411,8 +417,12 @@ public class StudentInfoEditFragment extends Fragment {
 
             //產生picker時會以畫面上一開始的時間為預設時間
             String[] date = etDayOfBirthForPicker.getText().toString().split("-");
-            return new DatePickerDialog(getActivity(), onDateSetListener, Integer.valueOf(date[0]), Integer.valueOf(date[1]) - 1, Integer.valueOf(date[2]));
-
+            try {
+                return new DatePickerDialog(getActivity(), onDateSetListener, Integer.valueOf(date[0]), Integer.valueOf(date[1]) - 1, Integer.valueOf(date[2]));
+            }catch (Exception e){
+                String[] date2 = "2018-08-15".split("-");
+                return new DatePickerDialog(getActivity(), onDateSetListener, Integer.valueOf(date2[0]), Integer.valueOf(date2[1]) - 1, Integer.valueOf(date2[2]));
+            }
 
         }
 

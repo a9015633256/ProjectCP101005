@@ -145,8 +145,10 @@ public class StudentInfoFragment extends Fragment {
             getStudentPicTask = new GetImageTask(Common.URLForMingTa + "/StudentInfoServlet", studentId, imageSize);
             try {
                 Bitmap bitmap = getStudentPicTask.execute().get();
-                ivStudentPic.setImageBitmap(bitmap);
+                if (bitmap != null){
 
+                    ivStudentPic.setImageBitmap(bitmap);
+                }
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
