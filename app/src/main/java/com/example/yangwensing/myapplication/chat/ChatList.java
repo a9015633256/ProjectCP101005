@@ -51,6 +51,7 @@ public class ChatList extends Fragment {
     private RecyclerView rvChatlist;
     private MyTask chatlistTask;
     String sender = "";
+    String classid = "";
     private BottomNavigationView bottomNavigationView;
 
     @Nullable
@@ -64,6 +65,7 @@ public class ChatList extends Fragment {
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         sender = preferences.getString("name","user");
+        classid = preferences.getString("classId","0");
 
         getActivity().setTitle(R.string.title_contactParents);
 
@@ -149,6 +151,7 @@ public class ChatList extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "getchatlist");
             jsonObject.addProperty("senderte",sender);
+            jsonObject.addProperty("id", classid);
             String jsonOut = jsonObject.toString();
             chatlistTask = new MyTask(url, jsonOut);
             try {

@@ -59,7 +59,7 @@ public class ClassManager extends Fragment {
 //        user = bundle.getString("name");
 //        user = bundle.getString("name");
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        user = preferences.getString("name", "0");
+        user = preferences.getString("account", "0");
 
 
 //        btdelete = view.findViewById(R.id.btDelete);

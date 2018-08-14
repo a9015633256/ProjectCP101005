@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment {
                         ///
                         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
                         preferences.edit()
-                                .putString("name", user)
+                                .putString("account", user)
                                 .putInt("teacherId", teacherid)
                                 .putInt("subjectId",subjectid)
                                 .putString("name",accountname)
