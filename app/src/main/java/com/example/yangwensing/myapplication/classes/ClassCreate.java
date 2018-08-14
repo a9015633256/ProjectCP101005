@@ -47,7 +47,7 @@ public class ClassCreate extends Fragment{
         setHasOptionsMenu(true); //這樣onCreateOptionsMenu()才有效、才能加optionsMenu進activity的options
 
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
-        user = preferences.getString("name","0");
+        user = preferences.getString("account","0");
 
         btSure = view.findViewById(R.id.btSure);
         btSure.setOnClickListener(new View.OnClickListener() {
