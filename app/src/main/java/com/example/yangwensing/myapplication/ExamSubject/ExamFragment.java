@@ -57,7 +57,7 @@ public class ExamFragment extends Fragment {
         List<Exam> exams = new ArrayList<>();
         SharedPreferences preferences = getActivity().getSharedPreferences(Common.PREF_FILE, Context.MODE_PRIVATE);
         Classid = String.valueOf(preferences.getInt("classId",0));
-
+        teacherid = String.valueOf(preferences.getInt("teacherId",0));
 
 //        Button btAdd = view.findViewById(R.id.btAdd);
         FloatingActionButton btAdd = view.findViewById(R.id.btAdd);
@@ -87,6 +87,7 @@ public class ExamFragment extends Fragment {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("action", "Exam");
             jsonObject.addProperty("id", Classid);
+            jsonObject.addProperty("teacherid",teacherid);
             String jsonOut = jsonObject.toString();
 
 
