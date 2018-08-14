@@ -85,7 +85,7 @@ public class ExamFragment extends Fragment {
         if (Common.networkConnected(getActivity())) {
             String url = Common.URLForHen + "/LoginHelp";
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("action", "Exam");
+            jsonObject.addProperty("action", "TeacherExam");
             jsonObject.addProperty("id", Classid);
             jsonObject.addProperty("teacherid",teacherid);
             String jsonOut = jsonObject.toString();
