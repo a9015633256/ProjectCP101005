@@ -18,8 +18,9 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="190dp"
+            android:layout_marginLeft="80dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
             android:textSize="18sp" />
 
 
@@ -28,7 +29,6 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="22dp"
             />
 
 
