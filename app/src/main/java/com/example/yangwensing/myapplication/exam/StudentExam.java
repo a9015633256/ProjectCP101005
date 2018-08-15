@@ -186,7 +186,7 @@ public class StudentExam extends Fragment {
                  TextView tvSignIn;
                  ImageView imSignIn;
                  tvSubject = holder.linearLayout.getChildAt(i).findViewById(R.id.tvExam);
-                 tvSubject.setText("考試科目 " + exam.getExamtitle());
+                 tvSubject.setText("考試: " + exam.getExamtitle());
                  tvSubject.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {

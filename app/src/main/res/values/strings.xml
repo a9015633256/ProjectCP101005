@@ -135,7 +135,7 @@
     <string name="sure">送出</string>
     <string name="AchievementS">成績分析圖</string>
     <string name="Analysis">分析圖</string>
-    <string name="ExamSubject1">考試科目:  </string>
+    <string name="ExamSubject1">考試:  </string>
     <string name="ClassCode">班級代碼: </string>
     <string name="text_teacherId">老師ID</string>
     <string name="text_examScore">考試成績</string>

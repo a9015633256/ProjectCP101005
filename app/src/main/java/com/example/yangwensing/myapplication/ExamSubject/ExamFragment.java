@@ -134,7 +134,7 @@ public class ExamFragment extends Fragment {
         public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
             final Bundle bundle = new Bundle();
             final Exam exams1 = exams.get(position);
-            final String text = getString(R.string.ExamSubject1) + " " + exams1.getExamtitle();
+            final String text = getString(R.string.ExamSubject1) + exams1.getExamtitle();
 
             Teacher = String.valueOf(exams1.getTeacherid());
             Subject = String.valueOf(exams1.getExamsubjectid());
